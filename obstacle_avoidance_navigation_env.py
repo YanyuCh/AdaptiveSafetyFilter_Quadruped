@@ -611,7 +611,9 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         return hl_obs, hl_reward, hl_done, hl_info
 
     # Reset functions for ISAACS compatibility
-    def reset_one(self, env_id: int):
+    def reset_one(self, env_id: int, mode: str = 'train',
+                  custom_state: Optional[torch.Tensor] = None,
+                  eval_ranges: Optional[Dict[str, List[float]]] = None):
         """
         Reset a single environment specified by env_id.
 
@@ -620,18 +622,35 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
 
         Args:
             env_id (int): index of the environment to reset (0 to num_envs-1)
+            mode (str): reset mode - 'train', 'eval', or 'custom'
+            custom_state (torch.Tensor, optional): custom RAW high-level state (33D)
+                                                   [local_x, local_y, heading, base_lin_vel(3),
+                                                    base_ang_vel(3), dof_pos(12), dof_vel(12)]
+            eval_ranges (Dict, optional): custom ranges for evaluation mode (LOCAL frame for x,y, RAW for others)
+                                         Keys: 'x', 'y', 'yaw'
 
         Returns:
             hl_obs (torch.Tensor): high-level observation for the reset environment,
                                    shape (num_hl_obs,), dtype float32
         """
         env_ids_tensor = torch.tensor([env_id], dtype=torch.long, device=self.device)
-        self._reset_envs(env_ids_tensor)
+
+        # Convert custom_state to batch format if provided
+        custom_states = None
+        if custom_state is not None:
+            if custom_state.dim() == 1:
+                custom_states = custom_state.unsqueeze(0)  # Add batch dimension
+            else:
+                custom_states = custom_state
+
+        self._reset_envs(env_ids_tensor, mode=mode, custom_states=custom_states, eval_ranges=eval_ranges)
 
         # Return the hl_obs for this single environment as torch.Tensor
         return self.hl_obs_buf[env_id].clone()
 
-    def reset_multiple(self, env_ids: torch.Tensor):
+    def reset_multiple(self, env_ids: torch.Tensor, mode: str = 'train',
+                       custom_states: Optional[torch.Tensor] = None,
+                       eval_ranges: Optional[Dict[str, List[float]]] = None):
         """
         Reset multiple environments specified by env_ids.
 
@@ -642,17 +661,26 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         Args:
             env_ids (torch.Tensor): tensor of environment indices to reset,
                                     shape (num_envs_to_reset,), dtype long
+            mode (str): reset mode - 'train', 'eval', or 'custom'
+            custom_states (torch.Tensor, optional): custom RAW high-level states (num_resets, 33)
+                                                    [local_x, local_y, heading, base_lin_vel(3),
+                                                     base_ang_vel(3), dof_pos(12), dof_vel(12)]
+            eval_ranges (Dict, optional): custom ranges for evaluation mode (LOCAL frame for x,y, RAW for others)
+                                         Keys: 'x', 'y', 'yaw'
 
         Returns:
             hl_obs (torch.Tensor): high-level observations for all reset environments,
                                    shape (num_envs_to_reset, num_hl_obs), dtype float32
         """
-        self._reset_envs(env_ids)
+        self._reset_envs(env_ids, mode=mode, custom_states=custom_states, eval_ranges=eval_ranges)
 
         # Return hl_obs for all reset environments
         return self.hl_obs_buf[env_ids].clone()
 
-    def _reset_envs(self, env_ids: torch.Tensor):
+    def _reset_envs(self, env_ids: torch.Tensor,
+                    mode: str = 'train',
+                    custom_states: Optional[torch.Tensor] = None,
+                    eval_ranges: Optional[Dict[str, List[float]]] = None):
         """
         Internal function to reset specified environments with rejection sampling.
 
@@ -664,87 +692,159 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
 
         Args:
             env_ids (torch.Tensor): tensor of environment indices to reset
+            mode (str): reset mode - 'train', 'eval', or 'custom'
+                       - 'train': use default training ranges with rejection sampling
+                       - 'eval': use tighter evaluation ranges with rejection sampling
+                       - 'custom': use provided custom_states directly (no sampling)
+            custom_states (torch.Tensor, optional): custom RAW high-level states for initialization
+                                                    shape: (num_resets, 33)
+                                                    state format: [local_x, local_y, heading,
+                                                                  base_lin_vel(3) in BODY frame,
+                                                                  base_ang_vel(3) in BODY frame,
+                                                                  dof_pos(12) absolute values,
+                                                                  dof_vel(12)]
+                                                    NOTE: x, y are in LOCAL frame, velocities in BODY frame
+                                                    Only used when mode='custom'
+            eval_ranges (Dict, optional): custom ranges for evaluation mode
+                                         If None, use default eval ranges
+                                         Keys: 'x', 'y', 'yaw' (x, y in LOCAL frame)
         """
         num_resets = len(env_ids)
 
+        # ==================== HANDLE CUSTOM STATE INITIALIZATION ====================
+        if mode == 'custom':
+            if custom_states is None:
+                raise ValueError("custom_states must be provided when mode='custom'")
+            if custom_states.shape[0] != num_resets:
+                raise ValueError(f"custom_states batch size {custom_states.shape[0]} doesn't match num_resets {num_resets}")
+            if custom_states.shape[1] != self.num_hl_obs:  # Should be 33
+                raise ValueError(f"custom_states dimension {custom_states.shape[1]} doesn't match num_hl_obs {self.num_hl_obs}")
+
+            # Extract RAW states from custom_states
+            # custom_states format: [local_x, local_y, heading, base_lin_vel(3), base_ang_vel(3), dof_pos(12), dof_vel(12)]
+            # NOTE: x, y are in LOCAL frame, velocities are in BODY frame
+            local_x = custom_states[:, 0]
+            local_y = custom_states[:, 1]
+            heading = custom_states[:, 2]
+
+            # Extract base velocities (RAW values in BODY frame)
+            base_lin_vel = custom_states[:, 3:6]  # (num_resets, 3)
+            base_ang_vel = custom_states[:, 6:9]  # (num_resets, 3)
+
+            # Extract joint positions and velocities (RAW absolute values)
+            dof_pos = custom_states[:, 9:21]  # (num_resets, 12)
+            dof_vel = custom_states[:, 21:33]  # (num_resets, 12)
+
+            # Set yaw from heading
+            yaw = heading
+
+            # Skip rejection sampling
+            skip_sampling = True
+
+        else:
+            skip_sampling = False
+
+            # ==================== DEFINE SAMPLING RANGES BASED ON MODE ====================
+            if mode == 'train':
+                # Training ranges - wider coverage for learning
+                x_range = [0.0, 9.0]              # LOCAL frame
+                y_range = [-4.5, 4.5]             # LOCAL frame
+                yaw_range = [-np.pi, np.pi]       # RAW range
+
+            elif mode == 'eval':
+                # Evaluation ranges - tighter, more realistic
+                if eval_ranges is not None:
+                    x_range = eval_ranges.get('x', [2.0, 6.0])
+                    y_range = eval_ranges.get('y', [-2.5, 2.5])
+                    yaw_range = eval_ranges.get('yaw', [-np.pi/2, np.pi/2])
+                else:
+                    # Default eval ranges
+                    x_range = [2.0, 6.0]              # LOCAL frame
+                    y_range = [-2.5, 2.5]             # LOCAL frame
+                    yaw_range = [-np.pi/2, np.pi/2]   # RAW range
+            else:
+                raise ValueError(f"mode must be 'train', 'eval', or 'custom', got {mode}")
+
         # ==================== REJECTION SAMPLING FOR SAFE INITIAL STATES ====================
-        # NOTE: Constraints only depend on (x, y) positions, NOT on yaw or z!
+        # NOTE: Constraints only depend on (x, y) positions in LOCAL frame, NOT on yaw or z!
         # Robot is approximated as a circle (radius 0.35), so orientation doesn't affect collision.
         # ALL obstacles and boundaries are defined in x-y plane, so z position doesn't affect collision either.
         # We only need to rejection sample (x, y), then sample yaw independently, z should be kept at default for plane terrain.
 
-        # Keep track of which environments still need valid initial positions
-        envs_to_sample = torch.ones(num_resets, dtype=torch.bool, device=self.device)
+        if not skip_sampling:
+            # Keep track of which environments still need valid initial positions
+            envs_to_sample = torch.ones(num_resets, dtype=torch.bool, device=self.device)
 
-        # Preallocate tensors for sampled positions
-        local_x = torch.zeros(num_resets, device=self.device)
-        local_y = torch.zeros(num_resets, device=self.device)
+            # Preallocate tensors for sampled positions
+            local_x = torch.zeros(num_resets, device=self.device)
+            local_y = torch.zeros(num_resets, device=self.device)
 
-        # Rejection sampling loop - vectorized for efficiency
-        iteration = 0
-        warn_threshold = 100  # Warn if taking too long
+            # Rejection sampling loop - vectorized for efficiency
+            iteration = 0
+            warn_threshold = 100  # Warn if taking too long
 
-        while envs_to_sample.any():
-            num_to_sample = envs_to_sample.sum().item()
+            while envs_to_sample.any():
+                num_to_sample = envs_to_sample.sum().item()
 
-            # Periodic warning for debugging
-            if iteration == warn_threshold:
-                print(f"WARNING: Rejection sampling taking longer than expected ({warn_threshold} iterations).")
-                print(f"Still searching for valid states for {num_to_sample}/{num_resets} environments.")
-                print("This may indicate obstacle configuration issues.")
+                # Periodic warning for debugging
+                if iteration == warn_threshold:
+                    print(f"WARNING: Rejection sampling taking longer than expected ({warn_threshold} iterations).")
+                    print(f"Still searching for valid states for {num_to_sample}/{num_resets} environments.")
+                    print("This may indicate obstacle configuration issues.")
 
-            # Sample candidate (x, y) positions for environments that still need valid states
-            candidate_x = torch.rand(num_to_sample, device=self.device) * 8.0  # [0, 8]
-            candidate_y = (torch.rand(num_to_sample, device=self.device) - 0.5) * 9.0  # [-4.5, 4.5]
+                # Sample candidate (x, y) positions in LOCAL frame using mode-specific ranges
+                candidate_x = torch.rand(num_to_sample, device=self.device) * (x_range[1] - x_range[0]) + x_range[0]
+                candidate_y = torch.rand(num_to_sample, device=self.device) * (y_range[1] - y_range[0]) + y_range[0]
 
-            # Use dummy z=0 for constraint checking (constraints don't depend on z)
-            candidate_z = torch.zeros(num_to_sample, device=self.device)
+                # Use dummy z=0 for constraint checking (constraints don't depend on z)
+                candidate_z = torch.zeros(num_to_sample, device=self.device)
 
-            # Stack into state tensor for constraint checking: [x, y, z]
-            candidate_states = torch.stack([candidate_x, candidate_y, candidate_z], dim=1)  # (num_to_sample, 3)
+                # Stack into state tensor for constraint checking: [x, y, z] in LOCAL frame
+                candidate_states = torch.stack([candidate_x, candidate_y, candidate_z], dim=1)  # (num_to_sample, 3)
 
-            # Create dummy action [0, 0] for constraint evaluation
-            dummy_actions = torch.zeros(num_to_sample, 2, device=self.device)
+                # Create dummy action [0, 0] for constraint evaluation
+                dummy_actions = torch.zeros(num_to_sample, 2, device=self.device)
 
-            # Compute constraints for candidate states
-            # get_hl_constraints expects (current_state, action, next_state)
-            # For initial state check, we use same state for both current and next
-            constraints = self.get_hl_constraints(
-                candidate_states,
-                dummy_actions,
-                candidate_states
-            )
+                # Compute constraints for candidate states
+                # get_hl_constraints expects (current_state, action, next_state) all in LOCAL frame
+                # For initial state check, we use same state for both current and next
+                constraints = self.get_hl_constraints(
+                    candidate_states,
+                    dummy_actions,
+                    candidate_states
+                )
 
-            # Check if any constraint is violated (constraint > 0 means violation)
-            # constraints is a dict with values of shape (num_to_sample, num_steps=2)
-            # We check the first step (initial state)
-            constraint_violations = torch.zeros(num_to_sample, dtype=torch.bool, device=self.device)
-            for key, value in constraints.items():
-                # value shape: (num_to_sample, 2), check first step [:, 0]
-                constraint_violations |= (value[:, 0] > 0.0)
+                # Check if any constraint is violated (constraint > 0 means violation)
+                # constraints is a dict with values of shape (num_to_sample, num_steps=2)
+                # We check the first step (initial state)
+                constraint_violations = torch.zeros(num_to_sample, dtype=torch.bool, device=self.device)
+                for key, value in constraints.items():
+                    # value shape: (num_to_sample, 2), check first step [:, 0]
+                    constraint_violations |= (value[:, 0] > 0.0)
 
-            # Accept states that have NO violations
-            valid_states = ~constraint_violations
+                # Accept states that have NO violations
+                valid_states = ~constraint_violations
 
-            # Assign valid (x, y) positions to their corresponding environments
-            envs_to_sample_indices = torch.where(envs_to_sample)[0]
-            valid_indices = envs_to_sample_indices[valid_states]
+                # Assign valid (x, y) positions to their corresponding environments
+                envs_to_sample_indices = torch.where(envs_to_sample)[0]
+                valid_indices = envs_to_sample_indices[valid_states]
 
-            local_x[valid_indices] = candidate_x[valid_states]
-            local_y[valid_indices] = candidate_y[valid_states]
+                local_x[valid_indices] = candidate_x[valid_states]
+                local_y[valid_indices] = candidate_y[valid_states]
 
-            # Mark these environments as successfully sampled
-            envs_to_sample[valid_indices] = False
+                # Mark these environments as successfully sampled
+                envs_to_sample[valid_indices] = False
 
-            iteration += 1
+                iteration += 1
 
-        # Log successful completion
-        if iteration > 1:
-            print(f"Rejection sampling completed in {iteration} iterations for {num_resets} environments.")
+            # Log successful completion
+            if iteration > 1:
+                print(f"Rejection sampling completed in {iteration} iterations for {num_resets} environments.")
 
-        # Sample yaw independently (no constraints on orientation)
-        # Full range [-π, π] for complete state coverage
-        yaw = (torch.rand(num_resets, device=self.device) - 0.5) * 2 * np.pi  # [-π, π]
+            # Sample yaw independently using mode-specific ranges (no constraints on orientation)
+            yaw = torch.rand(num_resets, device=self.device) * (yaw_range[1] - yaw_range[0]) + yaw_range[0]
+
+        # If using custom mode, local_x, local_y, and yaw are already set above
 
         # ==================== RESET ROOT STATES (position, orientation, velocities) ====================
         # Z position: use nominal height from config + terrain height
@@ -760,7 +860,7 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         self.root_states[env_ids, 1] = global_y
         self.root_states[env_ids, 2] = global_z
 
-        # Set orientation from sampled yaw
+        # Set orientation from sampled/provided yaw
         quat = quat_from_euler_xyz(
             torch.zeros(num_resets, device=self.device),  # roll = 0
             torch.zeros(num_resets, device=self.device),  # pitch = 0
@@ -768,37 +868,62 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         )
         self.root_states[env_ids, 3:7] = quat
 
-        # Randomize initial velocities to cover full reachable state space
-        # Linear velocity: broader range than just control limits for value function learning
-        # x (forward): [-0.5, 2.5] m/s (covers backward drift to fast forward)
-        # y (lateral): [-0.25, 0.25] m/s (small lateral movement)
-        # z (vertical): [-0.25, 0.25] m/s (small vertical oscillation)
-        lin_vel_x = torch.rand(num_resets, device=self.device) * 3.0 - 0.5  # [-0.5, 2.5]
-        lin_vel_y = (torch.rand(num_resets, device=self.device) - 0.5) * 0.5  # [-0.25, 0.25]
-        lin_vel_z = (torch.rand(num_resets, device=self.device) - 0.5) * 0.5  # [-0.25, 0.25]
-        self.root_states[env_ids, 7] = lin_vel_x
-        self.root_states[env_ids, 8] = lin_vel_y
-        self.root_states[env_ids, 9] = lin_vel_z
+        # Set velocities based on mode
+        if mode == 'custom':
+            # Use provided RAW velocities from custom_states (in BASE/BODY frame)
+            # Need to convert to WORLD frame for root_states
+            world_lin_vel = quat_rotate(quat, base_lin_vel)
+            world_ang_vel = quat_rotate(quat, base_ang_vel)
 
-        # Angular velocity: broader range to cover all reachable states
-        # x,y (roll/pitch rate): [-0.25, 0.25] rad/s (small perturbations)
-        # z (yaw rate): [-2.5, 2.5] rad/s (covers w_limits + overshoot)
-        ang_vel_x = (torch.rand(num_resets, device=self.device) - 0.5) * 0.5  # [-0.25, 0.25]
-        ang_vel_y = (torch.rand(num_resets, device=self.device) - 0.5) * 0.5  # [-0.25, 0.25]
-        ang_vel_z = (torch.rand(num_resets, device=self.device) - 0.5) * 5.0  # [-2.5, 2.5]
-        self.root_states[env_ids, 10] = ang_vel_x
-        self.root_states[env_ids, 11] = ang_vel_y
-        self.root_states[env_ids, 12] = ang_vel_z
+            self.root_states[env_ids, 7:10] = world_lin_vel
+            self.root_states[env_ids, 10:13] = world_ang_vel
+        else:
+            # Randomize initial velocities for train and eval modes (SAME ranges)
+            # Sample in BASE/BODY frame, then convert to WORLD frame
+
+            # Linear velocity in BASE frame: broader range than just control limits for value function learning
+            # x (forward): [-0.5, 2.5] m/s (covers backward drift to fast forward)
+            # y (lateral): [-0.25, 0.25] m/s (small lateral movement)
+            # z (vertical): [-0.25, 0.25] m/s (small vertical oscillation)
+            base_lin_vel_x = torch.rand(num_resets, device=self.device) * 3.0 - 0.5  # [-0.5, 2.5]
+            base_lin_vel_y = (torch.rand(num_resets, device=self.device) - 0.5) * 0.5  # [-0.25, 0.25]
+            base_lin_vel_z = (torch.rand(num_resets, device=self.device) - 0.5) * 0.5  # [-0.25, 0.25]
+            base_lin_vel = torch.stack([base_lin_vel_x, base_lin_vel_y, base_lin_vel_z], dim=1)  # (num_resets, 3)
+
+            # Angular velocity in BASE frame: broader range to cover all reachable states
+            # x,y (roll/pitch rate): [-0.25, 0.25] rad/s (small perturbations)
+            # z (yaw rate): [-2.5, 2.5] rad/s (covers w_limits + overshoot)
+            base_ang_vel_x = (torch.rand(num_resets, device=self.device) - 0.5) * 0.5  # [-0.25, 0.25]
+            base_ang_vel_y = (torch.rand(num_resets, device=self.device) - 0.5) * 0.5  # [-0.25, 0.25]
+            base_ang_vel_z = (torch.rand(num_resets, device=self.device) - 0.5) * 5.0  # [-2.5, 2.5]
+            base_ang_vel = torch.stack([base_ang_vel_x, base_ang_vel_y, base_ang_vel_z], dim=1)  # (num_resets, 3)
+
+            # Convert BASE frame velocities to WORLD frame
+            world_lin_vel = quat_rotate(quat, base_lin_vel)
+            world_ang_vel = quat_rotate(quat, base_ang_vel)
+
+            self.root_states[env_ids, 7:10] = world_lin_vel
+            self.root_states[env_ids, 10:13] = world_ang_vel
 
         # ==================== RESET DOF STATES (joint positions and velocities) ====================
-        # Randomize joint positions around default: default * uniform(0.5, 1.5)
-        # This provides wide coverage of joint configuration space
-        self.dof_pos[env_ids] = self.default_dof_pos[env_ids] * torch_rand_float(
-            0.5, 1.5, (num_resets, self.num_dof), device=self.device
-        )
+        if mode == 'custom':
+            # Use provided RAW joint states from custom_states
+            self.dof_pos[env_ids, :self.num_actuated_dof] = dof_pos
+            self.dof_vel[env_ids, :self.num_actuated_dof] = dof_vel
 
-        # Joint velocities set to zero (clean initial state, avoids instability)
-        self.dof_vel[env_ids] = 0.0
+            # Set non-actuated DOFs to default if any exist
+            if self.num_dof > self.num_actuated_dof:
+                self.dof_pos[env_ids, self.num_actuated_dof:] = self.default_dof_pos[env_ids, self.num_actuated_dof:]
+                self.dof_vel[env_ids, self.num_actuated_dof:] = 0.0
+        else:
+            # Randomize joint positions around default for train and eval modes (SAME ranges)
+            # This provides wide coverage of joint configuration space
+            self.dof_pos[env_ids] = self.default_dof_pos[env_ids] * torch_rand_float(
+                0.5, 1.5, (num_resets, self.num_dof), device=self.device
+            )
+
+            # Joint velocities set to zero (clean initial state, avoids instability)
+            self.dof_vel[env_ids] = 0.0
 
         # ==================== SET DEFAULT COMMANDS (NO CURRICULUM!) ====================
         # Set commands to default values (v=0, w=0, etc.)
