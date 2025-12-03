@@ -747,20 +747,20 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
             # ==================== DEFINE SAMPLING RANGES BASED ON MODE ====================
             if mode == 'train':
                 # Training ranges - wider coverage for learning
-                x_range = [0.0, 9.0]              # LOCAL frame
-                y_range = [-4.5, 4.5]             # LOCAL frame
+                x_range = [-2.0, 12.0]            # LOCAL frame
+                y_range = [-5.0, 5.0]             # LOCAL frame
                 yaw_range = [-np.pi, np.pi]       # RAW range
 
             elif mode == 'eval':
                 # Evaluation ranges - tighter, more realistic
                 if eval_ranges is not None:
                     x_range = eval_ranges.get('x', [2.0, 6.0])
-                    y_range = eval_ranges.get('y', [-2.5, 2.5])
+                    y_range = eval_ranges.get('y', [-3.0, 3.0])
                     yaw_range = eval_ranges.get('yaw', [-np.pi/2, np.pi/2])
                 else:
                     # Default eval ranges
                     x_range = [2.0, 6.0]              # LOCAL frame
-                    y_range = [-2.5, 2.5]             # LOCAL frame
+                    y_range = [-3.0, 3.0]             # LOCAL frame
                     yaw_range = [-np.pi/2, np.pi/2]   # RAW range
             else:
                 raise ValueError(f"mode must be 'train', 'eval', or 'custom', got {mode}")
