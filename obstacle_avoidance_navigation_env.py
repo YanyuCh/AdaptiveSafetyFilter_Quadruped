@@ -754,12 +754,12 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
             elif mode == 'eval':
                 # Evaluation ranges - tighter, more realistic
                 if eval_ranges is not None:
-                    x_range = eval_ranges.get('x', [2.0, 6.0])
+                    x_range = eval_ranges.get('x', [3.0, 8.0])
                     y_range = eval_ranges.get('y', [-3.0, 3.0])
                     yaw_range = eval_ranges.get('yaw', [-np.pi/2, np.pi/2])
                 else:
                     # Default eval ranges
-                    x_range = [2.0, 6.0]              # LOCAL frame
+                    x_range = [3.0, 8.0]              # LOCAL frame
                     y_range = [-3.0, 3.0]             # LOCAL frame
                     yaw_range = [-np.pi/2, np.pi/2]   # RAW range
             else:
@@ -1022,6 +1022,464 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
 
         # Compute high-level observations (what we return to ISAACS)
         self.compute_hl_observations()
+
+    # Evaluation environment selection functions
+    def select_eval_envs(self, strategy: str = 'grid',
+                         num_f_points: int = 5, num_m_points: int = 21,
+                         f_range: Optional[List[float]] = None, m_range: Optional[List[float]] = None, exclude_middle_m: bool = False):
+        """
+        Select representative environments for evaluation based on physical parameters (friction, payload).
+
+        This function implements stratified sampling across the (f, m) parameter space to ensure
+        comprehensive evaluation coverage while avoiding redundant testing of similar conditions.
+
+        Args:
+            strategy (str): Selection strategy
+                - 'stratified': Use bin centers for systematic grid sampling 
+                - 'grid': Use uniform grid points (bin edges)
+                - 'bins': Random selection within each bin
+            num_f_points (int): Number of friction values to sample (default: 5 for 'grid')
+            num_m_points (int): Number of payload values to sample (default: 21 for 'grid')
+            f_range (List[float], optional): [f_min, f_max] friction range
+                If None, auto-detect from self.friction_coeffs
+            m_range (List[float], optional): [m_min, m_max] payload range
+                If None, auto-detect from self.payloads
+            exclude_middle_m (bool): If True, only select envs with |m| >= 0.5
+                Useful for testing extreme conditions only (default: False)
+
+        Returns:
+            selected_env_ids (torch.Tensor): Selected environment IDs, shape (num_selected,), dtype long
+            grid_mapping (Dict): Maps (f_rep, m_rep) -> env_id for each grid point
+            metadata (Dict): Contains:
+                - 'f_values': List of representative friction values
+                - 'm_values': List of representative payload values
+                - 'strategy': Selection strategy used
+                - 'num_selected': Number of environments selected
+                - 'f_range': Actual friction range used
+                - 'm_range': Actual payload range used
+
+        Notes:
+            - Requires self.friction_coeffs and self.payloads to be initialized
+            - Uses Euclidean distance with scaling to handle different parameter ranges
+            - Ensures no environment is selected twice (unique selection)
+            - If a grid point has no nearby environments, it's skipped with a warning
+        """
+        # Auto-detect parameter ranges if not provided
+        if f_range is None:
+            f_min = self.friction_coeffs[:, 0].min().item()
+            f_max = self.friction_coeffs[:, 0].max().item()
+            f_range = [f_min, f_max]
+
+        if m_range is None:
+            m_min = self.payloads.min().item()
+            m_max = self.payloads.max().item()
+            m_range = [m_min, m_max]
+
+        # Generate representative values based on strategy
+        if strategy == 'stratified':
+            # Use bin centers for more representative sampling
+            f_bin_width = (f_range[1] - f_range[0]) / num_f_points
+            f_values = [f_range[0] + f_bin_width * (i + 0.5) for i in range(num_f_points)]
+
+            m_bin_width = (m_range[1] - m_range[0]) / num_m_points
+            m_values = [m_range[0] + m_bin_width * (i + 0.5) for i in range(num_m_points)]
+
+        elif strategy == 'grid':
+            # Use uniform grid points (edges)
+            f_values = [f_range[0] + (f_range[1] - f_range[0]) * i / (num_f_points - 1)
+                       for i in range(num_f_points)]
+            m_values = [m_range[0] + (m_range[1] - m_range[0]) * i / (num_m_points - 1)
+                       for i in range(num_m_points)]
+
+        elif strategy == 'bins':
+            # For bins strategy, we'll create bin edges and select randomly within each
+            f_values = [f_range[0] + (f_range[1] - f_range[0]) * (i + 0.5) / num_f_points
+                       for i in range(num_f_points)]
+            m_values = [m_range[0] + (m_range[1] - m_range[0]) * (i + 0.5) / num_m_points
+                       for i in range(num_m_points)]
+
+        else:
+            raise ValueError(f"Unknown strategy '{strategy}'. Must be 'stratified', 'grid', or 'bins'")
+
+        # Filter m_values if excluding middle range
+        if exclude_middle_m:
+            m_values = [m for m in m_values if abs(m) >= 0.5]
+
+        # Prepare environment data for selection
+        # Convert to CPU numpy for easier manipulation
+        friction_np = self.friction_coeffs[:, 0].cpu().numpy()  # Shape: (num_envs,)
+        payload_np = self.payloads.cpu().numpy()  # Shape: (num_envs,)
+
+        # Build list of (env_id, f, m) tuples
+        all_envs = [(i, friction_np[i], payload_np[i]) for i in range(self.num_envs)]
+
+        # Select environments closest to each grid point
+        selected_env_ids = []
+        grid_mapping = {}
+
+        # Calculate scaling factor for distance metric
+        # Scale m by (f_range_width / m_range_width) to give equal importance
+        f_range_width = f_range[1] - f_range[0]
+        m_range_width = m_range[1] - m_range[0]
+        m_scale = f_range_width / m_range_width if m_range_width > 0 else 1.0
+
+        for f_rep in f_values:
+            for m_rep in m_values:
+                # Find closest environment to (f_rep, m_rep) that hasn't been selected
+                best_env_id = None
+                best_dist = float('inf')
+
+                for env_id, f, m in all_envs:
+                    # Skip if already selected
+                    if env_id in selected_env_ids:
+                        continue
+
+                    # Compute weighted Euclidean distance
+                    dist = np.sqrt((f - f_rep)**2 + ((m - m_rep) * m_scale)**2)
+
+                    if dist < best_dist:
+                        best_dist = dist
+                        best_env_id = env_id
+
+                # Add to selection if found
+                if best_env_id is not None:
+                    selected_env_ids.append(best_env_id)
+                    grid_mapping[(f_rep, m_rep)] = best_env_id
+                else:
+                    # Warn if no environment found (shouldn't happen unless num_envs < num_grid_points)
+                    print(f"Warning: No available environment found for (f={f_rep:.3f}, m={m_rep:.3f})")
+
+        # Convert to torch tensor
+        selected_env_ids_tensor = torch.tensor(selected_env_ids, dtype=torch.long, device=self.device)
+
+        # Build metadata dict
+        metadata = {
+            'f_values': f_values,
+            'm_values': m_values,
+            'strategy': strategy,
+            'num_selected': len(selected_env_ids),
+            'f_range': f_range,
+            'm_range': m_range,
+            'exclude_middle_m': exclude_middle_m,
+            'num_f_points': num_f_points,
+            'num_m_points': num_m_points
+        }
+
+        # Print summary
+        '''print("=" * 70)
+        print("Evaluation Environment Selection Summary")
+        print("=" * 70)
+        print(f"Strategy: {strategy}")
+        print(f"Friction range: [{f_range[0]:.3f}, {f_range[1]:.3f}]")
+        print(f"Payload range: [{m_range[0]:.3f}, {m_range[1]:.3f}] kg")
+        print(f"Friction points: {num_f_points} → {f_values}")
+        print(f"Payload points: {len(m_values)} → {m_values[:5]}... (showing first 5)")
+        print(f"Exclude middle m (|m| < 0.5): {exclude_middle_m}")
+        print(f"Total grid points: {num_f_points} × {len(m_values)} = {num_f_points * len(m_values)}")
+        print(f"Environments selected: {len(selected_env_ids)}")
+        print(f"Available environments: {self.num_envs}")
+        print("=" * 70)'''
+
+        return selected_env_ids_tensor, grid_mapping, metadata
+
+    # Trajectory simulation functions for evaluation and visualization
+    def _get_state_for_trajectory(self, env_id: int) -> torch.Tensor:
+        """
+        Extract RAW state in LOCAL frame for trajectory logging and visualization.
+
+        This function extracts the physical state (not normalized observations) needed for:
+        - Trajectory visualization (plotting x-y paths)
+        - Evaluation metrics
+
+        Args:
+            env_id (int): environment index
+
+        Returns:
+            torch.Tensor: state vector of shape (3,) containing [x, y, heading] in LOCAL frame
+                         - x, y: position in meters (RAW, not normalized)
+                         - heading: yaw angle in radians [-π, π] (RAW)
+        """
+        # Get LOCAL position in meters (RAW, not normalized)
+        local_pos = self.base_pos[env_id] - self.env_origins[env_id]  # (3,) [x, y, z]
+
+        # Get heading angle in radians (RAW)
+        forward = quat_apply(self.base_quat[env_id:env_id+1], self.forward_vec[env_id:env_id+1])
+        heading = torch.atan2(forward[0, 1], forward[0, 0])  # scalar, range: [-π, π]
+
+        # Return [x_raw, y_raw, heading_raw] for visualization
+        return torch.tensor([local_pos[0], local_pos[1], heading], device=self.device, dtype=torch.float32)
+
+    def simulate_one_trajectory(
+        self, selected_env_ids: torch.Tensor, T_rollout_steps: int,
+        end_criterion: str = 'failure',
+        action_kwargs: Optional[Dict] = None,
+        rollout_step_callback: Optional[Callable] = None,
+        rollout_episode_callback: Optional[Callable] = None
+    ) -> Tuple[List[torch.Tensor], torch.Tensor, torch.Tensor, List[Dict]]:
+        """
+        Simulate one trajectory for EACH selected environment simultaneously.
+
+        This function steps all environments in parallel (Isaac Gym requirement), but only
+        tracks and logs data for the selected environments. Each selected environment may
+        terminate at different times (different trajectory lengths).
+
+        Args:
+            selected_env_ids (torch.Tensor): environment indices to simulate, shape (num_selected,)
+            T_rollout_steps (int): maximum rollout horizon in control steps
+            end_criterion (str): termination criterion ('failure', 'timeout', 'reach-avoid')
+                                 For quadruped: use 'failure' (terminate on constraint violation OR timeout)
+            action_kwargs (Dict, optional): keyword arguments for get_action() function
+            rollout_step_callback (Callable, optional): callback function executed after each step
+            rollout_episode_callback (Callable, optional): callback function executed after each episode
+
+        Returns:
+            state_hists (List[torch.Tensor]): length num_selected, each element shape (T_i+1, 3)
+                                              Contains RAW [x, y, heading] trajectories in LOCAL frame
+                                              T_i varies per env (depends on when it terminated)
+            results (torch.Tensor): shape (num_selected,), dtype long
+                                   Result codes: 1 = success, -1 = failure, 0 = timeout
+            lengths (torch.Tensor): shape (num_selected,), dtype long
+                                   Length of each trajectory (number of states = steps + 1)
+            infos (List[Dict]): length num_selected, info dictionaries for each selected env
+                               Each dict contains: obs_hist, action_hist, reward_hist, step_hist
+        """
+        if action_kwargs is None:
+            action_kwargs = {}
+
+        num_selected = len(selected_env_ids)
+
+        # Track which selected envs are still active (not yet terminated)
+        active_mask = torch.ones(num_selected, dtype=torch.bool, device=self.device)
+
+        # Storage for each selected env
+        state_hists = [[] for _ in range(num_selected)]
+        obs_hists = [[] for _ in range(num_selected)]
+        action_hists = [[] for _ in range(num_selected)]
+        reward_hists = [[] for _ in range(num_selected)]
+        step_hists = [[] for _ in range(num_selected)]
+
+        results = torch.zeros(num_selected, dtype=torch.long, device=self.device)
+        lengths = torch.zeros(num_selected, dtype=torch.long, device=self.device)
+
+        # Store INITIAL state for all selected envs (before any actions)
+        for i, env_id in enumerate(selected_env_ids):
+            state_hists[i].append(self._get_state_for_trajectory(env_id.item()))
+
+        # Main simulation loop
+        for step_idx in range(T_rollout_steps):
+            # Prepare actions for ALL envs (Isaac Gym requirement)
+            hl_actions = torch.zeros(self.num_envs, self.num_hl_actions, device=self.device)
+
+            # Compute meaningful actions ONLY for ACTIVE selected envs
+            for i, env_id in enumerate(selected_env_ids):
+                if active_mask[i]:
+                    # Get action for this active env
+                    hl_obs = self.hl_obs_buf[env_id:env_id+1]  # Keep batch dimension (1, num_hl_obs)
+                    action, solver_info = self.get_action(hl_obs, **action_kwargs)
+                    hl_actions[env_id] = action[0]  # Remove batch dimension
+                else:
+                    # Terminated envs: send zero action (won't affect results since we ignore data)
+                    hl_actions[env_id] = 0.0
+
+            # Step ALL environments simultaneously (Isaac Gym parallelization)
+            obs_all, rewards_all, dones_all, infos_all = self.step(hl_actions)
+
+            # Process results for ACTIVE selected envs only
+            for i, env_id in enumerate(selected_env_ids):
+                env_id_item = env_id.item()
+
+                if active_mask[i]:
+                    # Log data for this active selected env
+                    state_hists[i].append(self._get_state_for_trajectory(env_id_item))
+                    obs_hists[i].append(obs_all[env_id_item].clone().cpu())
+                    action_hists[i].append(hl_actions[env_id_item].clone().cpu())
+                    reward_hists[i].append(rewards_all[env_id_item].item())
+                    step_hists[i].append(infos_all[env_id_item])
+
+                    # Check if this env terminated (either timeout OR constraint violation)
+                    if dones_all[env_id_item]:
+                        active_mask[i] = False
+                        lengths[i] = len(state_hists[i])  # Number of states (includes initial state)
+
+                        # Determine result based on done_type
+                        done_type = infos_all[env_id_item]['done_type']
+                        if done_type == 'failure':
+                            results[i] = -1  # Failure (constraint violated)
+                        elif done_type == 'success':
+                            results[i] = 1   # Success (reached goal)
+                        else:  # 'timeout' or 'not_raised'
+                            results[i] = 0   # Timeout
+
+            # Execute step callback if provided
+            if rollout_step_callback is not None:
+                rollout_step_callback(
+                    self, state_hists, action_hists, None, step_hists, time_idx=step_idx
+                )
+
+            # Early exit if ALL selected envs have terminated
+            if not active_mask.any():
+                break
+
+        # Handle any envs that are still active after loop (should not happen if T_rollout_steps == max_episode_length)
+        for i in range(num_selected):
+            if active_mask[i]:
+                # Should have timed out, but didn't get marked
+                results[i] = 0  # Timeout
+                lengths[i] = len(state_hists[i])
+
+        # Execute episode callback if provided
+        if rollout_episode_callback is not None:
+            rollout_episode_callback(self, state_hists, action_hists, None, step_hists)
+
+        # Build info dictionaries for each selected env
+        infos = []
+        for i in range(num_selected):
+            info_dict = {
+                'obs_hist': torch.stack(obs_hists[i]).numpy() if len(obs_hists[i]) > 0 else np.array([]),
+                'action_hist': torch.stack(action_hists[i]).numpy() if len(action_hists[i]) > 0 else np.array([]),
+                'reward_hist': np.array(reward_hists[i]),
+                'step_hist': step_hists[i],
+                'plan_hist': [],  # Not used for quadruped (no MPC-style planning)
+                'shield_ind': []  # Not used for quadruped (no shield in this context)
+            }
+            infos.append(info_dict)
+
+        return state_hists, results, lengths, infos
+
+    def simulate_trajectories(
+        self, selected_env_ids: torch.Tensor, num_trajectories_per_env: int,
+        T_rollout_s: float = 3.0, end_criterion: str = 'failure',
+        eval_ranges: Optional[Dict[str, List[float]]] = None,
+        action_kwargs: Optional[Dict] = None,
+        rollout_step_callback: Optional[Callable] = None,
+        rollout_episode_callback: Optional[Callable] = None,
+        return_info: bool = False,
+        use_tqdm: bool = False
+    ):
+        """
+        Simulate multiple trajectories for selected evaluation environments.
+
+        This is the main interface for evaluation and visualization. It simulates
+        num_trajectories_per_env trajectories for each selected environment, with
+        each trajectory starting from a newly sampled initial condition.
+
+        Args:
+            selected_env_ids (torch.Tensor): environment indices to evaluate, shape (num_selected,)
+            num_trajectories_per_env (int): number of trajectories to simulate per selected env
+            T_rollout_s (float): maximum trajectory duration in seconds (default: 3.0)
+                                Should match episode_length_s from training config
+            end_criterion (str): termination criterion (default: 'failure')
+                                - 'failure': terminate on constraint violation OR timeout
+                                - 'timeout': only terminate on timeout
+                                - 'reach-avoid': terminate on success, failure, OR timeout
+            eval_ranges (Dict, optional): custom ranges for sampling initial states
+                                         Keys: 'x', 'y', 'yaw' (x, y in LOCAL frame, yaw in radians)
+                                         If None, use default eval ranges from reset function
+            action_kwargs (Dict, optional): keyword arguments for get_action() function
+            rollout_step_callback (Callable, optional): callback after each step
+            rollout_episode_callback (Callable, optional): callback after each episode
+            return_info (bool): whether to return info dictionaries (default: False)
+            use_tqdm (bool): whether to show progress bar (default: False)
+
+        Returns:
+            Without return_info (default):
+                trajectories (List[np.ndarray]): length num_selected * num_trajectories_per_env
+                                                Each element shape (T_i+1, 3) with [x, y, heading]
+                results (np.ndarray): shape (num_selected * num_trajectories_per_env,)
+                                     Result codes: 1 = success, -1 = failure, 0 = timeout
+                lengths (np.ndarray): shape (num_selected * num_trajectories_per_env,)
+                                     Length of each trajectory (number of states)
+
+            With return_info=True:
+                trajectories, results, lengths, info_list
+                info_list (List[Dict]): length num_selected * num_trajectories_per_env
+                                       Each dict contains obs_hist, action_hist, reward_hist, etc.
+
+        Example usage:
+            # Select representative envs
+            selected_ids, _, _ = env.select_eval_envs(strategy='grid', num_f_points=5, num_m_points=21)
+
+            # Simulate 10 trajectories per selected env
+            trajectories, results, lengths = env.simulate_trajectories(
+                selected_env_ids=selected_ids,
+                num_trajectories_per_env=10,
+                T_rollout_s=3.0,
+                end_criterion='failure',
+                eval_ranges={'x': [3, 7], 'y': [-3, 3], 'yaw': [-np.pi/2, np.pi/2]}
+            )
+
+            # Compute metrics
+            safe_rate = np.sum(results != -1) / len(results)
+            avg_length = np.mean(lengths)
+        """
+        # Convert time to steps
+        # Assumes self.dt is the control timestep in seconds
+        # dt = decimation * sim_dt (e.g., 10 * 0.002 = 0.02s = 50Hz control frequency)
+        dt = self.cfg.control.decimation * self.sim_params.dt
+        T_rollout_steps = int(T_rollout_s / dt)
+
+        num_selected = len(selected_env_ids)
+        total_num_trajs = num_selected * num_trajectories_per_env
+
+        # Storage for all trajectories
+        all_trajectories = []
+        all_results = []
+        all_lengths = []
+        all_infos = []
+
+        # Optional progress bar
+        if use_tqdm:
+            try:
+                from tqdm import tqdm
+                iterator = tqdm(range(num_trajectories_per_env), desc="Simulating trajectories")
+            except ImportError:
+                iterator = range(num_trajectories_per_env)
+                print("tqdm not available, proceeding without progress bar")
+        else:
+            iterator = range(num_trajectories_per_env)
+
+        # Loop through trajectories: each iteration simulates ONE trajectory for EACH selected env
+        for traj_idx in iterator:
+            # Reset ALL selected envs to NEW initial conditions sampled from eval_ranges
+            self.reset_multiple(selected_env_ids, mode='eval', eval_ranges=eval_ranges)
+
+            # Simulate one trajectory for each selected env simultaneously
+            state_hists, results, lengths, infos = self.simulate_one_trajectory(
+                selected_env_ids=selected_env_ids,
+                T_rollout_steps=T_rollout_steps,
+                end_criterion=end_criterion,
+                action_kwargs=action_kwargs,
+                rollout_step_callback=rollout_step_callback,
+                rollout_episode_callback=rollout_episode_callback
+            )
+
+            # Accumulate results from this batch
+            all_trajectories.extend(state_hists)
+            all_results.append(results)
+            all_lengths.append(lengths)
+            if return_info:
+                all_infos.extend(infos)
+
+        # Concatenate results across all iterations
+        results_tensor = torch.cat(all_results)  # (total_num_trajs,)
+        lengths_tensor = torch.cat(all_lengths)  # (total_num_trajs,)
+
+        # Convert trajectories from List[torch.Tensor] to List[np.ndarray]
+        trajectories_np = []
+        for traj_tensor_list in all_trajectories:
+            # Stack list of state tensors into single trajectory tensor
+            traj_tensor = torch.stack(traj_tensor_list)  # (T_i+1, 3)
+            trajectories_np.append(traj_tensor.cpu().numpy())
+
+        # Convert results and lengths to numpy
+        results_np = results_tensor.cpu().numpy()
+        lengths_np = lengths_tensor.cpu().numpy()
+
+        # Return based on return_info flag
+        if return_info:
+            return trajectories_np, results_np, lengths_np, all_infos
+        else:
+            return trajectories_np, results_np, lengths_np
 
     def _create_envs(self):
         """
