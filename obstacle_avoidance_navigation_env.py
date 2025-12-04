@@ -1214,8 +1214,9 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         end_criterion: str = 'failure',
         action_kwargs: Optional[Dict] = None,
         rollout_step_callback: Optional[Callable] = None,
-        rollout_episode_callback: Optional[Callable] = None
-    ) -> Tuple[List[torch.Tensor], torch.Tensor, torch.Tensor, List[Dict]]:
+        rollout_episode_callback: Optional[Callable] = None,
+        return_info: bool = True
+    ) -> Tuple[List[torch.Tensor], torch.Tensor, torch.Tensor, Optional[List[Dict]]]:
         """
         Simulate one trajectory for EACH selected environment simultaneously.
 
@@ -1231,17 +1232,22 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
             action_kwargs (Dict, optional): keyword arguments for get_action() function
             rollout_step_callback (Callable, optional): callback function executed after each step
             rollout_episode_callback (Callable, optional): callback function executed after each episode
+            return_info (bool): whether to build and return info dictionaries (default: True)
+                               Set to False to skip building info dicts for faster evaluation
 
         Returns:
-            state_hists (List[torch.Tensor]): length num_selected, each element shape (T_i+1, 3)
-                                              Contains RAW [x, y, heading] trajectories in LOCAL frame
-                                              T_i varies per env (depends on when it terminated)
+            state_hists (List[List[torch.Tensor]]): length num_selected
+                                              Each element is a list of state tensors representing ONE trajectory
+                                              Inner list length: T_i+1 (varies per env based on termination)
+                                              Each state tensor shape: (3,) containing RAW [x, y, heading] in LOCAL frame
+                                              Structure: [[tensor(3,), tensor(3,), ...], [tensor(3,), ...], ...]
             results (torch.Tensor): shape (num_selected,), dtype long
                                    Result codes: 1 = success, -1 = failure, 0 = timeout
             lengths (torch.Tensor): shape (num_selected,), dtype long
                                    Length of each trajectory (number of states = steps + 1)
-            infos (List[Dict]): length num_selected, info dictionaries for each selected env
+            infos (List[Dict] or None): length num_selected, info dictionaries for each selected env
                                Each dict contains: obs_hist, action_hist, reward_hist, step_hist
+                               Returns None if return_info=False
         """
         if action_kwargs is None:
             action_kwargs = {}
@@ -1267,19 +1273,37 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
 
         # Main simulation loop
         for step_idx in range(T_rollout_steps):
+            # ============================================================
+            # VECTORIZED ACTION COMPUTATION
+            # Get observations for ALL selected envs in one batch
+            # ============================================================
+            hl_obs_batch = self.hl_obs_buf[selected_env_ids]  # Shape: (num_selected, num_hl_obs)
+
+            # Prepare action_kwargs with append if conditioning on physical parameters
+            if self.condition_on_physical_params:
+                # Get physical parameters for all selected envs as tensors
+                friction_batch = self.friction_coeffs[selected_env_ids, 0]  # (num_selected,)
+                payload_batch = self.payloads[selected_env_ids]  # (num_selected,)
+                append_batch = torch.stack([friction_batch, payload_batch], dim=1)  # (num_selected, 2)
+
+                # Create action_kwargs with batched append
+                action_kwargs_batch = action_kwargs.copy() if action_kwargs else {}
+                action_kwargs_batch['append'] = append_batch
+            else:
+                action_kwargs_batch = action_kwargs if action_kwargs else {}
+
+            # Single batched forward pass through policy network for all selected envs
+            with torch.no_grad():
+                actions_batch, solver_info = self.get_action(hl_obs_batch, **action_kwargs_batch)
+                # actions_batch shape: (num_selected, num_hl_actions)
+
             # Prepare actions for ALL envs (Isaac Gym requirement)
             hl_actions = torch.zeros(self.num_envs, self.num_hl_actions, device=self.device)
 
-            # Compute meaningful actions ONLY for ACTIVE selected envs
-            for i, env_id in enumerate(selected_env_ids):
-                if active_mask[i]:
-                    # Get action for this active env
-                    hl_obs = self.hl_obs_buf[env_id:env_id+1]  # Keep batch dimension (1, num_hl_obs)
-                    action, solver_info = self.get_action(hl_obs, **action_kwargs)
-                    hl_actions[env_id] = action[0]  # Remove batch dimension
-                else:
-                    # Terminated envs: send zero action (won't affect results since we ignore data)
-                    hl_actions[env_id] = 0.0
+            # Assign computed actions to selected envs, masked by active_mask
+            # Zero out actions for terminated envs (active_mask[i] == False)
+            active_actions = actions_batch * active_mask.unsqueeze(1).float()  # Broadcasting: (num_selected, num_hl_actions)
+            hl_actions[selected_env_ids] = active_actions
 
             # Step ALL environments simultaneously (Isaac Gym parallelization)
             obs_all, rewards_all, dones_all, infos_all = self.step(hl_actions)
@@ -1331,18 +1355,21 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         if rollout_episode_callback is not None:
             rollout_episode_callback(self, state_hists, action_hists, None, step_hists)
 
-        # Build info dictionaries for each selected env
-        infos = []
-        for i in range(num_selected):
-            info_dict = {
-                'obs_hist': torch.stack(obs_hists[i]).numpy() if len(obs_hists[i]) > 0 else np.array([]),
-                'action_hist': torch.stack(action_hists[i]).numpy() if len(action_hists[i]) > 0 else np.array([]),
-                'reward_hist': np.array(reward_hists[i]),
-                'step_hist': step_hists[i],
-                'plan_hist': [],  # Not used for quadruped (no MPC-style planning)
-                'shield_ind': []  # Not used for quadruped (no shield in this context)
-            }
-            infos.append(info_dict)
+        # Build info dictionaries for each selected env (only if requested)
+        if return_info:
+            infos = []
+            for i in range(num_selected):
+                info_dict = {
+                    'obs_hist': torch.stack(obs_hists[i]).numpy() if len(obs_hists[i]) > 0 else np.array([]),
+                    'action_hist': torch.stack(action_hists[i]).numpy() if len(action_hists[i]) > 0 else np.array([]),
+                    'reward_hist': np.array(reward_hists[i]),
+                    'step_hist': step_hists[i],
+                    'plan_hist': [],  # Not used for quadruped (no MPC-style planning)
+                    'shield_ind': []  # Not used for quadruped (no shield in this context)
+                }
+                infos.append(info_dict)
+        else:
+            infos = None
 
         return state_hists, results, lengths, infos
 
@@ -1450,7 +1477,8 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
                 end_criterion=end_criterion,
                 action_kwargs=action_kwargs,
                 rollout_step_callback=rollout_step_callback,
-                rollout_episode_callback=rollout_episode_callback
+                rollout_episode_callback=rollout_episode_callback,
+                return_info=return_info
             )
 
             # Accumulate results from this batch
@@ -1464,11 +1492,17 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         results_tensor = torch.cat(all_results)  # (total_num_trajs,)
         lengths_tensor = torch.cat(all_lengths)  # (total_num_trajs,)
 
-        # Convert trajectories from List[torch.Tensor] to List[np.ndarray]
+        # Convert trajectories from List[List[torch.Tensor]] to List[np.ndarray]
+        # all_trajectories structure after extend:
+        #   - Type: List[List[torch.Tensor]]
+        #   - Length: num_selected * num_trajectories_per_env (total number of trajectories)
+        #   - Each element is ONE trajectory stored as a list of state tensors
+        #   - Inner list contains T_i+1 state tensors, each of shape (3,)
         trajectories_np = []
-        for traj_tensor_list in all_trajectories:
-            # Stack list of state tensors into single trajectory tensor
-            traj_tensor = torch.stack(traj_tensor_list)  # (T_i+1, 3)
+        for state_timesteps in all_trajectories:
+            # state_timesteps is ONE trajectory: [tensor(3,), tensor(3,), ..., tensor(3,)]
+            # Stack individual state tensors into a single trajectory array
+            traj_tensor = torch.stack(state_timesteps)  # (T_i+1, 3)
             trajectories_np.append(traj_tensor.cpu().numpy())
 
         # Convert results and lengths to numpy
