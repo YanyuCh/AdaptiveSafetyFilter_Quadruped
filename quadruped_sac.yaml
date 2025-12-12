@@ -1,0 +1,125 @@
+environment:
+  #seed: 0
+  # loop: true
+  #timeout: 300
+  # DONE FLAG PARAM
+  end_criterion: failure
+  g_x_fail: 0.2
+  obs_type: perfect
+  #
+  condition_on_physical_params: true
+
+cost:
+  bidirectional: false
+  cost_type: Lagrange
+  # CONSTRAINT PARAM
+  q1_obs: 1.
+  q2_obs: 10.
+  q1_bounds: 1.
+  q2_bounds: 10.
+  # COST PARAM
+  w_control: 0.01
+  w_goal: 0.4
+  w_vel: 0.1
+  barrier_clip_min: -0.25
+  barrier_clip_max: 5.0
+  buffer: 0.0
+
+agent:
+  agent_id: ego
+  dyn: Quadruped
+  footprint: Circle
+  action_range:
+    - [0.0, 2.0]
+    - [-2.0, 2.0]
+
+solver:
+  device: cuda:0
+  # trains
+  num_envs: 1000
+  max_steps: 4000000
+  memory_capacity: 50000
+  min_steps_b4_opt: 50000
+  opt_freq: 2000
+  update_per_opt: 200
+  max_model: 50
+  batch_size: 128
+  warmup_action_range:
+    - [0.0, 2.0]
+    - [-2.0, 2.0]
+  # evaluates
+  check_opt_freq: 25
+  num_eval_f_points: 5
+  num_eval_m_points: 21
+  num_trajectories_per_env: 10
+  eval_timeout_s: 3.0
+  rollout_end_criterion: failure
+  save_top_k: 10
+  save_metric: safety
+  # visualizes
+  fig_size_x: 4.0
+  fig_size_y: 3.5
+  cmap_res_x: 250
+  cmap_res_y: 200
+  # logs
+  use_wandb: true
+  project_name: quadruped_sac
+  name: v1
+  out_folder: experiments/quadruped_sac/v1
+
+arch:
+  actor_0:
+    mlp_dim:
+      - 256
+      - 256
+      - 256
+    activation: ReLU
+    append_dim: 2   # [f, m]
+    latent_dim: 0
+    obs_dim: 33
+    action_dim: 2
+    action_range:
+      [ [0., 2.0],
+        [-2.0, 2.0]]
+  critic_0:
+    mlp_dim:
+      - 128
+      - 128
+      - 128
+    activation: ReLU
+    append_dim: 2   # [f, m]
+    latent_dim: 0
+    obs_dim: 33
+    action_dim: 2
+
+train:
+  num_actors: 1
+  num_critics: 1
+  critic_0:
+    net_name: central
+    lr: 0.0001
+    lr_schedule: false
+    gamma: 0.999
+    gamma_schedule: false
+    tau: 0.005
+    eval: false
+    mode: safety
+    terminal_type: max
+    device: cuda:0
+    opt_type: AdamW
+    action_src: ctrl
+    update_target_period: 2
+  actor_0:
+    net_name: ctrl
+    actor_type: min
+    device: cuda:0
+    eval: false
+    learn_alpha: true
+    lr: 0.0001
+    lr_al: 0.00001
+    lr_schedule: false
+    lr_al_schedule: false
+    alpha: 0.005
+    pg_target: central
+    opt_type: AdamW
+    update_period: 2
