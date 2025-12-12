@@ -21,7 +21,7 @@ from quadruped_base_training import BaseTraining
 from obstacle_avoidance_navigation_env import ObstacleAvoidanceNavigation
 
 # Add ISAACS-main directory to path for importing agent modules
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ISAACS-main'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ISAACS'))
 from agent.sac import SAC
 
 
