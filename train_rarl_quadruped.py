@@ -133,7 +133,7 @@ def load_wtw_config_and_policy(label, wtw_runs_root):
     # redefine env related parameter values
     Cfg.env.num_recording_envs = 1
     Cfg.env.num_envs = 1000
-    Cfg.env.episode_length_s = 3
+    Cfg.env.episode_length_s = 3.
     Cfg.env.env_spacing = 16.       # Important to avoid overlap!! (env max length = 12-(-2) = 14 in x)
     
     # redefine terrain related parameter values
