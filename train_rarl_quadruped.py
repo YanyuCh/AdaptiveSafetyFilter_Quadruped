@@ -20,33 +20,62 @@ from shutil import copyfile
 import jax
 from omegaconf import OmegaConf
 import pickle as pkl
-import torch
+# NOTE: Do NOT import torch here - it must come after isaacgym imports
 import glob
 
+# Import local modules FIRST (they import isaacgym which must come before torch)
 from quadruped_naive_rl import NaiveRL
 from obstacle_avoidance_navigation_env import ObstacleAvoidanceNavigation
 from quadruped_visualization import plot_traj, get_values
 
-# Add paths for ISAACS imports
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ISAACS'))
-
-from agent.sac import SAC
-from simulators import PrintLogger, save_obj
+# NOW we can import torch (after isaacgym was imported above)
+import torch
 
 # Add paths for observation-conditioned-reachability imports
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'observation-conditioned-reachability', 'utils'))
-
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'observation-conditioned-reachability'))
+#sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'observation-conditioned-reachability', 'utils'))
 # Observation-conditioned-reachability/utils imports
-from dynamics import Dubins3D
-from navigation_task import NavigationTask
+from utils.dynamics import Dubins3D
+from utils.navigation_task import NavigationTask
 
 # Add paths for walk-these-ways imports
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'observation-conditioned-reachability', 'libraries', 'walk-these-ways'))
-
 # Walk-These-Ways imports
 from go1_gym.envs.base.legged_robot_config import Cfg
 
+# Add paths for ISAACS imports
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ISAACS'))
+from agent.sac import SAC
+# Note: PrintLogger and save_obj from simulators have JAX compatibility issues
+# We'll define our own simple versions below instead
+
 jax.config.update('jax_platform_name', 'cpu')
+
+
+# ================================================================
+# Simple Replacements for ISAACS simulators utilities
+# ================================================================
+
+class PrintLogger:
+    """Simple logger that writes to both stdout and a file."""
+    def __init__(self, log_path):
+        self.terminal = sys.stdout
+        self.log = open(log_path, "a")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+        self.log.flush()
+
+    def flush(self):
+        self.terminal.flush()
+        self.log.flush()
+
+def save_obj(obj, path):
+    """Save object to pickle file."""
+    import pickle as pkl
+    with open(path + '.pkl', 'wb') as f:
+        pkl.dump(obj, f)
 
 
 # ================================================================

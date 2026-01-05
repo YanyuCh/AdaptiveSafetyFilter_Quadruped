@@ -24,18 +24,21 @@ import os
 import sys
 import copy
 import numpy as np
-import torch
+# NOTE: torch must be imported AFTER isaacgym!
 import wandb
+
+# Import quadruped-specific environment FIRST (it imports isaacgym)
+# Note: ObstacleAvoidanceNavigation handles parallelization internally via IsaacGym
+from obstacle_avoidance_navigation_env import ObstacleAvoidanceNavigation
+
+# NOW we can import torch
+import torch
 
 # Add ISAACS-main directory to path for importing agent modules
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ISAACS'))
 
 from agent.replay_memory import ReplayMemory, Transition, Batch
 from agent.base_ma_sac import BaseMASAC
-
-# Import quadruped-specific environment
-# Note: ObstacleAvoidanceNavigation handles parallelization internally via IsaacGym
-from obstacle_avoidance_navigation_env import ObstacleAvoidanceNavigation
 
 
 class BaseTraining(ABC):

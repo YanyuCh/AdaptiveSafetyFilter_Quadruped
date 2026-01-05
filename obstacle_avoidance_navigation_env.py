@@ -1,13 +1,17 @@
 import os
 import sys
 import numpy as np
-import torch
+# NOTE: torch must be imported AFTER isaacgym!
 import glob
 from typing import Dict, Tuple, List, Optional
 from scipy.spatial.transform import Rotation
 
+# CRITICAL: Import isaacgym BEFORE torch
 from isaacgym import gymutil, gymapi, gymtorch, gymutil
 from isaacgym.torch_utils import *
+
+# NOW we can import torch
+import torch
 
 # Import configuration and utilities from the original codebase
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))

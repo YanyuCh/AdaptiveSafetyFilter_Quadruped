@@ -14,11 +14,15 @@ import time
 import sys
 import os
 import numpy as np
-import torch
+# NOTE: torch must be imported AFTER isaacgym!
 import wandb
 
+# Import these FIRST (they import isaacgym)
 from quadruped_base_training import BaseTraining
 from obstacle_avoidance_navigation_env import ObstacleAvoidanceNavigation
+
+# NOW we can import torch
+import torch
 
 # Add ISAACS-main directory to path for importing agent modules
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ISAACS'))
