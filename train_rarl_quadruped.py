@@ -31,7 +31,16 @@ from quadruped_visualization import plot_traj, get_values
 # NOW we can import torch (after isaacgym was imported above)
 import torch
 
-# Add paths for observation-conditioned-reachability imports
+# imports from libraries
+# walk-these-ways
+from go1_gym.envs.base.legged_robot_config import Cfg
+# observation-conditioned-reachability
+from observation_conditioned_reachability.utils.dynamics import Dubins3D
+from observation_conditioned_reachability.utils.navigation_task import NavigationTask
+# ISAACS
+from isaacs.agent.sac import SAC
+
+'''# Add paths for observation-conditioned-reachability imports
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'observation-conditioned-reachability'))
 #sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'observation-conditioned-reachability', 'utils'))
 # Observation-conditioned-reachability/utils imports
@@ -47,7 +56,7 @@ from go1_gym.envs.base.legged_robot_config import Cfg
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ISAACS'))
 from agent.sac import SAC
 # Note: PrintLogger and save_obj from simulators have JAX compatibility issues
-# We'll define our own simple versions below instead
+# We'll define our own simple versions below instead'''
 
 jax.config.update('jax_platform_name', 'cpu')
 

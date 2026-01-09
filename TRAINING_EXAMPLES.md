@@ -39,6 +39,8 @@ The training script [train_rarl_quadruped.py](train_rarl_quadruped.py:591-640) a
 
 ---
 
+python train_rarl_quadruped.py --wtw_runs_root ../libraries/walk-these-ways/runs --wtw_label gait-conditioned-agility/pretrain-v0/train --env_dir ../libraries/observation_conditioned_reachability/observation_conditioned_reachability/data/environments/simulation --env_id 6 --config_file quadruped_sac.yaml
+
 ## Example Commands
 
 ### Example 1: Basic Training (Minimal Arguments)

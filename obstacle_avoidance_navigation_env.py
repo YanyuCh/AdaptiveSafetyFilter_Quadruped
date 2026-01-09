@@ -3,7 +3,7 @@ import sys
 import numpy as np
 # NOTE: torch must be imported AFTER isaacgym!
 import glob
-from typing import Dict, Tuple, List, Optional
+from typing import Dict, Tuple, List, Optional, Callable
 from scipy.spatial.transform import Rotation
 
 # CRITICAL: Import isaacgym BEFORE torch
@@ -13,14 +13,31 @@ from isaacgym.torch_utils import *
 # NOW we can import torch
 import torch
 
-# Import configuration and utilities from the original codebase
-sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-sys.path.append(os.path.join(os.path.dirname(__file__), '../observation-conditioned-reachability/libraries/walk-these-ways'))
-sys.path.append(os.path.join(os.path.dirname(__file__), '../observation-conditioned-reachability'))
-sys.path.append(os.path.join(os.path.dirname(__file__), '../ISAACS/simulators/policy'))
-
+# imports from AdaptiveSafetyFilter_Quadruped
 from dubins3d_cost import Dubins3d_Cost, Dubins3d_Constraint
 
+# imports from libraries
+# walk-these-ways
+from go1_gym import MINI_GYM_ROOT_DIR
+from go1_gym.envs.base.legged_robot_config import Cfg
+from go1_gym.envs.base.legged_robot import LeggedRobot
+from go1_gym.utils.math_utils import quat_apply_yaw, wrap_to_pi, get_scale_shift
+from go1_gym.utils.terrain import Terrain
+from go1_gym.envs.rewards.corl_rewards import CoRLRewards
+from go1_gym.envs.base.curriculum import RewardThresholdCurriculum
+# observation-conditioned-reachability
+from observation_conditioned_reachability.utils.simulation_utils.environment import CustomGroundEnvironment
+from observation_conditioned_reachability.utils.simulation_utils.obstacle import CircularObstacle, BoxObstacle
+# ISAACS
+from isaacs.simulators.policy.nn_policy import NeuralNetworkControlSystem
+
+'''# Import configuration and utilities from the original codebase
+#sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+from dubins3d_cost import Dubins3d_Cost, Dubins3d_Constraint
+
+#sys.path.append(os.path.join(os.path.dirname(__file__), '../observation-conditioned-reachability/libraries/walk-these-ways'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../observation-conditioned-reachability/libraries/walk-these-ways'))
 from go1_gym import MINI_GYM_ROOT_DIR
 from go1_gym.envs.base.legged_robot_config import Cfg
 from go1_gym.envs.base.legged_robot import LeggedRobot
@@ -29,10 +46,14 @@ from go1_gym.utils.terrain import Terrain
 from go1_gym.envs.rewards.corl_rewards import CoRLRewards
 from go1_gym.envs.base.curriculum import RewardThresholdCurriculum
 
+#sys.path.append(os.path.join(os.path.dirname(__file__), '../observation-conditioned-reachability'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../observation-conditioned-reachability'))
 from utils.simulation_utils.environment import CustomGroundEnvironment
 from utils.simulation_utils.obstacle import CircularObstacle, BoxObstacle
 
-from nn_policy import NeuralNetworkControlSystem
+#sys.path.append(os.path.join(os.path.dirname(__file__), '../ISAACS/simulators/policy'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../ISAACS/simulators'))
+from policy.nn_policy import NeuralNetworkControlSystem'''
 
 class ObstacleAvoidanceNavigation(LeggedRobot):
     def __init__(self, sim_device, headless, num_envs=None, prone=False, deploy=False,

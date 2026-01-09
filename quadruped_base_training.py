@@ -34,11 +34,17 @@ from obstacle_avoidance_navigation_env import ObstacleAvoidanceNavigation
 # NOW we can import torch
 import torch
 
-# Add ISAACS-main directory to path for importing agent modules
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ISAACS'))
+# imports from libraries
+# ISAACS
+from isaacs.agent.replay_memory import ReplayMemory, Transition, Batch
+from isaacs.agent.base_ma_sac import BaseMASAC
+
+'''# Add ISAACS-main directory to path for importing agent modules
+#sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ISAACS'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../ISAACS'))
 
 from agent.replay_memory import ReplayMemory, Transition, Batch
-from agent.base_ma_sac import BaseMASAC
+from agent.base_ma_sac import BaseMASAC'''
 
 
 class BaseTraining(ABC):
