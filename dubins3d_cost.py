@@ -7,12 +7,8 @@ from functools import partial
 import sys
 import os
 
-# Add the path to import obstacle classes from observation-conditioned-reachability
-# __file__ is AdaptiveSafetyFilter_Quadruped/dubins3d_cost.py
-# Going up one level (..) gives us /home/cassie/Quadruped
-# Then we append observation-conditioned-reachability to the path
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'observation-conditioned-reachability'))
-from utils.simulation_utils.obstacle import CircularObstacle, BoxObstacle
+# import from libraries
+from libraries.OCR.utils.simulation_utils.obstacle import CircularObstacle, BoxObstacle
 
 # custom helper function to transform a cost into an exponential barrier cost
 def apply_barrier(cost, q1, q2, clip_min, clip_max):

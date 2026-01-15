@@ -3,7 +3,7 @@ import sys
 import numpy as np
 # NOTE: torch must be imported AFTER isaacgym!
 import glob
-from typing import Dict, Tuple, List, Optional
+from typing import Dict, Tuple, List, Optional, Callable
 from scipy.spatial.transform import Rotation
 
 # CRITICAL: Import isaacgym BEFORE torch
@@ -13,7 +13,23 @@ from isaacgym.torch_utils import *
 # NOW we can import torch
 import torch
 
-# Import configuration and utilities from the original codebase
+from dubins3d_cost import Dubins3d_Cost, Dubins3d_Constraint
+
+# import from libraries
+from go1_gym import MINI_GYM_ROOT_DIR
+from go1_gym.envs.base.legged_robot_config import Cfg
+from go1_gym.envs.base.legged_robot import LeggedRobot
+from go1_gym.utils.math_utils import quat_apply_yaw, wrap_to_pi, get_scale_shift
+from go1_gym.utils.terrain import Terrain
+from go1_gym.envs.rewards.corl_rewards import CoRLRewards
+from go1_gym.envs.base.curriculum import RewardThresholdCurriculum
+# OCR imports
+from libraries.OCR.utils.simulation_utils.environment import CustomGroundEnvironment
+from libraries.OCR.utils.simulation_utils.obstacle import CircularObstacle, BoxObstacle
+# ISAACS imports
+from libraries.ISAACS.simulators.policy.nn_policy import NeuralNetworkControlSystem
+
+'''# Import configuration and utilities from the original codebase
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '../observation-conditioned-reachability/libraries/walk-these-ways'))
 sys.path.append(os.path.join(os.path.dirname(__file__), '../observation-conditioned-reachability'))
@@ -32,7 +48,7 @@ from go1_gym.envs.base.curriculum import RewardThresholdCurriculum
 from utils.simulation_utils.environment import CustomGroundEnvironment
 from utils.simulation_utils.obstacle import CircularObstacle, BoxObstacle
 
-from nn_policy import NeuralNetworkControlSystem
+from nn_policy import NeuralNetworkControlSystem'''
 
 class ObstacleAvoidanceNavigation(LeggedRobot):
     def __init__(self, sim_device, headless, num_envs=None, prone=False, deploy=False,
@@ -183,14 +199,16 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         states = torch.stack([current_state, next_state], dim=1)  # (num_envs, 2, 3)
 
         # create dummy action [0, 0] for step 2
-        dummy_action = torch.zeros(self.num_envs, self.num_hl_actions, device=self.device)  # (num_envs, 2)
+        # NOTE: use action.shape[0] instead of self.num_envs to support reset_one() or reset_multiple() for only a subset of selected envs
+        dummy_action = torch.zeros(action.shape[0], self.num_hl_actions, device=self.device)  # (num_envs, 2)
 
         # combine action and dummy_action into actions with shape (num_envs, num_steps=2, num_hl_actions=2)
         # Step 1: action, Step 2: dummy_action [0, 0]
         actions = torch.stack([action, dummy_action], dim=1)  # (num_envs, 2, 2)
         
         # create dummy_time_indices with shape (num_envs, num_steps=2)
-        dummy_time_indices = torch.zeros(self.num_envs, 2, device = self.device)
+        # NOTE: use action.shape[0] instead of self.num_envs to support reset_one() or reset_multiple() for only a subset of selected envs
+        dummy_time_indices = torch.zeros(action.shape[0], 2, device = self.device)
         
         cost = torch.sum(self.hl_cost.get_cost(states, actions, dummy_time_indices), dim = -1)
         return cost
@@ -225,14 +243,16 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         states = torch.stack([current_state, next_state], dim=1)  # (num_envs, 2, 3)
 
         # create dummy action [0, 0] for step 2
-        dummy_action = torch.zeros(self.num_envs, self.num_hl_actions, device=self.device)  # (num_envs, 2)
+        # NOTE: use action.shape[0] instead of self.num_envs to support reset_one() or reset_multiple() for only a subset of selected envs
+        dummy_action = torch.zeros(action.shape[0], self.num_hl_actions, device=self.device)  # (num_envs, 2)
 
         # combine action and dummy_action into actions with shape (num_envs, num_steps=2, num_hl_actions=2)
         # Step 1: action, Step 2: dummy_action [0, 0]
         actions = torch.stack([action, dummy_action], dim=1)  # (num_envs, 2, 2)
 
         # create dummy_time_indices with shape (num_envs, num_steps=2)
-        dummy_time_indices = torch.zeros(self.num_envs, 2, device=self.device)
+        # NOTE: use action.shape[0] instead of self.num_envs to support reset_one() or reset_multiple() for only a subset of selected envs
+        dummy_time_indices = torch.zeros(action.shape[0], 2, device=self.device)
 
         # get constraint dictionary from hl_constraint
         cons_dict = self.hl_constraint.get_cost_dict(states, actions, dummy_time_indices)
@@ -917,12 +937,12 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
 
             # Set non-actuated DOFs to default if any exist
             if self.num_dof > self.num_actuated_dof:
-                self.dof_pos[env_ids, self.num_actuated_dof:] = self.default_dof_pos[env_ids, self.num_actuated_dof:]
+                self.dof_pos[env_ids, self.num_actuated_dof:] = self.default_dof_pos[0, self.num_actuated_dof:]
                 self.dof_vel[env_ids, self.num_actuated_dof:] = 0.0
         else:
             # Randomize joint positions around default for train and eval modes (SAME ranges)
             # This provides wide coverage of joint configuration space
-            self.dof_pos[env_ids] = self.default_dof_pos[env_ids] * torch_rand_float(
+            self.dof_pos[env_ids] = self.default_dof_pos[0] * torch_rand_float(
                 0.5, 1.5, (num_resets, self.num_dof), device=self.device
             )
 
@@ -954,8 +974,8 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         self.last_dof_vel[env_ids] = 0.0
         self.last_root_vel[env_ids] = 0.0
         if hasattr(self, 'last_joint_pos_target'):
-            self.last_joint_pos_target[env_ids] = self.default_dof_pos[env_ids]
-            self.last_last_joint_pos_target[env_ids] = self.default_dof_pos[env_ids]
+            self.last_joint_pos_target[env_ids] = self.default_dof_pos[0]
+            self.last_last_joint_pos_target[env_ids] = self.default_dof_pos[0]
 
         # Reset gait phase tracking (if using adaptive gait)
         if hasattr(self, 'gait_indices'):
@@ -973,6 +993,49 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         # Convert env_ids to int32 for Isaac Gym API
         env_ids_int32 = env_ids.to(dtype=torch.int32)
 
+        # ==================== DEBUG: CHECK 1 - Validate DOF positions ====================
+        print(f"\n=== CHECK 1: DOF Positions ===")
+        print(f"dof_pos shape: {self.dof_pos.shape}")
+        print(f"dof_pos[env_ids] shape: {self.dof_pos[env_ids].shape}")
+        print(f"dof_pos[env_ids] min: {self.dof_pos[env_ids].min().item():.4f}, max: {self.dof_pos[env_ids].max().item():.4f}")
+        print(f"dof_pos[env_ids] has NaN: {torch.isnan(self.dof_pos[env_ids]).any().item()}")
+        print(f"dof_pos[env_ids] has Inf: {torch.isinf(self.dof_pos[env_ids]).any().item()}")
+
+        # ==================== DEBUG: CHECK 2 - Validate DOF velocities ====================
+        print(f"\n=== CHECK 2: DOF Velocities ===")
+        print(f"dof_vel shape: {self.dof_vel.shape}")
+        print(f"dof_vel[env_ids] shape: {self.dof_vel[env_ids].shape}")
+        print(f"dof_vel[env_ids] min: {self.dof_vel[env_ids].min().item():.4f}, max: {self.dof_vel[env_ids].max().item():.4f}")
+        print(f"dof_vel[env_ids] has NaN: {torch.isnan(self.dof_vel[env_ids]).any().item()}")
+        print(f"dof_vel[env_ids] has Inf: {torch.isinf(self.dof_vel[env_ids]).any().item()}")
+
+        # ==================== DEBUG: CHECK 3 - Validate root states ====================
+        print(f"\n=== CHECK 3: Root States (before Isaac Gym set) ===")
+        print(f"root_states shape: {self.root_states.shape}")
+        print(f"root_states[env_ids] shape: {self.root_states[env_ids].shape}")
+        print(f"root_states[env_ids] min: {self.root_states[env_ids].min().item():.4f}, max: {self.root_states[env_ids].max().item():.4f}")
+        print(f"root_states[env_ids] has NaN: {torch.isnan(self.root_states[env_ids]).any().item()}")
+        print(f"root_states[env_ids] has Inf: {torch.isinf(self.root_states[env_ids]).any().item()}")
+        print(f"root_states[env_ids, 0:3] (positions): min={self.root_states[env_ids, 0:3].min().item():.4f}, max={self.root_states[env_ids, 0:3].max().item():.4f}")
+        print(f"root_states[env_ids, 3:7] (quaternions): min={self.root_states[env_ids, 3:7].min().item():.4f}, max={self.root_states[env_ids, 3:7].max().item():.4f}")
+
+        # ==================== DEBUG: CHECK 4 - Validate dof_state tensor ====================
+        print(f"\n=== CHECK 4: DOF State Tensor ===")
+        print(f"dof_state shape: {self.dof_state.shape}")
+        print(f"dof_state[env_ids] shape: {self.dof_state[env_ids].shape}")
+        print(f"dof_state[env_ids] min: {self.dof_state[env_ids].min().item():.4f}, max: {self.dof_state[env_ids].max().item():.4f}")
+        print(f"dof_state[env_ids] has NaN: {torch.isnan(self.dof_state[env_ids]).any().item()}")
+        print(f"dof_state[env_ids] has Inf: {torch.isinf(self.dof_state[env_ids]).any().item()}")
+
+        # ==================== DEBUG: CHECK 5 - Validate env_ids ====================
+        print(f"\n=== CHECK 5: Environment IDs ===")
+        print(f"env_ids shape: {env_ids.shape}")
+        print(f"env_ids min: {env_ids.min().item()}, max: {env_ids.max().item()}")
+        print(f"num_envs: {self.num_envs}")
+        print(f"env_ids_int32 dtype: {env_ids_int32.dtype}")
+
+        print(f"\n=== Calling Isaac Gym APIs ===")
+
         # Set actor root states in simulation
         self.gym.set_actor_root_state_tensor_indexed(
             self.sim,
@@ -980,6 +1043,7 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
             gymtorch.unwrap_tensor(env_ids_int32),
             len(env_ids_int32)
         )
+        print(f"✓ set_actor_root_state_tensor_indexed completed")
 
         # Set DOF states in simulation
         self.gym.set_dof_state_tensor_indexed(
@@ -988,6 +1052,7 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
             gymtorch.unwrap_tensor(env_ids_int32),
             len(env_ids_int32)
         )
+        print(f"✓ set_dof_state_tensor_indexed completed")
 
         # ==================== REFRESH AND UPDATE INTERNAL STATE REPRESENTATIONS ====================
         # CRITICAL: Must refresh and update internal states BEFORE computing observations!
@@ -1526,10 +1591,6 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
 
         This is identical to the parent implementation except for obstacle creation (lines marked with MODIFIED).
         """
-        from go1_gym.utils.helpers import to_torch
-        from isaacgym.torch_utils import torch_rand_float, quat_from_angle_axis
-        from utils.simulation_utils.obstacle import CircularObstacle, BoxObstacle
-        from utils.simulation_utils.environment import CustomGroundEnvironment
 
         asset_path = self.cfg.asset.file.format(MINI_GYM_ROOT_DIR=MINI_GYM_ROOT_DIR)
         asset_root = os.path.dirname(asset_path)
@@ -1571,7 +1632,7 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
             termination_contact_names.extend([s for s in body_names if name in s])
 
         base_init_state_list = self.cfg.init_state.pos + self.cfg.init_state.rot + self.cfg.init_state.lin_vel + self.cfg.init_state.ang_vel
-        self.base_init_state = to_torch(base_init_state_list, device=self.device, requires_grad=False)
+        self.base_init_state = torch.tensor(base_init_state_list, dtype=torch.float, device=self.device, requires_grad=False)
         start_pose = gymapi.Transform()
         start_pose.p = gymapi.Vec3(*self.base_init_state[:3])
 

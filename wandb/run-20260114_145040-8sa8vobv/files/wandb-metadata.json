@@ -1,0 +1,303 @@
+{
+    "os": "Linux-5.15.0-134-generic-x86_64-with-glibc2.17",
+    "python": "3.8.20",
+    "heartbeatAt": "2026-01-14T22:50:40.927139",
+    "startedAt": "2026-01-14T22:50:40.380450",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--wtw_runs_root",
+        "libraries/OCR/libraries/walk-these-ways/runs",
+        "--wtw_label",
+        "gait-conditioned-agility/pretrain-v0/train",
+        "--env_dir",
+        "EnvironmentData",
+        "--env_id",
+        "6",
+        "--config_file",
+        "quadruped_sac.yaml"
+    ],
+    "state": "running",
+    "program": "train_rarl_quadruped.py",
+    "codePathLocal": "train_rarl_quadruped.py",
+    "codePath": "train_rarl_quadruped.py",
+    "git": {
+        "remote": "https://github.com/YanyuCh/AdaptiveSafetyFilter_Quadruped.git",
+        "commit": "50cf31d1c8651aaedf54b81ce6643a86832e46ec"
+    },
+    "email": "yanyuc@stanford.edu",
+    "root": "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped",
+    "host": "yoda",
+    "username": "cassie",
+    "executable": "/home/cassie/.conda/envs/quadruped/bin/python",
+    "cpu_count": 24,
+    "cpu_count_logical": 48,
+    "cpu_freq": {
+        "current": 1993.8955624999999,
+        "min": 1500.0,
+        "max": 4200.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 4200.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 4200.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 4200.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 4200.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 4200.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 4200.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 3358.435,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 4200.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 4200.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 4200.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        },
+        {
+            "current": 1500.0,
+            "min": 1500.0,
+            "max": 4200.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 1820.8388862609863,
+            "used": 1650.5981674194336
+        }
+    },
+    "gpu": "NVIDIA RTX 6000 Ada Generation",
+    "gpu_count": 2,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA RTX 6000 Ada Generation",
+            "memory_total": 51527024640
+        },
+        {
+            "name": "NVIDIA RTX 6000 Ada Generation",
+            "memory_total": 51527024640
+        }
+    ],
+    "memory": {
+        "total": 125.22350311279297
+    }
+}

@@ -1,0 +1,6 @@
+[submodule "libraries/OCR"]
+	path = libraries/OCR
+	url = https://github.com/YanyuCh/observation-conditioned-reachability.git
+[submodule "libraries/ISAACS"]
+	path = libraries/ISAACS
+	url = https://github.com/YanyuCh/ISAACS.git

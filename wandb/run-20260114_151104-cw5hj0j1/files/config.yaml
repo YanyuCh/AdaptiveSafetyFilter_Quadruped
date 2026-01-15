@@ -1,0 +1,131 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    python_version: 3.8.20
+    cli_version: 0.16.6
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1768432264.0
+    t:
+      1:
+      - 1
+      - 12
+      - 55
+      2:
+      - 1
+      - 12
+      - 55
+      3:
+      - 13
+      - 23
+      4: 3.8.20
+      5: 0.16.6
+      8:
+      - 5
+      13: linux-x86_64
+environment:
+  desc: null
+  value:
+    seed: 0
+    end_criterion: failure
+    g_x_fail: 0.2
+    obs_type: perfect
+    condition_on_physical_params: true
+solver:
+  desc: null
+  value:
+    device: cuda:0
+    num_envs: 1000
+    max_steps: 4000000
+    memory_capacity: 50000
+    min_steps_b4_opt: 50000
+    opt_freq: 2000
+    update_per_opt: 200
+    max_model: 50
+    batch_size: 128
+    warmup_action_range:
+    - - 0.0
+      - 2.0
+    - - -2.0
+      - 2.0
+    check_opt_freq: 25
+    num_eval_f_points: 5
+    num_eval_m_points: 21
+    num_trajectories_per_env: 10
+    eval_timeout_s: 3.0
+    rollout_end_criterion: failure
+    save_top_k: 10
+    save_metric: safety
+    fig_size_x: 4.0
+    fig_size_y: 3.5
+    cmap_res_x: 250
+    cmap_res_y: 200
+    use_wandb: true
+    project_name: quadruped_sac
+    name: v1
+    out_folder: experiments/quadruped_sac/v1
+arch:
+  desc: null
+  value:
+    actor_0:
+      mlp_dim:
+      - 256
+      - 256
+      - 256
+      activation: ReLU
+      append_dim: 2
+      latent_dim: 0
+      obs_dim: 33
+      action_dim: 2
+      action_range:
+      - - 0.0
+        - 2.0
+      - - -2.0
+        - 2.0
+    critic_0:
+      mlp_dim:
+      - 128
+      - 128
+      - 128
+      activation: ReLU
+      append_dim: 2
+      latent_dim: 0
+      obs_dim: 33
+      action_dim: 2
+train:
+  desc: null
+  value:
+    num_actors: 1
+    num_critics: 1
+    critic_0:
+      net_name: central
+      lr: 0.0001
+      lr_schedule: false
+      gamma: 0.999
+      gamma_schedule: false
+      tau: 0.005
+      eval: false
+      mode: safety
+      terminal_type: max
+      device: cuda:0
+      opt_type: AdamW
+      action_src: ctrl
+      update_target_period: 2
+    actor_0:
+      net_name: ctrl
+      actor_type: min
+      device: cuda:0
+      eval: false
+      learn_alpha: true
+      lr: 0.0001
+      lr_al: 1.0e-05
+      lr_schedule: false
+      lr_al_schedule: false
+      alpha: 0.005
+      pg_target: central
+      opt_type: AdamW
+      update_period: 2
+    device: cuda:0

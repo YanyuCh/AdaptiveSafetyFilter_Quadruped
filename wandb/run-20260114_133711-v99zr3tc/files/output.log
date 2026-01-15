@@ -1,0 +1,70 @@
+WandB initialized
+======================================================================
+STEP 7: Constructing Solver
+======================================================================
+= Constructing policy agent
+The neural networks for CRITIC have the architecture as below:
+ModuleList(
+  (0): Sequential(
+    (linear_1): Linear(in_features=37, out_features=128, bias=True)
+    (act_1): ReLU()
+  )
+  (1-2): 2 x Sequential(
+    (linear_1): Linear(in_features=128, out_features=128, bias=True)
+    (act_1): ReLU()
+  )
+  (3): Sequential(
+    (linear_1): Linear(in_features=128, out_features=1, bias=True)
+    (act_1): Identity()
+  )
+)
+The neural network for MEAN has the architecture as below:
+ModuleList(
+  (0): Sequential(
+    (linear_1): Linear(in_features=35, out_features=256, bias=True)
+    (act_1): ReLU()
+  )
+  (1-2): 2 x Sequential(
+    (linear_1): Linear(in_features=256, out_features=256, bias=True)
+    (act_1): ReLU()
+  )
+  (3): Sequential(
+    (linear_1): Linear(in_features=256, out_features=2, bias=True)
+    (act_1): Identity()
+  )
+)
+Total parameters in actor: 282628
+Training device: cuda:0
+Policy device: cuda:0
+Critic using CUDA: True
+======================================================================
+STEP 8: Starting Training
+======================================================================
+Traceback (most recent call last):
+  File "train_rarl_quadruped.py", line 681, in <module>
+    main(
+  File "train_rarl_quadruped.py", line 613, in main
+    solver.learn(env, visualize_callback=visualize_callback)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_naive_rl.py", line 71, in learn
+    obs_all = env.reset_multiple(torch.arange(self.n_envs, device=env.device), mode='train')
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/obstacle_avoidance_navigation_env.py", line 695, in reset_multiple
+    self._reset_envs(env_ids, mode=mode, custom_states=custom_states, eval_ranges=eval_ranges)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/obstacle_avoidance_navigation_env.py", line 831, in _reset_envs
+    constraints = self.get_hl_constraints(
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/obstacle_avoidance_navigation_env.py", line 248, in get_hl_constraints
+    actions = torch.stack([action, dummy_action], dim=1)  # (num_envs, 2, 2)
+RuntimeError: stack expects each tensor to be equal size, but got [268, 2] at entry 0 and [1000, 2] at entry 1
+Traceback (most recent call last):
+  File "train_rarl_quadruped.py", line 681, in <module>
+    main(
+  File "train_rarl_quadruped.py", line 613, in main
+    solver.learn(env, visualize_callback=visualize_callback)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_naive_rl.py", line 71, in learn
+    obs_all = env.reset_multiple(torch.arange(self.n_envs, device=env.device), mode='train')
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/obstacle_avoidance_navigation_env.py", line 695, in reset_multiple
+    self._reset_envs(env_ids, mode=mode, custom_states=custom_states, eval_ranges=eval_ranges)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/obstacle_avoidance_navigation_env.py", line 831, in _reset_envs
+    constraints = self.get_hl_constraints(
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/obstacle_avoidance_navigation_env.py", line 248, in get_hl_constraints
+    actions = torch.stack([action, dummy_action], dim=1)  # (num_envs, 2, 2)
+RuntimeError: stack expects each tensor to be equal size, but got [268, 2] at entry 0 and [1000, 2] at entry 1

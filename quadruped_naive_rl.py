@@ -24,9 +24,13 @@ from obstacle_avoidance_navigation_env import ObstacleAvoidanceNavigation
 # NOW we can import torch
 import torch
 
-# Add ISAACS-main directory to path for importing agent modules
+# import from libraries
+# ISAACS imports
+from libraries.ISAACS.agent.sac import SAC
+
+'''# Add ISAACS-main directory to path for importing agent modules
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ISAACS'))
-from agent.sac import SAC
+from agent.sac import SAC'''
 
 
 class NaiveRL(BaseTraining):

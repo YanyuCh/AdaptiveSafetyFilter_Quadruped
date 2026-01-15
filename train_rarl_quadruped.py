@@ -31,7 +31,18 @@ from quadruped_visualization import plot_traj, get_values
 # NOW we can import torch (after isaacgym was imported above)
 import torch
 
-# Add paths for observation-conditioned-reachability imports
+# import from libraries
+# walk-these-ways imports
+from go1_gym.envs.base.legged_robot_config import Cfg
+# OCR imports
+from libraries.OCR.utils.dynamics import Dubins3D
+from libraries.OCR.utils.navigation_task import NavigationTask
+# ISAACS imports
+from libraries.ISAACS.agent.sac import SAC
+# Note: PrintLogger and save_obj from simulators have JAX compatibility issues
+# We'll define our own simple versions below instead
+
+'''# Add paths for observation-conditioned-reachability imports
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'observation-conditioned-reachability'))
 #sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'observation-conditioned-reachability', 'utils'))
 # Observation-conditioned-reachability/utils imports
@@ -47,9 +58,9 @@ from go1_gym.envs.base.legged_robot_config import Cfg
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'ISAACS'))
 from agent.sac import SAC
 # Note: PrintLogger and save_obj from simulators have JAX compatibility issues
-# We'll define our own simple versions below instead
+# We'll define our own simple versions below instead''' 
 
-jax.config.update('jax_platform_name', 'cpu')
+#jax.config.update('jax_platform_name', 'cpu')
 
 
 # ================================================================
@@ -457,6 +468,13 @@ def main(
 
     if not os.path.exists(env_pickle_path):
         raise FileNotFoundError(f"Environment file not found: {env_pickle_path}")
+
+    # Fix module path for pickled environment (it was saved with 'utils.simulation_utils' path)
+    # but in this project it's 'libraries.OCR.utils.simulation_utils'
+    import libraries.OCR.utils.simulation_utils as simulation_utils_module
+    sys.modules['utils.simulation_utils'] = simulation_utils_module
+    sys.modules['utils.simulation_utils.environment'] = sys.modules['libraries.OCR.utils.simulation_utils.environment']
+    sys.modules['utils.simulation_utils.obstacle'] = sys.modules['libraries.OCR.utils.simulation_utils.obstacle']
 
     with open(env_pickle_path, 'rb') as f:
         env_for_task = pkl.load(f)

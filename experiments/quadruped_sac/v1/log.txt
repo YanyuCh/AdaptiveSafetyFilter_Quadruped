@@ -1,0 +1,174 @@
+Loaded ISAACS config from: quadruped_sac.yaml
+Output folder: experiments/quadruped_sac/v1
+Device: cuda:0
+
+======================================================================
+STEP 2: Loading Walk-These-Ways Config and LL Policy
+======================================================================
+Loading from: libraries/OCR/libraries/walk-these-ways/runs/gait-conditioned-agility/pretrain-v0/train/025417.456545
+Loaded low-level policy
+Loaded Walk-These-Ways config
+Successfully loaded from: libraries/OCR/libraries/walk-these-ways/runs/gait-conditioned-agility/pretrain-v0/train/025417.456545
+
+======================================================================
+STEP 3: Loading Environment for NavigationTask
+======================================================================
+Loaded environment from: EnvironmentData/6/environment.pickle
+
+======================================================================
+STEP 4: Creating NavigationTask
+======================================================================
+Created NavigationTask:
+  - Robot radius: 0.35
+  - Goal position: [10.  0.]
+  - Goal radius: 0.5
+  - Number of obstacles: 8
+
+======================================================================
+STEP 5: Creating ObstacleAvoidanceNavigation Environment
+======================================================================
+/home/cassie/.conda/envs/quadruped/lib/python3.8/site-packages/torch/functional.py:512: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at ../aten/src/ATen/native/TensorShape.cpp:3587.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/home/cassie/.conda/envs/quadruped/lib/python3.8/site-packages/torch/functional.py:512: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at ../aten/src/ATen/native/TensorShape.cpp:3587.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+Environment created successfully:
+  - Number of environments: 1000
+  - High-level observation dim: 33
+  - High-level action dim: 2
+  - Device: cuda:0
+
+======================================================================
+STEP 6: Setting up Weights & Biases
+======================================================================
+wandb: Currently logged in as: yanyuc (CassieC). Use `wandb login --relogin` to force relogin
+wandb: Currently logged in as: yanyuc (CassieC). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.24.0 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: wandb version 0.24.0 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.16.6
+wandb: Tracking run with wandb version 0.16.6
+wandb: Run data is saved locally in /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260114_152742-sbl4z0ki
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Run data is saved locally in /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260114_152742-sbl4z0ki
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run v1
+wandb: Syncing run v1
+wandb:  View project at https://wandb.ai/CassieC/quadruped_sac
+wandb:  View project at https://wandb.ai/CassieC/quadruped_sac
+wandb:  View run at https://wandb.ai/CassieC/quadruped_sac/runs/sbl4z0ki
+wandb:  View run at https://wandb.ai/CassieC/quadruped_sac/runs/sbl4z0ki
+WandB initialized
+
+======================================================================
+STEP 7: Constructing Solver
+======================================================================
+= Constructing policy agent
+The neural networks for CRITIC have the architecture as below:
+ModuleList(
+  (0): Sequential(
+    (linear_1): Linear(in_features=37, out_features=128, bias=True)
+    (act_1): ReLU()
+  )
+  (1-2): 2 x Sequential(
+    (linear_1): Linear(in_features=128, out_features=128, bias=True)
+    (act_1): ReLU()
+  )
+  (3): Sequential(
+    (linear_1): Linear(in_features=128, out_features=1, bias=True)
+    (act_1): Identity()
+  )
+)
+The neural network for MEAN has the architecture as below:
+ModuleList(
+  (0): Sequential(
+    (linear_1): Linear(in_features=35, out_features=256, bias=True)
+    (act_1): ReLU()
+  )
+  (1-2): 2 x Sequential(
+    (linear_1): Linear(in_features=256, out_features=256, bias=True)
+    (act_1): ReLU()
+  )
+  (3): Sequential(
+    (linear_1): Linear(in_features=256, out_features=2, bias=True)
+    (act_1): Identity()
+  )
+)
+
+Total parameters in actor: 282628
+Training device: cuda:0
+Policy device: cuda:0
+Critic using CUDA: True
+
+======================================================================
+STEP 8: Starting Training
+======================================================================
+Rejection sampling completed in 6 iterations for 1000 environments.
+
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([1000, 12])
+dof_pos[env_ids] min: -2.2498, max: 1.4991
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([1000, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([9000, 13])
+root_states[env_ids] shape: torch.Size([1000, 13])
+root_states[env_ids] min: -4.4843, max: 520.9841
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=-4.4843, max=520.9841
+root_states[env_ids, 3:7] (quaternions): min=-1.0000, max=1.0000
+
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([12000, 2])
+dof_state[env_ids] shape: torch.Size([1000, 2])
+dof_state[env_ids] min: -2.2483, max: 1.4964
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([1000])
+env_ids min: 0, max: 999
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "train_rarl_quadruped.py", line 681, in <module>
+    main(
+  File "train_rarl_quadruped.py", line 681, in <module>
+    main(
+  File "train_rarl_quadruped.py", line 613, in main
+    solver.learn(env, visualize_callback=visualize_callback)
+  File "train_rarl_quadruped.py", line 613, in main
+    solver.learn(env, visualize_callback=visualize_callback)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_naive_rl.py", line 71, in learn
+    obs_all = env.reset_multiple(torch.arange(self.n_envs, device=env.device), mode='train')
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_naive_rl.py", line 71, in learn
+    obs_all = env.reset_multiple(torch.arange(self.n_envs, device=env.device), mode='train')
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/obstacle_avoidance_navigation_env.py", line 699, in reset_multiple
+    self._reset_envs(env_ids, mode=mode, custom_states=custom_states, eval_ranges=eval_ranges)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/obstacle_avoidance_navigation_env.py", line 699, in reset_multiple
+    self._reset_envs(env_ids, mode=mode, custom_states=custom_states, eval_ranges=eval_ranges)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/obstacle_avoidance_navigation_env.py", line 1068, in _reset_envs
+    self.base_pos[env_ids] = self.root_states[env_ids, 0:3]
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/obstacle_avoidance_navigation_env.py", line 1068, in _reset_envs
+    self.base_pos[env_ids] = self.root_states[env_ids, 0:3]
+RuntimeError: CUDA error: an illegal memory access was encountered
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+RuntimeError: CUDA error: an illegal memory access was encountered
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
