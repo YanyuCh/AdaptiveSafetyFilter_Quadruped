@@ -98,7 +98,7 @@ class NaiveRL(BaseTraining):
         self.store_transition(
             obs_all[[env_idx]],
             {self.policy.actor.net_name: action_all[[env_idx]]},
-            r_all[env_idx], obs_nxt_all[[env_idx]], done, info
+            r_all[env_idx], obs_nxt_all[[env_idx]], done.cpu().item(), info
         )
 
       # Batch process terminations and resets

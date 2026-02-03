@@ -1,0 +1,30 @@
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_setup.py:_flush():76] Current SDK version is 0.16.6
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_setup.py:_flush():76] Configure stats pid to 42924
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_setup.py:_flush():76] Loading settings from /home/cassie/.config/wandb/settings
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_setup.py:_flush():76] Loading settings from /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/settings
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_setup.py:_flush():76] Loading settings from environment variables: {}
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_setup.py:_flush():76] Applying setup settings: {'_disable_service': False}
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'train_rarl_quadruped.py', 'program_abspath': '/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/train_rarl_quadruped.py', 'program': 'train_rarl_quadruped.py'}
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_setup.py:_flush():76] Applying login settings: {}
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_init.py:_log_setup():521] Logging user logs to /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_131339-pl1dj8av/logs/debug.log
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_init.py:_log_setup():522] Logging internal logs to /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_131339-pl1dj8av/logs/debug-internal.log
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_init.py:init():561] calling init triggers
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_init.py:init():568] wandb.init called with sweep_config: {}
+config: {}
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_init.py:init():611] starting backend
+2026-02-02 13:13:39,730 INFO    MainThread:42924 [wandb_init.py:init():615] setting up manager
+2026-02-02 13:13:39,734 INFO    MainThread:42924 [backend.py:_multiprocessing_setup():105] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2026-02-02 13:13:39,736 INFO    MainThread:42924 [wandb_init.py:init():623] backend started and connected
+2026-02-02 13:13:39,740 INFO    MainThread:42924 [wandb_init.py:init():715] updated telemetry
+2026-02-02 13:13:39,770 INFO    MainThread:42924 [wandb_init.py:init():748] communicating run to backend with 90.0 second timeout
+2026-02-02 13:13:40,248 INFO    MainThread:42924 [wandb_run.py:_on_init():2357] communicating current version
+2026-02-02 13:13:40,283 INFO    MainThread:42924 [wandb_run.py:_on_init():2366] got version response upgrade_message: "wandb version 0.24.1 is available!  To upgrade, please run:\n $ pip install wandb --upgrade"
+
+2026-02-02 13:13:40,283 INFO    MainThread:42924 [wandb_init.py:init():799] starting run threads in backend
+2026-02-02 13:13:43,228 INFO    MainThread:42924 [wandb_run.py:_console_start():2335] atexit reg
+2026-02-02 13:13:43,228 INFO    MainThread:42924 [wandb_run.py:_redirect():2190] redirect: wrap_raw
+2026-02-02 13:13:43,228 INFO    MainThread:42924 [wandb_run.py:_redirect():2255] Wrapping output streams.
+2026-02-02 13:13:43,228 INFO    MainThread:42924 [wandb_run.py:_redirect():2280] Redirects installed.
+2026-02-02 13:13:43,228 INFO    MainThread:42924 [wandb_init.py:init():842] run started, returning control to user process
+2026-02-02 13:13:43,229 INFO    MainThread:42924 [wandb_run.py:_config_callback():1347] config_cb None None {'environment': {'seed': 0, 'end_criterion': 'failure', 'g_x_fail': 0.2, 'obs_type': 'perfect', 'condition_on_physical_params': True}, 'solver': {'device': 'cuda:0', 'num_envs': 1000, 'max_steps': 4000000, 'memory_capacity': 50000, 'min_steps_b4_opt': 50000, 'opt_freq': 2000, 'update_per_opt': 200, 'max_model': 50, 'batch_size': 128, 'warmup_action_range': [[0.0, 2.0], [-2.0, 2.0]], 'check_opt_freq': 25, 'num_eval_f_points': 5, 'num_eval_m_points': 21, 'num_trajectories_per_env': 10, 'eval_timeout_s': 3.0, 'rollout_end_criterion': 'failure', 'save_top_k': 10, 'save_metric': 'safety', 'fig_size_x': 4.0, 'fig_size_y': 3.5, 'cmap_res_x': 250, 'cmap_res_y': 200, 'use_wandb': True, 'project_name': 'quadruped_sac', 'name': 'v1', 'out_folder': 'experiments/quadruped_sac/v1'}, 'arch': {'actor_0': {'mlp_dim': [256, 256, 256], 'activation': 'ReLU', 'append_dim': 2, 'latent_dim': 0, 'obs_dim': 33, 'action_dim': 2, 'action_range': [[0.0, 2.0], [-2.0, 2.0]]}, 'critic_0': {'mlp_dim': [128, 128, 128], 'activation': 'ReLU', 'append_dim': 2, 'latent_dim': 0, 'obs_dim': 33, 'action_dim': 2}}, 'train': {'num_actors': 1, 'num_critics': 1, 'critic_0': {'net_name': 'central', 'lr': 0.0001, 'lr_schedule': False, 'gamma': 0.999, 'gamma_schedule': False, 'tau': 0.005, 'eval': False, 'mode': 'safety', 'terminal_type': 'max', 'device': 'cuda:0', 'opt_type': 'AdamW', 'action_src': 'ctrl', 'update_target_period': 2}, 'actor_0': {'net_name': 'ctrl', 'actor_type': 'min', 'device': 'cuda:0', 'eval': False, 'learn_alpha': True, 'lr': 0.0001, 'lr_al': 1e-05, 'lr_schedule': False, 'lr_al_schedule': False, 'alpha': 0.005, 'pg_target': 'central', 'opt_type': 'AdamW', 'update_period': 2}, 'device': 'cuda:0'}}
+2026-02-02 13:13:49,075 WARNING MsgRouterThr:42924 [router.py:message_loop():77] message_loop has been closed

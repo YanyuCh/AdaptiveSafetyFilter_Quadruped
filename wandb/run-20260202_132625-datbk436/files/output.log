@@ -1,0 +1,1874 @@
+WandB initialized
+======================================================================
+STEP 7: Constructing Solver
+======================================================================
+= Constructing policy agent
+The neural networks for CRITIC have the architecture as below:
+ModuleList(
+  (0): Sequential(
+    (linear_1): Linear(in_features=37, out_features=128, bias=True)
+    (act_1): ReLU()
+  )
+  (1-2): 2 x Sequential(
+    (linear_1): Linear(in_features=128, out_features=128, bias=True)
+    (act_1): ReLU()
+  )
+  (3): Sequential(
+    (linear_1): Linear(in_features=128, out_features=1, bias=True)
+    (act_1): Identity()
+  )
+)
+The neural network for MEAN has the architecture as below:
+ModuleList(
+  (0): Sequential(
+    (linear_1): Linear(in_features=35, out_features=256, bias=True)
+    (act_1): ReLU()
+  )
+  (1-2): 2 x Sequential(
+    (linear_1): Linear(in_features=256, out_features=256, bias=True)
+    (act_1): ReLU()
+  )
+  (3): Sequential(
+    (linear_1): Linear(in_features=256, out_features=2, bias=True)
+    (act_1): Identity()
+  )
+)
+Total parameters in actor: 282628
+Training device: cuda:0
+Policy device: cuda:0
+Critic using CUDA: True
+======================================================================
+STEP 8: Starting Training
+======================================================================
+Rejection sampling completed in 7 iterations for 1000 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([1000, 12])
+dof_pos[env_ids] min: -2.2498, max: 1.4993
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([1000, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([1000, 13])
+root_states[env_ids] min: -4.2833, max: 522.7203
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=-4.2833, max=522.7203
+root_states[env_ids, 3:7] (quaternions): min=-1.0000, max=1.0000
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] min: -2.2498, max: 1.4993
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([1000])
+env_ids min: 0, max: 999
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([5, 12])
+dof_pos[env_ids] min: -2.1998, max: 1.4796
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([5, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([5, 13])
+root_states[env_ids] min: -2.1363, max: 497.9984
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=497.9984
+root_states[env_ids, 3:7] (quaternions): min=0.0000, max=0.9977
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([5, 12, 2])
+dof_state[env_ids] min: -2.1998, max: 1.4796
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([5])
+env_ids min: 351, max: 991
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 3 iterations for 6 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([6, 12])
+dof_pos[env_ids] min: -2.1349, max: 1.4797
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([6, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([6, 13])
+root_states[env_ids] min: -1.7683, max: 506.6734
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=506.6734
+root_states[env_ids, 3:7] (quaternions): min=-0.9830, max=0.9994
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([6, 12, 2])
+dof_state[env_ids] min: -2.1349, max: 1.4797
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([6])
+env_ids min: 87, max: 981
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([6, 12])
+dof_pos[env_ids] min: -2.1929, max: 1.4795
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([6, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([6, 13])
+root_states[env_ids] min: -2.1902, max: 459.0815
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=459.0815
+root_states[env_ids, 3:7] (quaternions): min=-0.9995, max=0.9949
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([6, 12, 2])
+dof_state[env_ids] min: -2.1929, max: 1.4795
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([6])
+env_ids min: 121, max: 896
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 3 iterations for 3 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([3, 12])
+dof_pos[env_ids] min: -2.1660, max: 1.3193
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([3, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([3, 13])
+root_states[env_ids] min: -2.3866, max: 483.1630
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=483.1630
+root_states[env_ids, 3:7] (quaternions): min=-0.9167, max=0.6816
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([3, 12, 2])
+dof_state[env_ids] min: -2.1660, max: 1.3193
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([3])
+env_ids min: 599, max: 944
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 3 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([3, 12])
+dof_pos[env_ids] min: -2.1454, max: 1.4738
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([3, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([3, 13])
+root_states[env_ids] min: -0.3359, max: 462.2802
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=462.2802
+root_states[env_ids, 3:7] (quaternions): min=0.0000, max=0.9404
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([3, 12, 2])
+dof_state[env_ids] min: -2.1454, max: 1.4738
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([3])
+env_ids min: 302, max: 773
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 3 iterations for 3 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([3, 12])
+dof_pos[env_ids] min: -2.1620, max: 1.1924
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([3, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([3, 13])
+root_states[env_ids] min: -2.4210, max: 444.9869
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=444.9869
+root_states[env_ids, 3:7] (quaternions): min=-0.9948, max=0.7722
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([3, 12, 2])
+dof_state[env_ids] min: -2.1620, max: 1.1924
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([3])
+env_ids min: 34, max: 834
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 4 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([4, 12])
+dof_pos[env_ids] min: -2.2174, max: 1.4886
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([4, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([4, 13])
+root_states[env_ids] min: -1.9420, max: 404.1190
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=404.1190
+root_states[env_ids, 3:7] (quaternions): min=-0.9796, max=0.9055
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([4, 12, 2])
+dof_state[env_ids] min: -2.2174, max: 1.4886
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([4])
+env_ids min: 118, max: 620
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 4 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([4, 12])
+dof_pos[env_ids] min: -2.2437, max: 1.3797
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([4, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([4, 13])
+root_states[env_ids] min: -2.3034, max: 402.9200
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=402.9200
+root_states[env_ids, 3:7] (quaternions): min=-0.9801, max=0.9910
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([4, 12, 2])
+dof_state[env_ids] min: -2.2437, max: 1.3797
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([4])
+env_ids min: 318, max: 791
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([1, 12])
+dof_pos[env_ids] min: -2.1572, max: 1.0363
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([1, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([1, 13])
+root_states[env_ids] min: -1.6308, max: 432.0950
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=432.0950
+root_states[env_ids, 3:7] (quaternions): min=-0.5015, max=0.8652
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([1, 12, 2])
+dof_state[env_ids] min: -2.1572, max: 1.0363
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([1])
+env_ids min: 461, max: 461
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 3 iterations for 3 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([3, 12])
+dof_pos[env_ids] min: -2.1057, max: 1.4874
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([3, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([3, 13])
+root_states[env_ids] min: -0.6115, max: 501.5170
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=501.5170
+root_states[env_ids, 3:7] (quaternions): min=-0.6115, max=0.9833
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([3, 12, 2])
+dof_state[env_ids] min: -2.1057, max: 1.4874
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([3])
+env_ids min: 614, max: 991
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 3 iterations for 2 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([2, 12])
+dof_pos[env_ids] min: -2.0905, max: 1.4971
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([2, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([2, 13])
+root_states[env_ids] min: -2.2866, max: 442.3756
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=442.3756
+root_states[env_ids, 3:7] (quaternions): min=0.0000, max=0.9986
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([2, 12, 2])
+dof_state[env_ids] min: -2.0905, max: 1.4971
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([2])
+env_ids min: 151, max: 844
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([1, 12])
+dof_pos[env_ids] min: -2.1920, max: 1.4580
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([1, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([1, 13])
+root_states[env_ids] min: -0.1754, max: 381.4713
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=381.4713
+root_states[env_ids, 3:7] (quaternions): min=0.0000, max=0.9936
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([1, 12, 2])
+dof_state[env_ids] min: -2.1920, max: 1.4580
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([1])
+env_ids min: 148, max: 148
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([4, 12])
+dof_pos[env_ids] min: -2.0144, max: 1.4736
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([4, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([4, 13])
+root_states[env_ids] min: -3.6279, max: 434.2138
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=-3.6279, max=434.2138
+root_states[env_ids, 3:7] (quaternions): min=-0.7630, max=0.9551
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([4, 12, 2])
+dof_state[env_ids] min: -2.0144, max: 1.4736
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([4])
+env_ids min: 89, max: 744
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 4 iterations for 3 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([3, 12])
+dof_pos[env_ids] min: -2.0724, max: 1.4573
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([3, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([3, 13])
+root_states[env_ids] min: -1.2961, max: 304.0243
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=304.0243
+root_states[env_ids, 3:7] (quaternions): min=-0.9963, max=0.8927
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([3, 12, 2])
+dof_state[env_ids] min: -2.0724, max: 1.4573
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([3])
+env_ids min: 412, max: 595
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([3, 12])
+dof_pos[env_ids] min: -2.1927, max: 1.3421
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([3, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([3, 13])
+root_states[env_ids] min: -1.9794, max: 471.6066
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=471.6066
+root_states[env_ids, 3:7] (quaternions): min=-0.7520, max=0.9494
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([3, 12, 2])
+dof_state[env_ids] min: -2.1927, max: 1.3421
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([3])
+env_ids min: 448, max: 908
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([3, 12])
+dof_pos[env_ids] min: -2.2381, max: 1.4319
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([3, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([3, 13])
+root_states[env_ids] min: -0.9144, max: 402.2319
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=402.2319
+root_states[env_ids, 3:7] (quaternions): min=-0.9144, max=0.9950
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([3, 12, 2])
+dof_state[env_ids] min: -2.2381, max: 1.4319
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([3])
+env_ids min: 478, max: 792
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([5, 12])
+dof_pos[env_ids] min: -2.2013, max: 1.4954
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([5, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([5, 13])
+root_states[env_ids] min: -1.4589, max: 482.3813
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=482.3813
+root_states[env_ids, 3:7] (quaternions): min=-0.9335, max=0.9995
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([5, 12, 2])
+dof_state[env_ids] min: -2.2013, max: 1.4954
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([5])
+env_ids min: 55, max: 946
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([2, 12])
+dof_pos[env_ids] min: -2.1966, max: 1.4940
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([2, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([2, 13])
+root_states[env_ids] min: -1.4875, max: 423.2780
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=423.2780
+root_states[env_ids, 3:7] (quaternions): min=-0.0106, max=0.9999
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([2, 12, 2])
+dof_state[env_ids] min: -2.1966, max: 1.4940
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([2])
+env_ids min: 440, max: 826
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 6 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([6, 12])
+dof_pos[env_ids] min: -2.1479, max: 1.3113
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([6, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([6, 13])
+root_states[env_ids] min: -2.0141, max: 451.5157
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=451.5157
+root_states[env_ids, 3:7] (quaternions): min=-1.0000, max=0.9967
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([6, 12, 2])
+dof_state[env_ids] min: -2.1479, max: 1.3113
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([6])
+env_ids min: 69, max: 799
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 6 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([6, 12])
+dof_pos[env_ids] min: -2.1613, max: 1.4488
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([6, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([6, 13])
+root_states[env_ids] min: -1.6330, max: 417.3058
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=417.3058
+root_states[env_ids, 3:7] (quaternions): min=0.0000, max=0.9733
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([6, 12, 2])
+dof_state[env_ids] min: -2.1613, max: 1.4488
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([6])
+env_ids min: 69, max: 688
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 4 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([4, 12])
+dof_pos[env_ids] min: -2.1641, max: 1.4729
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([4, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([4, 13])
+root_states[env_ids] min: -1.6062, max: 418.6386
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=418.6386
+root_states[env_ids, 3:7] (quaternions): min=-0.9390, max=0.9623
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([4, 12, 2])
+dof_state[env_ids] min: -2.1641, max: 1.4729
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([4])
+env_ids min: 72, max: 815
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([8, 12])
+dof_pos[env_ids] min: -2.1866, max: 1.4759
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([8, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([8, 13])
+root_states[env_ids] min: -2.8554, max: 515.1242
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=-2.8554, max=515.1242
+root_states[env_ids, 3:7] (quaternions): min=-0.2356, max=0.9941
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([8, 12, 2])
+dof_state[env_ids] min: -2.1866, max: 1.4759
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([8])
+env_ids min: 297, max: 997
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([6, 12])
+dof_pos[env_ids] min: -2.1469, max: 1.4878
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([6, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([6, 13])
+root_states[env_ids] min: -2.2747, max: 462.7866
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=-0.0982, max=462.7866
+root_states[env_ids, 3:7] (quaternions): min=-0.9989, max=0.9982
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([6, 12, 2])
+dof_state[env_ids] min: -2.1469, max: 1.4878
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([6])
+env_ids min: 6, max: 917
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 5 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([5, 12])
+dof_pos[env_ids] min: -2.0964, max: 1.4804
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([5, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([5, 13])
+root_states[env_ids] min: -1.9777, max: 448.4705
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=448.4705
+root_states[env_ids, 3:7] (quaternions): min=-0.9977, max=0.9662
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([5, 12, 2])
+dof_state[env_ids] min: -2.0964, max: 1.4804
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([5])
+env_ids min: 111, max: 877
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 3 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([3, 12])
+dof_pos[env_ids] min: -2.2263, max: 1.4125
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([3, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([3, 13])
+root_states[env_ids] min: -3.3709, max: 288.1968
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=-3.3709, max=288.1968
+root_states[env_ids, 3:7] (quaternions): min=-0.4031, max=0.9385
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([3, 12, 2])
+dof_state[env_ids] min: -2.2263, max: 1.4125
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([3])
+env_ids min: 225, max: 576
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 7 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([7, 12])
+dof_pos[env_ids] min: -2.2311, max: 1.4354
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([7, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([7, 13])
+root_states[env_ids] min: -2.2336, max: 458.8827
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=458.8827
+root_states[env_ids, 3:7] (quaternions): min=-0.9965, max=0.9712
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([7, 12, 2])
+dof_state[env_ids] min: -2.2311, max: 1.4354
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([7])
+env_ids min: 191, max: 870
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 3 iterations for 3 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([3, 12])
+dof_pos[env_ids] min: -2.0863, max: 1.3731
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([3, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([3, 13])
+root_states[env_ids] min: -2.4620, max: 517.5084
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=517.5084
+root_states[env_ids, 3:7] (quaternions): min=-0.6003, max=0.9962
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([3, 12, 2])
+dof_state[env_ids] min: -2.0863, max: 1.3731
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([3])
+env_ids min: 450, max: 992
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 4 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([4, 12])
+dof_pos[env_ids] min: -2.2279, max: 1.4804
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([4, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([4, 13])
+root_states[env_ids] min: -2.0180, max: 482.3797
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=482.3797
+root_states[env_ids, 3:7] (quaternions): min=-0.8927, max=0.9397
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([4, 12, 2])
+dof_state[env_ids] min: -2.2279, max: 1.4804
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([4])
+env_ids min: 157, max: 949
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 5 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([5, 12])
+dof_pos[env_ids] min: -2.2190, max: 1.4925
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([5, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([5, 13])
+root_states[env_ids] min: -1.8371, max: 459.7262
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=459.7262
+root_states[env_ids, 3:7] (quaternions): min=-0.9989, max=0.9969
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([5, 12, 2])
+dof_state[env_ids] min: -2.2190, max: 1.4925
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([5])
+env_ids min: 246, max: 800
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([2, 12])
+dof_pos[env_ids] min: -2.1955, max: 1.4513
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([2, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([2, 13])
+root_states[env_ids] min: -1.5780, max: 464.6000
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=464.6000
+root_states[env_ids, 3:7] (quaternions): min=0.0000, max=0.8398
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([2, 12, 2])
+dof_state[env_ids] min: -2.1955, max: 1.4513
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([2])
+env_ids min: 277, max: 584
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 3 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([3, 12])
+dof_pos[env_ids] min: -2.2470, max: 1.3837
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([3, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([3, 13])
+root_states[env_ids] min: -1.6588, max: 434.7092
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=434.7092
+root_states[env_ids, 3:7] (quaternions): min=-0.7236, max=0.9392
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([3, 12, 2])
+dof_state[env_ids] min: -2.2470, max: 1.3837
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([3])
+env_ids min: 585, max: 798
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 4 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([4, 12])
+dof_pos[env_ids] min: -2.2132, max: 1.4351
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([4, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([4, 13])
+root_states[env_ids] min: -2.4978, max: 375.7608
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=375.7608
+root_states[env_ids, 3:7] (quaternions): min=-0.9925, max=0.9992
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([4, 12, 2])
+dof_state[env_ids] min: -2.2132, max: 1.4351
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([4])
+env_ids min: 102, max: 713
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 9 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([9, 12])
+dof_pos[env_ids] min: -2.2396, max: 1.4433
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([9, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([9, 13])
+root_states[env_ids] min: -1.9183, max: 447.6372
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=447.6372
+root_states[env_ids, 3:7] (quaternions): min=-0.9284, max=0.9980
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([9, 12, 2])
+dof_state[env_ids] min: -2.2396, max: 1.4433
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([9])
+env_ids min: 285, max: 890
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 7 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([7, 12])
+dof_pos[env_ids] min: -2.2268, max: 1.3242
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([7, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([7, 13])
+root_states[env_ids] min: -2.2996, max: 505.4245
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=505.4245
+root_states[env_ids, 3:7] (quaternions): min=-0.2340, max=0.9990
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([7, 12, 2])
+dof_state[env_ids] min: -2.2268, max: 1.3242
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([7])
+env_ids min: 74, max: 975
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([3, 12])
+dof_pos[env_ids] min: -2.1319, max: 1.2993
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([3, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([3, 13])
+root_states[env_ids] min: -1.4503, max: 475.9851
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=475.9851
+root_states[env_ids, 3:7] (quaternions): min=-0.5219, max=0.9982
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([3, 12, 2])
+dof_state[env_ids] min: -2.1319, max: 1.2993
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([3])
+env_ids min: 547, max: 905
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([7, 12])
+dof_pos[env_ids] min: -2.2422, max: 1.4615
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([7, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([7, 13])
+root_states[env_ids] min: -2.4088, max: 491.1910
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=-1.6229, max=491.1910
+root_states[env_ids, 3:7] (quaternions): min=-0.9986, max=0.9988
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([7, 12, 2])
+dof_state[env_ids] min: -2.2422, max: 1.4615
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([7])
+env_ids min: 119, max: 937
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 8 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([8, 12])
+dof_pos[env_ids] min: -2.2476, max: 1.4905
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([8, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([8, 13])
+root_states[env_ids] min: -2.1296, max: 487.9851
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=487.9851
+root_states[env_ids, 3:7] (quaternions): min=-0.9745, max=0.9999
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([8, 12, 2])
+dof_state[env_ids] min: -2.2476, max: 1.4905
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([8])
+env_ids min: 49, max: 960
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([6, 12])
+dof_pos[env_ids] min: -2.1495, max: 1.4984
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([6, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([6, 13])
+root_states[env_ids] min: -1.1742, max: 388.5720
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=388.5720
+root_states[env_ids, 3:7] (quaternions): min=-0.9971, max=0.9996
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([6, 12, 2])
+dof_state[env_ids] min: -2.1495, max: 1.4984
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([6])
+env_ids min: 162, max: 752
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 5 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([5, 12])
+dof_pos[env_ids] min: -2.0376, max: 1.4544
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([5, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([5, 13])
+root_states[env_ids] min: -2.3948, max: 496.9550
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=496.9550
+root_states[env_ids, 3:7] (quaternions): min=-0.9983, max=0.9971
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([5, 12, 2])
+dof_state[env_ids] min: -2.0376, max: 1.4544
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([5])
+env_ids min: 359, max: 966
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 4 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([4, 12])
+dof_pos[env_ids] min: -2.1452, max: 1.4184
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([4, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([4, 13])
+root_states[env_ids] min: -1.9623, max: 418.9403
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=418.9403
+root_states[env_ids, 3:7] (quaternions): min=-0.6221, max=0.9700
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([4, 12, 2])
+dof_state[env_ids] min: -2.1452, max: 1.4184
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([4])
+env_ids min: 138, max: 687
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([6, 12])
+dof_pos[env_ids] min: -2.2375, max: 1.4623
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([6, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([6, 13])
+root_states[env_ids] min: -2.4530, max: 507.2135
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=507.2135
+root_states[env_ids, 3:7] (quaternions): min=-0.9999, max=0.9825
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([6, 12, 2])
+dof_state[env_ids] min: -2.2375, max: 1.4623
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([6])
+env_ids min: 42, max: 980
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 3 iterations for 7 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([7, 12])
+dof_pos[env_ids] min: -2.2483, max: 1.4875
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([7, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([7, 13])
+root_states[env_ids] min: -1.4523, max: 466.5493
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=466.5493
+root_states[env_ids, 3:7] (quaternions): min=-0.9447, max=0.9988
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([7, 12, 2])
+dof_state[env_ids] min: -2.2483, max: 1.4875
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([7])
+env_ids min: 311, max: 923
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([4, 12])
+dof_pos[env_ids] min: -2.2364, max: 1.1984
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([4, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([4, 13])
+root_states[env_ids] min: -2.1828, max: 417.9579
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=417.9579
+root_states[env_ids, 3:7] (quaternions): min=-0.4539, max=0.9993
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([4, 12, 2])
+dof_state[env_ids] min: -2.2364, max: 1.1984
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([4])
+env_ids min: 24, max: 553
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([4, 12])
+dof_pos[env_ids] min: -2.2288, max: 1.4364
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([4, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([4, 13])
+root_states[env_ids] min: -2.1341, max: 466.6650
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=466.6650
+root_states[env_ids, 3:7] (quaternions): min=-0.9265, max=0.9956
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([4, 12, 2])
+dof_state[env_ids] min: -2.2288, max: 1.4364
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([4])
+env_ids min: 138, max: 897
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([4, 12])
+dof_pos[env_ids] min: -2.1483, max: 1.4161
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([4, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([4, 13])
+root_states[env_ids] min: -2.0719, max: 429.3217
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=429.3217
+root_states[env_ids, 3:7] (quaternions): min=-0.7637, max=0.9967
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([4, 12, 2])
+dof_state[env_ids] min: -2.1483, max: 1.4161
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([4])
+env_ids min: 281, max: 678
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 4 iterations for 7 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([7, 12])
+dof_pos[env_ids] min: -2.2110, max: 1.4655
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([7, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([7, 13])
+root_states[env_ids] min: -1.9488, max: 463.2397
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=463.2397
+root_states[env_ids, 3:7] (quaternions): min=-0.9657, max=0.9997
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([7, 12, 2])
+dof_state[env_ids] min: -2.2110, max: 1.4655
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([7])
+env_ids min: 220, max: 874
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([3, 12])
+dof_pos[env_ids] min: -1.7498, max: 1.4296
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([3, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([3, 13])
+root_states[env_ids] min: -2.2269, max: 414.6987
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=414.6987
+root_states[env_ids, 3:7] (quaternions): min=-0.5830, max=0.9987
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([3, 12, 2])
+dof_state[env_ids] min: -1.7498, max: 1.4296
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([3])
+env_ids min: 88, max: 520
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 5 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([5, 12])
+dof_pos[env_ids] min: -2.1569, max: 1.4868
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([5, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([5, 13])
+root_states[env_ids] min: -1.8143, max: 411.6752
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=411.6752
+root_states[env_ids, 3:7] (quaternions): min=-0.9567, max=0.9996
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([5, 12, 2])
+dof_state[env_ids] min: -2.1569, max: 1.4868
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([5])
+env_ids min: 131, max: 755
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([4, 12])
+dof_pos[env_ids] min: -2.1393, max: 1.1015
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([4, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([4, 13])
+root_states[env_ids] min: -1.6002, max: 460.4143
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=460.4143
+root_states[env_ids, 3:7] (quaternions): min=-0.9774, max=0.9362
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([4, 12, 2])
+dof_state[env_ids] min: -2.1393, max: 1.1015
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([4])
+env_ids min: 23, max: 747
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 3 iterations for 8 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([8, 12])
+dof_pos[env_ids] min: -2.2212, max: 1.4655
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([8, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([8, 13])
+root_states[env_ids] min: -2.1326, max: 452.0329
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=452.0329
+root_states[env_ids, 3:7] (quaternions): min=-0.9731, max=0.9971
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([8, 12, 2])
+dof_state[env_ids] min: -2.2212, max: 1.4655
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([8])
+env_ids min: 63, max: 887
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Rejection sampling completed in 2 iterations for 4 environments.
+=== CHECK 1: DOF Positions ===
+dof_pos shape: torch.Size([1000, 12])
+dof_pos[env_ids] shape: torch.Size([4, 12])
+dof_pos[env_ids] min: -2.1813, max: 1.4650
+dof_pos[env_ids] has NaN: False
+dof_pos[env_ids] has Inf: False
+=== CHECK 2: DOF Velocities ===
+dof_vel shape: torch.Size([1000, 12])
+dof_vel[env_ids] shape: torch.Size([4, 12])
+dof_vel[env_ids] min: 0.0000, max: 0.0000
+dof_vel[env_ids] has NaN: False
+dof_vel[env_ids] has Inf: False
+=== CHECK 3: Root States (before Isaac Gym set) ===
+root_states shape: torch.Size([1000, 13])
+root_states[env_ids] shape: torch.Size([4, 13])
+root_states[env_ids] min: -2.2445, max: 432.2785
+root_states[env_ids] has NaN: False
+root_states[env_ids] has Inf: False
+root_states[env_ids, 0:3] (positions): min=0.3400, max=432.2785
+root_states[env_ids, 3:7] (quaternions): min=-0.8220, max=1.0000
+=== CHECK 4: DOF State Tensor ===
+dof_state shape: torch.Size([1000, 12, 2])
+dof_state[env_ids] shape: torch.Size([4, 12, 2])
+dof_state[env_ids] min: -2.1813, max: 1.4650
+dof_state[env_ids] has NaN: False
+dof_state[env_ids] has Inf: False
+=== CHECK 5: Environment IDs ===
+env_ids shape: torch.Size([4])
+env_ids min: 259, max: 833
+num_envs: 1000
+env_ids_int32 dtype: torch.int32
+=== Calling Isaac Gym APIs ===
+✓ set_actor_root_state_tensor_indexed completed
+✓ set_dof_state_tensor_indexed completed
+Updates at sample step 50000
+Traceback (most recent call last):
+  File "train_rarl_quadruped.py", line 681, in <module>
+    main(
+  File "train_rarl_quadruped.py", line 613, in main
+    solver.learn(env, visualize_callback=visualize_callback)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_naive_rl.py", line 128, in learn
+    loss_critic_dict, loss_actor_dict = self.update(
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_base_training.py", line 279, in update
+    batch = self.sample_batch()
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_base_training.py", line 101, in sample_batch
+    return Batch(transitions, device=self.device)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/libraries/ISAACS/agent/replay_memory.py", line 35, in __init__
+    np.logical_not(np.asarray(batch.done))
+  File "/home/cassie/.conda/envs/quadruped/lib/python3.8/site-packages/torch/_tensor.py", line 1087, in __array__
+    return self.numpy()
+TypeError: can't convert cuda:0 device type tensor to numpy. Use Tensor.cpu() to copy the tensor to host memory first.
+Traceback (most recent call last):
+  File "train_rarl_quadruped.py", line 681, in <module>
+    main(
+  File "train_rarl_quadruped.py", line 613, in main
+    solver.learn(env, visualize_callback=visualize_callback)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_naive_rl.py", line 128, in learn
+    loss_critic_dict, loss_actor_dict = self.update(
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_base_training.py", line 279, in update
+    batch = self.sample_batch()
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_base_training.py", line 101, in sample_batch
+    return Batch(transitions, device=self.device)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/libraries/ISAACS/agent/replay_memory.py", line 35, in __init__
+    np.logical_not(np.asarray(batch.done))
+  File "/home/cassie/.conda/envs/quadruped/lib/python3.8/site-packages/torch/_tensor.py", line 1087, in __array__
+    return self.numpy()
+TypeError: can't convert cuda:0 device type tensor to numpy. Use Tensor.cpu() to copy the tensor to host memory first.

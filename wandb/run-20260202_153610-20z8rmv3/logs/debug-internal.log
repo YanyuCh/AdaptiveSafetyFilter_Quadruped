@@ -1,0 +1,584 @@
+2026-02-02 15:36:10,759 INFO    StreamThr :59972 [internal.py:wandb_internal():86] W&B internal server running at pid: 59972, started at: 2026-02-02 15:36:10.758469
+2026-02-02 15:36:10,760 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status
+2026-02-02 15:36:10,765 INFO    WriterThread:59972 [datastore.py:open_for_write():87] open: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/run-20z8rmv3.wandb
+2026-02-02 15:36:10,766 DEBUG   SenderThread:59972 [sender.py:send():379] send: header
+2026-02-02 15:36:10,806 DEBUG   SenderThread:59972 [sender.py:send():379] send: run
+2026-02-02 15:36:11,118 INFO    SenderThread:59972 [dir_watcher.py:__init__():211] watching files in: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files
+2026-02-02 15:36:11,118 INFO    SenderThread:59972 [sender.py:_start_run_threads():1124] run started: 20z8rmv3 with start time 1770075370.758085
+2026-02-02 15:36:11,132 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: check_version
+2026-02-02 15:36:11,133 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: check_version
+2026-02-02 15:36:11,214 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: run_start
+2026-02-02 15:36:11,266 DEBUG   HandlerThread:59972 [system_info.py:__init__():26] System info init
+2026-02-02 15:36:11,266 DEBUG   HandlerThread:59972 [system_info.py:__init__():41] System info init done
+2026-02-02 15:36:11,266 INFO    HandlerThread:59972 [system_monitor.py:start():194] Starting system monitor
+2026-02-02 15:36:11,267 INFO    SystemMonitor:59972 [system_monitor.py:_start():158] Starting system asset monitoring threads
+2026-02-02 15:36:11,268 INFO    HandlerThread:59972 [system_monitor.py:probe():214] Collecting system info
+2026-02-02 15:36:11,269 INFO    SystemMonitor:59972 [interfaces.py:start():190] Started cpu monitoring
+2026-02-02 15:36:11,269 INFO    SystemMonitor:59972 [interfaces.py:start():190] Started disk monitoring
+2026-02-02 15:36:11,270 INFO    SystemMonitor:59972 [interfaces.py:start():190] Started gpu monitoring
+2026-02-02 15:36:11,270 INFO    SystemMonitor:59972 [interfaces.py:start():190] Started memory monitoring
+2026-02-02 15:36:11,271 INFO    SystemMonitor:59972 [interfaces.py:start():190] Started network monitoring
+2026-02-02 15:36:11,360 DEBUG   HandlerThread:59972 [system_info.py:probe():150] Probing system
+2026-02-02 15:36:11,369 DEBUG   HandlerThread:59972 [system_info.py:_probe_git():135] Probing git
+2026-02-02 15:36:11,387 DEBUG   HandlerThread:59972 [system_info.py:_probe_git():143] Probing git done
+2026-02-02 15:36:11,387 DEBUG   HandlerThread:59972 [system_info.py:probe():198] Probing system done
+2026-02-02 15:36:11,387 DEBUG   HandlerThread:59972 [system_monitor.py:probe():223] {'os': 'Linux-5.15.0-134-generic-x86_64-with-glibc2.17', 'python': '3.8.20', 'heartbeatAt': '2026-02-02T23:36:11.360368', 'startedAt': '2026-02-02T23:36:10.750599', 'docker': None, 'cuda': None, 'args': ('--wtw_runs_root', 'libraries/OCR/libraries/walk-these-ways/runs', '--wtw_label', 'gait-conditioned-agility/pretrain-v0/train', '--env_dir', 'EnvironmentData', '--env_id', '6', '--config_file', 'quadruped_sac.yaml'), 'state': 'running', 'program': 'train_rarl_quadruped.py', 'codePathLocal': 'train_rarl_quadruped.py', 'codePath': 'train_rarl_quadruped.py', 'git': {'remote': 'https://github.com/YanyuCh/AdaptiveSafetyFilter_Quadruped.git', 'commit': '5d3e9337c52a4e7e3fdd407813e7a963f69791e4'}, 'email': 'yanyuc@stanford.edu', 'root': '/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped', 'host': 'yoda', 'username': 'cassie', 'executable': '/home/cassie/.conda/envs/quadruped/bin/python', 'cpu_count': 24, 'cpu_count_logical': 48, 'cpu_freq': {'current': 2057.180625, 'min': 1500.0, 'max': 4200.0}, 'cpu_freq_per_core': [{'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 4200.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 4200.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 4200.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 4200.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 4200.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 4200.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1428.8, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 4200.0, 'min': 1500.0, 'max': 4200.0}, {'current': 4200.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 4200.0, 'min': 1500.0, 'max': 4200.0}, {'current': 4200.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 2173.387, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}, {'current': 1500.0, 'min': 1500.0, 'max': 4200.0}], 'disk': {'/': {'total': 1820.8388862609863, 'used': 1633.5899848937988}}, 'gpu': 'NVIDIA RTX 6000 Ada Generation', 'gpu_count': 2, 'gpu_devices': [{'name': 'NVIDIA RTX 6000 Ada Generation', 'memory_total': 51527024640}, {'name': 'NVIDIA RTX 6000 Ada Generation', 'memory_total': 51527024640}], 'memory': {'total': 125.22347640991211}}
+2026-02-02 15:36:11,387 INFO    HandlerThread:59972 [system_monitor.py:probe():224] Finished collecting system info
+2026-02-02 15:36:11,387 INFO    HandlerThread:59972 [system_monitor.py:probe():227] Publishing system info
+2026-02-02 15:36:11,387 DEBUG   HandlerThread:59972 [system_info.py:_save_conda():207] Saving list of conda packages installed into the current environment
+2026-02-02 15:36:12,119 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_created():271] file/dir created: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/conda-environment.yaml
+2026-02-02 15:36:13,964 DEBUG   HandlerThread:59972 [system_info.py:_save_conda():222] Saving conda packages done
+2026-02-02 15:36:13,965 INFO    HandlerThread:59972 [system_monitor.py:probe():229] Finished publishing system info
+2026-02-02 15:36:13,970 DEBUG   SenderThread:59972 [sender.py:send():379] send: files
+2026-02-02 15:36:13,970 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-metadata.json with policy now
+2026-02-02 15:36:14,078 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: python_packages
+2026-02-02 15:36:14,079 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: python_packages
+2026-02-02 15:36:14,079 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:36:14,080 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:36:14,082 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:36:14,120 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/conda-environment.yaml
+2026-02-02 15:36:14,120 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_created():271] file/dir created: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/requirements.txt
+2026-02-02 15:36:14,120 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_created():271] file/dir created: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-metadata.json
+2026-02-02 15:36:14,268 DEBUG   SenderThread:59972 [sender.py:send():379] send: telemetry
+2026-02-02 15:36:14,268 DEBUG   SenderThread:59972 [sender.py:send():379] send: config
+2026-02-02 15:36:14,342 INFO    wandb-upload_0:59972 [upload_job.py:push():131] Uploaded file /tmp/tmpnjwqrhhzwandb/nwmxhnqx-wandb-metadata.json
+2026-02-02 15:36:15,121 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_created():271] file/dir created: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:36:15,883 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:36:17,121 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:36:19,122 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:36:21,123 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:36:21,172 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:36:23,124 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:36:25,125 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:36:26,253 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:36:27,126 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:36:28,818 DEBUG   SenderThread:59972 [sender.py:send():379] send: telemetry
+2026-02-02 15:36:28,942 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:36:29,115 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:36:29,126 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:36:29,154 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:36:29,155 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:36:31,127 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:36:31,320 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:36:32,128 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:36:36,321 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:36:41,326 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:36:42,132 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/config.yaml
+2026-02-02 15:36:44,085 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:36:44,085 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:36:44,086 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:36:47,303 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:36:52,304 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:36:56,137 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:36:57,138 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:36:58,084 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:36:59,085 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:36:59,086 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:36:59,086 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:37:03,284 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:37:08,285 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:37:11,271 DEBUG   SystemMonitor:59972 [system_monitor.py:_start():172] Starting system metrics aggregation loop
+2026-02-02 15:37:11,272 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:37:14,085 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:37:14,086 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:37:14,086 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:37:14,259 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:37:19,260 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:37:21,147 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:37:22,147 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:37:24,325 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:37:29,085 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:37:29,086 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:37:29,086 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:37:30,261 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:37:35,262 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:37:40,263 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:37:41,274 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:37:44,086 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:37:44,086 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:37:44,087 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:37:45,908 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:37:46,154 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:37:47,155 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:37:50,909 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:37:55,910 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:37:59,086 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:37:59,086 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:37:59,086 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:38:01,256 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:38:06,257 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:38:11,163 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:38:11,275 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:38:11,276 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:38:12,163 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:38:14,086 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:38:14,086 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:38:14,087 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:38:16,303 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:38:21,304 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:38:26,305 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:38:29,087 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:38:29,088 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:38:29,088 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:38:32,182 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:38:37,171 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:38:37,909 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:38:38,171 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:38:41,276 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:38:43,277 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:38:44,087 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:38:44,087 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:38:44,088 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:38:48,295 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:38:53,296 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:38:58,297 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:38:59,087 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:38:59,088 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:38:59,088 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:39:03,181 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:39:03,446 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:39:04,182 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:39:08,447 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:39:11,293 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:39:14,088 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:39:14,088 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:39:14,089 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:39:14,314 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:39:19,315 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:39:24,316 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:39:28,191 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:39:29,088 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:39:29,088 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:39:29,089 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:39:29,191 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:39:30,272 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:39:35,273 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:39:40,273 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:39:41,279 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:39:44,088 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:39:44,088 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:39:44,089 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:39:46,270 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:39:51,271 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:39:53,200 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:39:54,201 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:39:56,977 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:39:59,088 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:39:59,089 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:39:59,089 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:40:02,250 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:40:07,251 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:40:11,280 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:40:12,281 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:40:14,091 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:40:14,092 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:40:14,092 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:40:17,400 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:40:18,210 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:40:19,210 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:40:22,407 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:40:27,408 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:40:29,091 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:40:29,091 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:40:29,092 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:40:33,226 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:40:38,227 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:40:41,281 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:40:42,858 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:40:42,860 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:40:42,860 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:40:42,861 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:40:43,219 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_created():271] file/dir created: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:40:43,861 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:40:44,091 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:40:44,091 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:40:44,092 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:40:44,219 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:40:45,219 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:40:47,220 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:40:49,221 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:40:49,503 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:40:49,531 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:40:51,222 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:40:52,049 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:40:52,050 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:40:52,051 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:40:52,053 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:40:52,222 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:40:54,302 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:40:54,303 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:40:54,304 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:40:54,304 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:40:54,534 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:40:55,223 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:40:55,224 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:40:56,581 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:40:56,583 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:40:56,583 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:40:56,583 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:40:57,224 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:40:57,224 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:40:58,871 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:40:58,872 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:40:58,872 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:40:58,873 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:40:59,092 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:40:59,092 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:40:59,093 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:40:59,224 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:40:59,225 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:00,338 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:41:01,163 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:01,164 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:01,165 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:01,165 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:01,225 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:01,225 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:03,225 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:03,434 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:03,435 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:03,435 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:03,436 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:04,226 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:05,226 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:05,706 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:05,707 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:05,708 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:05,708 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:41:05,709 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:06,226 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:08,250 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:08,252 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:08,252 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:08,252 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:09,228 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:09,228 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:10,786 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:10,787 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:10,788 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:10,788 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:41:10,789 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:11,228 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:11,229 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:11,283 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:41:13,229 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:13,277 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:13,278 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:13,278 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:13,279 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:14,092 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:41:14,092 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:41:14,093 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:41:14,230 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:15,230 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:15,820 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:15,821 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:15,821 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:15,822 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:41:15,823 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:16,231 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:17,231 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:18,355 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:18,357 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:18,357 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:18,357 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:19,232 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:19,232 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:20,995 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:41:21,050 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:21,051 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:21,052 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:21,052 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:21,233 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:21,233 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:23,233 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:23,331 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:23,332 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:23,333 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:23,333 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:24,234 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:25,234 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:25,574 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:25,575 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:25,576 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:25,576 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:26,024 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:41:26,235 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:27,235 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:27,786 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:27,787 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:27,787 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:27,788 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:28,235 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:29,092 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:41:29,092 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:41:29,093 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:41:29,236 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:30,084 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:30,085 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:30,085 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:30,086 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:30,236 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:31,237 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:31,539 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:41:32,355 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:32,356 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:32,356 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:32,357 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:33,237 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:33,238 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:34,578 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:34,586 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:34,587 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:34,587 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:35,238 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:35,238 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:36,826 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:36,827 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:36,828 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:36,828 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:41:36,829 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:37,239 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:37,239 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:39,087 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:39,088 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:39,088 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:39,089 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:39,240 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:39,240 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:41,241 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:41,284 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:41:41,352 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:41,353 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:41,354 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:41,355 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:42,241 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:42,805 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:41:43,094 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:43,095 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:43,096 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:43,096 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:43,241 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:43,242 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:44,092 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:41:44,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:41:44,093 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:41:44,837 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: partial_history
+2026-02-02 15:41:44,838 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:41:44,838 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:41:44,838 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:41:45,243 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:45,243 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:41:46,243 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:47,243 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:41:48,051 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:41:53,051 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:41:58,052 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:41:59,092 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:41:59,092 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:41:59,093 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:42:03,278 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:42:08,279 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:42:11,285 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:42:12,253 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:42:13,254 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:42:13,287 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:42:14,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:42:14,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:42:14,093 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:42:19,215 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:42:24,216 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:42:29,092 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:42:29,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:42:29,093 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:42:30,198 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:42:35,199 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:42:37,261 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:42:38,261 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:42:40,315 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:42:41,287 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:42:44,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:42:44,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:42:44,093 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:42:46,279 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:42:51,280 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:42:56,281 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:42:59,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:42:59,094 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:42:59,094 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:43:01,689 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:02,268 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:43:03,269 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:43:06,690 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:11,289 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:43:12,290 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:14,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:43:14,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:43:14,094 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:43:18,219 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:23,220 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:27,276 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:43:28,276 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:43:29,000 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:29,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:43:29,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:43:29,094 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:43:34,252 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:39,253 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:41,290 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:43:44,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: stop_status
+2026-02-02 15:43:44,093 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:43:44,094 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: stop_status
+2026-02-02 15:43:44,258 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:49,258 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:52,283 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:43:53,284 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:43:54,146 DEBUG   SenderThread:59972 [sender.py:send():379] send: exit
+2026-02-02 15:43:54,146 INFO    SenderThread:59972 [sender.py:send_exit():586] handling exit code: 255
+2026-02-02 15:43:54,146 INFO    SenderThread:59972 [sender.py:send_exit():588] handling runtime: 462
+2026-02-02 15:43:54,146 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:43:54,147 INFO    SenderThread:59972 [sender.py:send_exit():594] send defer
+2026-02-02 15:43:54,147 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:54,147 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 0
+2026-02-02 15:43:54,147 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:54,148 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 0
+2026-02-02 15:43:54,148 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 1
+2026-02-02 15:43:54,148 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:54,148 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 1
+2026-02-02 15:43:54,148 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:54,148 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 1
+2026-02-02 15:43:54,148 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 2
+2026-02-02 15:43:54,148 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:54,148 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 2
+2026-02-02 15:43:54,148 INFO    HandlerThread:59972 [system_monitor.py:finish():203] Stopping system monitor
+2026-02-02 15:43:54,149 DEBUG   SystemMonitor:59972 [system_monitor.py:_start():179] Finished system metrics aggregation loop
+2026-02-02 15:43:54,149 INFO    HandlerThread:59972 [interfaces.py:finish():202] Joined cpu monitor
+2026-02-02 15:43:54,150 DEBUG   SystemMonitor:59972 [system_monitor.py:_start():183] Publishing last batch of metrics
+2026-02-02 15:43:54,150 INFO    HandlerThread:59972 [interfaces.py:finish():202] Joined disk monitor
+2026-02-02 15:43:54,278 INFO    HandlerThread:59972 [interfaces.py:finish():202] Joined gpu monitor
+2026-02-02 15:43:54,278 INFO    HandlerThread:59972 [interfaces.py:finish():202] Joined memory monitor
+2026-02-02 15:43:54,278 INFO    HandlerThread:59972 [interfaces.py:finish():202] Joined network monitor
+2026-02-02 15:43:54,279 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:54,279 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 2
+2026-02-02 15:43:54,279 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 3
+2026-02-02 15:43:54,279 DEBUG   SenderThread:59972 [sender.py:send():379] send: stats
+2026-02-02 15:43:54,280 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:54,280 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 3
+2026-02-02 15:43:54,281 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:54,281 DEBUG   SenderThread:59972 [sender.py:send():379] send: history
+2026-02-02 15:43:54,282 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: summary_record
+2026-02-02 15:43:54,282 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:43:54,283 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:54,283 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 3
+2026-02-02 15:43:54,283 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 4
+2026-02-02 15:43:54,283 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:54,283 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 4
+2026-02-02 15:43:54,283 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:54,283 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 4
+2026-02-02 15:43:54,283 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 5
+2026-02-02 15:43:54,284 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:54,284 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 5
+2026-02-02 15:43:54,285 DEBUG   SenderThread:59972 [sender.py:send():379] send: summary
+2026-02-02 15:43:54,285 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:43:54,286 INFO    SenderThread:59972 [sender.py:_save_file():1390] saving file wandb-summary.json with policy end
+2026-02-02 15:43:54,286 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:54,286 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 5
+2026-02-02 15:43:54,286 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 6
+2026-02-02 15:43:54,286 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:54,286 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 6
+2026-02-02 15:43:54,287 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:54,287 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 6
+2026-02-02 15:43:54,287 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 7
+2026-02-02 15:43:54,287 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:54,287 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:54,287 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 7
+2026-02-02 15:43:54,287 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:54,287 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 7
+2026-02-02 15:43:55,146 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: poll_exit
+2026-02-02 15:43:55,286 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:43:55,817 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 8
+2026-02-02 15:43:55,817 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: poll_exit
+2026-02-02 15:43:55,818 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:55,818 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 8
+2026-02-02 15:43:55,818 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:55,818 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 8
+2026-02-02 15:43:55,819 INFO    SenderThread:59972 [job_builder.py:build():318] Attempting to build job artifact
+2026-02-02 15:43:55,820 INFO    SenderThread:59972 [job_builder.py:_get_source_type():455] is repo sourced job
+2026-02-02 15:43:55,841 INFO    SenderThread:59972 [job_builder.py:build():431] adding wandb-job metadata file
+2026-02-02 15:43:55,850 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 9
+2026-02-02 15:43:55,851 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:55,851 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 9
+2026-02-02 15:43:55,857 DEBUG   SenderThread:59972 [sender.py:send():379] send: artifact
+2026-02-02 15:43:56,147 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: poll_exit
+2026-02-02 15:43:56,287 INFO    Thread-12 :59972 [dir_watcher.py:_on_file_modified():288] file/dir modified: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:43:56,764 INFO    wandb-upload_0:59972 [upload_job.py:push():86] Skipped uploading /home/cassie/.local/share/wandb/artifacts/staging/tmpn2lv8siq
+2026-02-02 15:43:56,932 INFO    wandb-upload_1:59972 [upload_job.py:push():89] Uploaded file /tmp/tmpybvx_btl/wandb-job.json
+2026-02-02 15:43:57,928 INFO    SenderThread:59972 [sender.py:send_artifact():1468] sent artifact job-https___github.com_YanyuCh_AdaptiveSafetyFilter_Quadruped.git_train_rarl_quadruped.py - {'id': 'QXJ0aWZhY3Q6MjQyOTUwMjEyOQ==', 'state': 'PENDING', 'artifactSequence': {'id': 'QXJ0aWZhY3RDb2xsZWN0aW9uOjgyOTYwMzEzNg==', 'latestArtifact': {'id': 'QXJ0aWZhY3Q6MjQwMDc4MjgyMg==', 'versionIndex': 2}}}
+2026-02-02 15:43:57,928 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:57,928 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 9
+2026-02-02 15:43:57,929 INFO    SenderThread:59972 [dir_watcher.py:finish():358] shutting down directory watcher
+2026-02-02 15:43:58,288 INFO    SenderThread:59972 [dir_watcher.py:finish():388] scan: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files
+2026-02-02 15:43:58,288 INFO    SenderThread:59972 [dir_watcher.py:finish():402] scan save: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/config.yaml config.yaml
+2026-02-02 15:43:58,289 INFO    SenderThread:59972 [dir_watcher.py:finish():402] scan save: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log output.log
+2026-02-02 15:43:58,289 INFO    SenderThread:59972 [dir_watcher.py:finish():402] scan save: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/conda-environment.yaml conda-environment.yaml
+2026-02-02 15:43:58,295 INFO    SenderThread:59972 [dir_watcher.py:finish():402] scan save: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json wandb-summary.json
+2026-02-02 15:43:58,295 INFO    SenderThread:59972 [dir_watcher.py:finish():402] scan save: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/requirements.txt requirements.txt
+2026-02-02 15:43:58,295 INFO    SenderThread:59972 [dir_watcher.py:finish():402] scan save: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-metadata.json wandb-metadata.json
+2026-02-02 15:43:58,295 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 10
+2026-02-02 15:43:58,295 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: poll_exit
+2026-02-02 15:43:58,298 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:58,298 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 10
+2026-02-02 15:43:58,302 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:58,302 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 10
+2026-02-02 15:43:58,302 INFO    SenderThread:59972 [file_pusher.py:finish():172] shutting down file pusher
+2026-02-02 15:43:58,585 INFO    wandb-upload_1:59972 [upload_job.py:push():131] Uploaded file /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/output.log
+2026-02-02 15:43:58,615 INFO    wandb-upload_4:59972 [upload_job.py:push():131] Uploaded file /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/requirements.txt
+2026-02-02 15:43:58,615 INFO    wandb-upload_2:59972 [upload_job.py:push():131] Uploaded file /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/conda-environment.yaml
+2026-02-02 15:43:58,636 INFO    wandb-upload_3:59972 [upload_job.py:push():131] Uploaded file /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/wandb-summary.json
+2026-02-02 15:43:58,644 INFO    wandb-upload_0:59972 [upload_job.py:push():131] Uploaded file /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/files/config.yaml
+2026-02-02 15:43:58,845 INFO    Thread-11 :59972 [sender.py:transition_state():614] send defer: 11
+2026-02-02 15:43:58,845 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:58,846 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 11
+2026-02-02 15:43:58,846 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:58,846 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 11
+2026-02-02 15:43:58,847 INFO    SenderThread:59972 [file_pusher.py:join():178] waiting for file pusher
+2026-02-02 15:43:58,847 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 12
+2026-02-02 15:43:58,847 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:58,847 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 12
+2026-02-02 15:43:58,847 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:58,848 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 12
+2026-02-02 15:43:58,848 INFO    SenderThread:59972 [file_stream.py:finish():614] file stream finish called
+2026-02-02 15:43:59,151 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: poll_exit
+2026-02-02 15:43:59,377 INFO    SenderThread:59972 [file_stream.py:finish():618] file stream finish is done
+2026-02-02 15:43:59,377 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 13
+2026-02-02 15:43:59,378 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: poll_exit
+2026-02-02 15:43:59,378 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:59,378 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 13
+2026-02-02 15:43:59,378 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: status_report
+2026-02-02 15:43:59,379 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:59,379 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 13
+2026-02-02 15:43:59,379 INFO    SenderThread:59972 [sender.py:transition_state():614] send defer: 14
+2026-02-02 15:43:59,379 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: defer
+2026-02-02 15:43:59,380 INFO    HandlerThread:59972 [handler.py:handle_request_defer():172] handle defer: 14
+2026-02-02 15:43:59,380 DEBUG   SenderThread:59972 [sender.py:send():379] send: final
+2026-02-02 15:43:59,380 DEBUG   SenderThread:59972 [sender.py:send():379] send: footer
+2026-02-02 15:43:59,380 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: defer
+2026-02-02 15:43:59,380 INFO    SenderThread:59972 [sender.py:send_request_defer():610] handle sender defer: 14
+2026-02-02 15:43:59,381 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: poll_exit
+2026-02-02 15:43:59,382 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: poll_exit
+2026-02-02 15:43:59,382 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: poll_exit
+2026-02-02 15:43:59,383 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: poll_exit
+2026-02-02 15:43:59,383 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: server_info
+2026-02-02 15:43:59,384 DEBUG   SenderThread:59972 [sender.py:send_request():406] send_request: server_info
+2026-02-02 15:43:59,386 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: get_summary
+2026-02-02 15:43:59,387 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: sampled_history
+2026-02-02 15:43:59,388 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: internal_messages
+2026-02-02 15:43:59,464 INFO    MainThread:59972 [wandb_run.py:_footer_history_summary_info():3936] rendering history
+2026-02-02 15:43:59,465 INFO    MainThread:59972 [wandb_run.py:_footer_history_summary_info():3968] rendering summary
+2026-02-02 15:43:59,466 INFO    MainThread:59972 [wandb_run.py:_footer_sync_info():3895] logging synced files
+2026-02-02 15:43:59,466 DEBUG   HandlerThread:59972 [handler.py:handle_request():146] handle_request: shutdown
+2026-02-02 15:43:59,466 INFO    HandlerThread:59972 [handler.py:finish():866] shutting down handler
+2026-02-02 15:44:00,384 INFO    WriterThread:59972 [datastore.py:close():296] close: /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260202_153610-20z8rmv3/run-20z8rmv3.wandb
+2026-02-02 15:44:00,464 INFO    SenderThread:59972 [sender.py:finish():1546] shutting down sender
+2026-02-02 15:44:00,464 INFO    SenderThread:59972 [file_pusher.py:finish():172] shutting down file pusher
+2026-02-02 15:44:00,464 INFO    SenderThread:59972 [file_pusher.py:join():178] waiting for file pusher

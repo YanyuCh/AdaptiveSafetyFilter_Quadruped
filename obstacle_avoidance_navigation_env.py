@@ -603,7 +603,7 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         self.last_last_joint_pos_target[:] = self.last_joint_pos_target[:]
         self.last_joint_pos_target[:] = self.joint_pos_target[:]
         self.last_dof_vel[:] = self.dof_vel[:]
-        self.last_root_vel[:] = self.root_states[:, 7:13]
+        self.last_root_vel[:] = self.root_states[:self.num_envs, 7:13]
         
         # ========================= RENDER ==========================
         # Draw debug visualization if needed
@@ -628,7 +628,7 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
             "body_angular_vel_cmd": self.commands.cpu().numpy()[:, 2:3],
             "contact_states": (self.contact_forces[:, self.feet_indices, 2] > 1.).detach().cpu().numpy().copy(),
             "foot_positions": (self.foot_positions).detach().cpu().numpy().copy(),
-            "body_pos": self.root_states[:, 0:3].detach().cpu().numpy(),
+            "body_pos": self.root_states[:self.num_envs, 0:3].detach().cpu().numpy(),
             "torques": self.torques.detach().cpu().numpy()
         })
 
@@ -992,7 +992,12 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         # ==================== APPLY RESET TO SIMULATION ====================
         # Convert env_ids to int32 for Isaac Gym API
         env_ids_int32 = env_ids.to(dtype=torch.int32)
+        if self.num_actors_per_env > 1:
+            robot_ids_int32 = self.robot_actor_indices[env_ids].to(dtype=torch.int32)
+        else:
+            robot_ids_int32 = env_ids_int32
 
+        '''
         # ==================== DEBUG: CHECK 1 - Validate DOF positions ====================
         print(f"\n=== CHECK 1: DOF Positions ===")
         print(f"dof_pos shape: {self.dof_pos.shape}")
@@ -1033,26 +1038,23 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         print(f"env_ids min: {env_ids.min().item()}, max: {env_ids.max().item()}")
         print(f"num_envs: {self.num_envs}")
         print(f"env_ids_int32 dtype: {env_ids_int32.dtype}")
-
-        print(f"\n=== Calling Isaac Gym APIs ===")
+        '''
 
         # Set actor root states in simulation
         self.gym.set_actor_root_state_tensor_indexed(
             self.sim,
-            gymtorch.unwrap_tensor(self.root_states),
-            gymtorch.unwrap_tensor(env_ids_int32),
-            len(env_ids_int32)
+            gymtorch.unwrap_tensor(self.root_states_all),
+            gymtorch.unwrap_tensor(robot_ids_int32),
+            len(robot_ids_int32)
         )
-        print(f"✓ set_actor_root_state_tensor_indexed completed")
 
         # Set DOF states in simulation
         self.gym.set_dof_state_tensor_indexed(
             self.sim,
-            gymtorch.unwrap_tensor(self.dof_state),
-            gymtorch.unwrap_tensor(env_ids_int32),
-            len(env_ids_int32)
+            gymtorch.unwrap_tensor(self.dof_state_all),
+            gymtorch.unwrap_tensor(robot_ids_int32),
+            len(robot_ids_int32)
         )
-        print(f"✓ set_dof_state_tensor_indexed completed")
 
         # ==================== REFRESH AND UPDATE INTERNAL STATE REPRESENTATIONS ====================
         # CRITICAL: Must refresh and update internal states BEFORE computing observations!
@@ -1083,7 +1085,7 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         # Update foot positions (needed for low-level policy)
         self.foot_positions[env_ids] = self.rigid_body_state.view(
             self.num_envs, self.num_bodies, 13
-        )[env_ids, self.feet_indices, 0:3]
+        )[env_ids][:, self.feet_indices, 0:3]
 
         # ==================== COMPUTE OBSERVATIONS FOR RESET ENVIRONMENTS ====================
         # Compute low-level observations (needed for tracking and buffers)
@@ -1652,7 +1654,12 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         self._init_custom_buffers__()
         self._call_train_eval(self._randomize_rigid_body_props, torch.arange(self.num_envs, device=self.device))
         self._randomize_gravity()
-
+        
+        '''
+        # To ensure the :num_envs indexing works correctly, we create all envs and robots first,
+        # then add custom grounds and obstacles in a second loop
+        # global ordering of actors: env0 robot0, env1 robot1, ..., envN robotN, env0 ground0, env0 obstacle0, ..., env1 ground1, env1 obstacle1, ...
+        # 1st loop: create envs and robots
         for i in range(self.num_envs):
             # create env instance
             env_handle = self.gym.create_env(self.sim, env_lower, env_upper, int(np.sqrt(self.num_envs)))
@@ -1674,6 +1681,102 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
             self.gym.set_actor_rigid_body_properties(env_handle, anymal_handle, body_props, recomputeInertia=True)
             self.envs.append(env_handle)
             self.actor_handles.append(anymal_handle)
+        # 2nd loop: add custom grounds and obstacles
+        for i in range(self.num_envs):
+            # create custom ground (if applicable)
+            if self.task is not None and isinstance(self.task.environment, CustomGroundEnvironment):
+                def add_custom_ground(x, y, l, w, h, f, c):
+                    asset_options = gymapi.AssetOptions()
+                    asset_options.disable_gravity = True
+                    asset_options.fix_base_link = True
+                    asset_options.replace_cylinder_with_capsule = True
+                    asset_rigid_shape_properties = gymapi.RigidShapeProperties()
+                    asset_rigid_shape_properties.friction = f-1
+                    pose = gymapi.Transform()
+                    pose.p = gymapi.Vec3(x, y, -h/2)
+                    asset_ground = self.gym.create_box(self.sim, l, w, h, asset_options)
+                    self.gym.set_asset_rigid_shape_properties(asset_ground, [asset_rigid_shape_properties])
+                    rotation = Rotation.from_euler(seq='zyx', angles=[0, 0, 0], degrees=False)
+                    pose.r = gymapi.Quat(*rotation.as_quat())
+                    ground_handle = self.gym.create_actor(self.envs[i], asset_ground, pose, 'ground', i, 0, 1)
+                    self.gym.set_rigid_body_color(self.envs[i], ground_handle, 0, gymapi.MESH_VISUAL_AND_COLLISION, gymapi.Vec3(*c))
+                for gpd in self.task.environment.ground_parameter_dicts:
+                    # MODIFIED: Convert local ground position to global
+                    global_x = gpd['x'] + self.env_origins[i, 0].item()
+                    global_y = gpd['y'] + self.env_origins[i, 1].item()
+                    add_custom_ground(global_x, global_y, gpd['length'], gpd['width'], 0.1, gpd['friction'], gpd['color'])
+            # create obstacles (if applicable)
+            # MODIFIED: Convert local obstacle positions to global positions for each environment
+            if self.task is not None:
+                for obstacle in self.task.environment.obstacles:
+                    asset_options = gymapi.AssetOptions()
+                    asset_options.disable_gravity = True
+                    asset_options.fix_base_link = True
+                    asset_options.replace_cylinder_with_capsule = True
+                    pose = gymapi.Transform()
+
+                    # MODIFIED: Convert local obstacle position to global by adding env_origin
+                    # obstacle.center is in local frame, add env_origin[i] to get global position
+                    global_x = obstacle.center[0] + self.env_origins[i, 0].item()
+                    global_y = obstacle.center[1] + self.env_origins[i, 1].item()
+                    pose.p = gymapi.Vec3(global_x, global_y, obstacle.height/2)
+
+                    if isinstance(obstacle, CircularObstacle):
+                        asset_obstacle = self.gym.create_capsule(self.sim, obstacle.radius, obstacle.height, asset_options)
+                        pose.r = gymapi.Quat(0.5, 0.5, -0.5, 0.5)
+                    elif isinstance(obstacle, BoxObstacle):
+                        asset_obstacle = self.gym.create_box(self.sim, obstacle.length, obstacle.width, obstacle.height, asset_options)
+                        rotation = Rotation.from_euler(seq='zyx', angles=[obstacle.angle, 0, 0], degrees=False)
+                        pose.r = gymapi.Quat(*rotation.as_quat())
+                    else:
+                        raise NotImplementedError
+                    obstacle_handle = self.gym.create_actor(self.envs[i], asset_obstacle, pose, 'obstacle', i, 0, 1)
+                    self.gym.set_rigid_body_color(self.envs[i], obstacle_handle, 0, gymapi.MESH_VISUAL_AND_COLLISION, gymapi.Vec3(0.5, 0.5, 0.5))
+        '''
+        # per-env actor counts
+        # assume constant number of obstacles per env
+        self.num_obstacles_per_env = 0
+        if self.task is not None:
+            self.num_obstacles_per_env = len(self.task.environment.obstacles)
+        # assume constant number of custom grounds per env
+        self.num_custom_grounds_per_env = 0    # assume no custom grounds
+        # total actors per env
+        self.num_actors_per_env = 1 + self.num_custom_grounds_per_env + self.num_obstacles_per_env    # 1 robot + custom grounds + obstacles
+        # total rigid bodies per env (assume grounds and obstacles are single rigid bodies)
+        self.num_rigid_bodies_per_env = self.num_bodies + self.num_custom_grounds_per_env + self.num_obstacles_per_env
+        
+        # allocate SIM index buffers
+        self.robot_actor_indices = torch.zeros(self.num_envs, dtype=torch.int64, device=self.device)
+        self.robot_dof_indices = torch.zeros(self.num_envs, self.num_dof, dtype=torch.int64, device=self.device)
+        self.robot_rb_indices = torch.zeros(self.num_envs, self.num_bodies, dtype=torch.int64, device=self.device)
+        
+        for i in range(self.num_envs):
+            # create env instance
+            env_handle = self.gym.create_env(self.sim, env_lower, env_upper, int(np.sqrt(self.num_envs)))
+            pos = self.env_origins[i].clone()
+            pos[0:1] += torch_rand_float(-self.cfg.terrain.x_init_range, self.cfg.terrain.x_init_range, (1, 1),
+                                         device=self.device).squeeze(1)
+            pos[1:2] += torch_rand_float(-self.cfg.terrain.y_init_range, self.cfg.terrain.y_init_range, (1, 1),
+                                         device=self.device).squeeze(1)
+            start_pose.p = gymapi.Vec3(*pos)
+
+            rigid_shape_props = self._process_rigid_shape_props(rigid_shape_props_asset, i)
+            self.gym.set_asset_rigid_shape_properties(self.robot_asset, rigid_shape_props)
+            anymal_handle = self.gym.create_actor(env_handle, self.robot_asset, start_pose, "anymal", i,
+                                                  self.cfg.asset.self_collisions, 0)
+            dof_props = self._process_dof_props(dof_props_asset, i)
+            self.gym.set_actor_dof_properties(env_handle, anymal_handle, dof_props)
+            body_props = self.gym.get_actor_rigid_body_properties(env_handle, anymal_handle)
+            body_props = self._process_rigid_body_props(body_props, i)
+            self.gym.set_actor_rigid_body_properties(env_handle, anymal_handle, body_props, recomputeInertia=True)
+            self.envs.append(env_handle)
+            self.actor_handles.append(anymal_handle)
+            # record SIM indices for this robot
+            self.robot_actor_indices[i] = self.gym.get_actor_index(env_handle, anymal_handle, gymapi.DOMAIN_SIM)
+            for d in range(self.num_dof):
+                self.robot_dof_indices[i, d] = self.gym.get_actor_dof_index(env_handle, anymal_handle, d, gymapi.DOMAIN_SIM)
+            for b in range(self.num_bodies):
+                self.robot_rb_indices[i, b] = self.gym.get_actor_rigid_body_index(env_handle, anymal_handle, b, gymapi.DOMAIN_SIM)
 
             # create custom ground (if applicable)
             if self.task is not None and isinstance(self.task.environment, CustomGroundEnvironment):
@@ -1725,7 +1828,7 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
                         raise NotImplementedError
                     obstacle_handle = self.gym.create_actor(self.envs[i], asset_obstacle, pose, 'obstacle', i, 0, 1)
                     self.gym.set_rigid_body_color(env_handle, obstacle_handle, 0, gymapi.MESH_VISUAL_AND_COLLISION, gymapi.Vec3(0.5, 0.5, 0.5))
-
+ 
         self.feet_indices = torch.zeros(len(feet_names), dtype=torch.long, device=self.device, requires_grad=False)
         for i in range(len(feet_names)):
             self.feet_indices[i] = self.gym.find_actor_rigid_body_handle(self.envs[0], self.actor_handles[0],
