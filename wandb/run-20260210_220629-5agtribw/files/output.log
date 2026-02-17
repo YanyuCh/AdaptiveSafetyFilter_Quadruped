@@ -1,0 +1,98 @@
+WandB initialized
+======================================================================
+STEP 7: Constructing Solver
+======================================================================
+= Constructing policy agent
+The neural networks for CRITIC have the architecture as below:
+ModuleList(
+  (0): Sequential(
+    (linear_1): Linear(in_features=13, out_features=128, bias=True)
+    (act_1): ReLU()
+  )
+  (1-2): 2 x Sequential(
+    (linear_1): Linear(in_features=128, out_features=128, bias=True)
+    (act_1): ReLU()
+  )
+  (3): Sequential(
+    (linear_1): Linear(in_features=128, out_features=1, bias=True)
+    (act_1): Identity()
+  )
+)
+The neural network for MEAN has the architecture as below:
+ModuleList(
+  (0): Sequential(
+    (linear_1): Linear(in_features=11, out_features=256, bias=True)
+    (act_1): ReLU()
+  )
+  (1-2): 2 x Sequential(
+    (linear_1): Linear(in_features=256, out_features=256, bias=True)
+    (act_1): ReLU()
+  )
+  (3): Sequential(
+    (linear_1): Linear(in_features=256, out_features=2, bias=True)
+    (act_1): Identity()
+  )
+)
+Total parameters in actor: 270340
+Training device: cuda:0
+Policy device: cuda:0
+Critic using CUDA: True
+======================================================================
+STEP 8: Starting Training
+======================================================================
+Updates at sample step 1000000
+Checks at sample step 1000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Simulating trajectories: 100%|##########| 10/10 [03:50<00:00, 23.06s/it]
+Traceback (most recent call last):
+  File "train_rarl_quadruped.py", line 695, in <module>
+    main(
+  File "train_rarl_quadruped.py", line 613, in main
+    solver.learn(env, visualize_callback=visualize_callback)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_naive_rl.py", line 155, in learn
+    self.check(
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_base_training.py", line 380, in check
+    visualize_callback(
+  File "train_rarl_quadruped.py", line 282, in visualize
+    values = get_values(
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_visualization.py", line 150, in get_values
+    obs_all[:, 2:] = base_obs   # Rest of observation (constant)
+Simulating trajectories: 100%|##########| 10/10 [03:50<00:00, 23.06s/it]
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.445578231292517, 1000000)]
+  => Safety violations: 4728
+  => Safe rate: 0.45
+Traceback (most recent call last):
+  File "train_rarl_quadruped.py", line 695, in <module>
+    main(
+  File "train_rarl_quadruped.py", line 613, in main
+    solver.learn(env, visualize_callback=visualize_callback)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_naive_rl.py", line 155, in learn
+    self.check(
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_base_training.py", line 380, in check
+    visualize_callback(
+  File "train_rarl_quadruped.py", line 282, in visualize
+    values = get_values(
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_visualization.py", line 150, in get_values
+    obs_all[:, 2:] = base_obs   # Rest of observation (constant)
+ValueError: could not broadcast input array from shape (31,) into shape (33355,7)

@@ -1,0 +1,1512 @@
+Loaded ISAACS config from: quadruped_sac.yaml
+Output folder: experiments/quadruped_sac/v2
+Device: cuda:0
+
+======================================================================
+STEP 2: Loading Walk-These-Ways Config and LL Policy
+======================================================================
+Loading from: libraries/OCR/libraries/walk-these-ways/runs/gait-conditioned-agility/pretrain-v0/train/025417.456545
+Loaded low-level policy
+Loaded Walk-These-Ways config
+Successfully loaded from: libraries/OCR/libraries/walk-these-ways/runs/gait-conditioned-agility/pretrain-v0/train/025417.456545
+
+======================================================================
+STEP 3: Loading Environment for NavigationTask
+======================================================================
+Loaded environment from: EnvironmentData/8/environment.pickle
+
+======================================================================
+STEP 4: Creating NavigationTask
+======================================================================
+Created NavigationTask:
+  - Robot radius: 0.35
+  - Goal position: [10.  0.]
+  - Goal radius: 0.5
+  - Number of obstacles: 8
+
+======================================================================
+STEP 5: Creating ObstacleAvoidanceNavigation Environment
+======================================================================
+/home/cassie/.conda/envs/quadruped/lib/python3.8/site-packages/torch/functional.py:512: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at ../aten/src/ATen/native/TensorShape.cpp:3587.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/home/cassie/.conda/envs/quadruped/lib/python3.8/site-packages/torch/functional.py:512: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at ../aten/src/ATen/native/TensorShape.cpp:3587.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+Environment created successfully:
+  - Number of environments: 1000
+  - High-level observation dim: 9
+  - High-level action dim: 2
+  - Device: cuda:0
+
+======================================================================
+STEP 6: Setting up Weights & Biases
+======================================================================
+wandb: Currently logged in as: yanyuc (CassieC). Use `wandb login --relogin` to force relogin
+wandb: Currently logged in as: yanyuc (CassieC). Use `wandb login --relogin` to force relogin
+wandb: wandb version 0.24.2 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: wandb version 0.24.2 is available!  To upgrade, please run:
+wandb:  $ pip install wandb --upgrade
+wandb: Tracking run with wandb version 0.16.6
+wandb: Tracking run with wandb version 0.16.6
+wandb: Run data is saved locally in /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260210_222736-uzpns5vr
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Run data is saved locally in /home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/wandb/run-20260210_222736-uzpns5vr
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run v2
+wandb: Syncing run v2
+wandb:  View project at https://wandb.ai/CassieC/quadruped_sac
+wandb:  View project at https://wandb.ai/CassieC/quadruped_sac
+wandb:  View run at https://wandb.ai/CassieC/quadruped_sac/runs/uzpns5vr
+wandb:  View run at https://wandb.ai/CassieC/quadruped_sac/runs/uzpns5vr
+WandB initialized
+
+======================================================================
+STEP 7: Constructing Solver
+======================================================================
+= Constructing policy agent
+The neural networks for CRITIC have the architecture as below:
+ModuleList(
+  (0): Sequential(
+    (linear_1): Linear(in_features=13, out_features=128, bias=True)
+    (act_1): ReLU()
+  )
+  (1-2): 2 x Sequential(
+    (linear_1): Linear(in_features=128, out_features=128, bias=True)
+    (act_1): ReLU()
+  )
+  (3): Sequential(
+    (linear_1): Linear(in_features=128, out_features=1, bias=True)
+    (act_1): Identity()
+  )
+)
+The neural network for MEAN has the architecture as below:
+ModuleList(
+  (0): Sequential(
+    (linear_1): Linear(in_features=11, out_features=256, bias=True)
+    (act_1): ReLU()
+  )
+  (1-2): 2 x Sequential(
+    (linear_1): Linear(in_features=256, out_features=256, bias=True)
+    (act_1): ReLU()
+  )
+  (3): Sequential(
+    (linear_1): Linear(in_features=256, out_features=2, bias=True)
+    (act_1): Identity()
+  )
+)
+
+Total parameters in actor: 270340
+Training device: cuda:0
+Policy device: cuda:0
+Critic using CUDA: True
+
+======================================================================
+STEP 8: Starting Training
+======================================================================
+Updates at sample step 1000000
+Checks at sample step 1000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:33, 23.75s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:33, 23.75s/it]Simulating trajectories:  20%|##        | 2/10 [00:46<03:05, 23.23s/it]Simulating trajectories:  20%|##        | 2/10 [00:46<03:05, 23.23s/it]Simulating trajectories:  30%|###       | 3/10 [01:09<02:42, 23.21s/it]Simulating trajectories:  30%|###       | 3/10 [01:09<02:42, 23.21s/it]Simulating trajectories:  40%|####      | 4/10 [01:32<02:18, 23.08s/it]Simulating trajectories:  40%|####      | 4/10 [01:32<02:18, 23.08s/it]Simulating trajectories:  50%|#####     | 5/10 [01:55<01:55, 23.10s/it]Simulating trajectories:  50%|#####     | 5/10 [01:55<01:55, 23.10s/it]Simulating trajectories:  60%|######    | 6/10 [02:18<01:32, 23.05s/it]Simulating trajectories:  60%|######    | 6/10 [02:18<01:32, 23.05s/it]Simulating trajectories:  70%|#######   | 7/10 [02:42<01:09, 23.12s/it]Simulating trajectories:  70%|#######   | 7/10 [02:42<01:09, 23.12s/it]Simulating trajectories:  80%|########  | 8/10 [03:04<00:46, 23.05s/it]Simulating trajectories:  80%|########  | 8/10 [03:04<00:46, 23.05s/it]Simulating trajectories:  90%|######### | 9/10 [03:27<00:22, 22.98s/it]Simulating trajectories:  90%|######### | 9/10 [03:27<00:22, 22.98s/it]Simulating trajectories: 100%|##########| 10/10 [03:50<00:00, 23.01s/it]Simulating trajectories: 100%|##########| 10/10 [03:50<00:00, 23.01s/it]Simulating trajectories: 100%|##########| 10/10 [03:50<00:00, 23.09s/it]Simulating trajectories: 100%|##########| 10/10 [03:50<00:00, 23.09s/it]
+
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.4527210884353742, 1000000)]
+  => Safety violations: 4656
+  => Safe rate: 0.45
+Saving visualization to experiments/quadruped_sac/v2/figure/1000000.png
+Updates at sample step 1020000
+Updates at sample step 1040000
+Updates at sample step 1060000
+Updates at sample step 1080000
+Updates at sample step 1100000
+Updates at sample step 1120000
+Updates at sample step 1140000
+Updates at sample step 1160000
+Updates at sample step 1180000
+Updates at sample step 1200000
+Updates at sample step 1220000
+Updates at sample step 1240000
+Updates at sample step 1260000
+Updates at sample step 1280000
+Updates at sample step 1300000
+Updates at sample step 1320000
+Updates at sample step 1340000
+Updates at sample step 1360000
+Updates at sample step 1380000
+Updates at sample step 1400000
+Updates at sample step 1420000
+Updates at sample step 1440000
+Updates at sample step 1460000
+Updates at sample step 1480000
+Updates at sample step 1500000
+Checks at sample step 1500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:33, 23.77s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:33, 23.77s/it]Simulating trajectories:  20%|##        | 2/10 [00:47<03:08, 23.52s/it]Simulating trajectories:  20%|##        | 2/10 [00:47<03:08, 23.52s/it]Simulating trajectories:  30%|###       | 3/10 [01:10<02:45, 23.58s/it]Simulating trajectories:  30%|###       | 3/10 [01:10<02:45, 23.58s/it]Simulating trajectories:  40%|####      | 4/10 [01:34<02:22, 23.67s/it]Simulating trajectories:  40%|####      | 4/10 [01:34<02:22, 23.67s/it]Simulating trajectories:  50%|#####     | 5/10 [01:57<01:57, 23.46s/it]Simulating trajectories:  50%|#####     | 5/10 [01:57<01:57, 23.46s/it]Simulating trajectories:  60%|######    | 6/10 [02:20<01:33, 23.40s/it]Simulating trajectories:  60%|######    | 6/10 [02:20<01:33, 23.40s/it]Simulating trajectories:  70%|#######   | 7/10 [02:44<01:09, 23.33s/it]Simulating trajectories:  70%|#######   | 7/10 [02:44<01:09, 23.33s/it]Simulating trajectories:  80%|########  | 8/10 [03:07<00:46, 23.24s/it]Simulating trajectories:  80%|########  | 8/10 [03:07<00:46, 23.24s/it]Simulating trajectories:  90%|######### | 9/10 [03:30<00:23, 23.17s/it]Simulating trajectories:  90%|######### | 9/10 [03:30<00:23, 23.17s/it]Simulating trajectories: 100%|##########| 10/10 [03:54<00:00, 23.54s/it]Simulating trajectories: 100%|##########| 10/10 [03:54<00:00, 23.54s/it]Simulating trajectories: 100%|##########| 10/10 [03:54<00:00, 23.46s/it]Simulating trajectories: 100%|##########| 10/10 [03:54<00:00, 23.46s/it]
+
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.4527210884353742, 1000000), (0.47653061224489796, 1500000)]
+  => Safety violations: 6875
+  => Safe rate: 0.48
+Saving visualization to experiments/quadruped_sac/v2/figure/1500000.png
+Updates at sample step 1520000
+Updates at sample step 1540000
+Updates at sample step 1560000
+Updates at sample step 1580000
+Updates at sample step 1600000
+Updates at sample step 1620000
+Updates at sample step 1640000
+Updates at sample step 1660000
+Updates at sample step 1680000
+Updates at sample step 1700000
+Updates at sample step 1720000
+Updates at sample step 1740000
+Updates at sample step 1760000
+Updates at sample step 1780000
+Updates at sample step 1800000
+Updates at sample step 1820000
+Updates at sample step 1840000
+Updates at sample step 1860000
+Updates at sample step 1880000
+Updates at sample step 1900000
+Updates at sample step 1920000
+Updates at sample step 1940000
+Updates at sample step 1960000
+Updates at sample step 1980000
+Updates at sample step 2000000
+Checks at sample step 2000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:33, 23.70s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:33, 23.70s/it]Simulating trajectories:  20%|##        | 2/10 [00:47<03:10, 23.85s/it]Simulating trajectories:  20%|##        | 2/10 [00:47<03:10, 23.85s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:50, 24.31s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:50, 24.31s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:24, 24.02s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:24, 24.02s/it]Simulating trajectories:  50%|#####     | 5/10 [01:59<01:58, 23.75s/it]Simulating trajectories:  50%|#####     | 5/10 [01:59<01:58, 23.75s/it]Simulating trajectories:  60%|######    | 6/10 [02:22<01:34, 23.62s/it]Simulating trajectories:  60%|######    | 6/10 [02:22<01:34, 23.62s/it]Simulating trajectories:  70%|#######   | 7/10 [02:46<01:11, 23.70s/it]Simulating trajectories:  70%|#######   | 7/10 [02:46<01:11, 23.70s/it]Simulating trajectories:  80%|########  | 8/10 [03:09<00:47, 23.54s/it]Simulating trajectories:  80%|########  | 8/10 [03:09<00:47, 23.54s/it]Simulating trajectories:  90%|######### | 9/10 [03:32<00:23, 23.22s/it]Simulating trajectories:  90%|######### | 9/10 [03:32<00:23, 23.22s/it]Simulating trajectories: 100%|##########| 10/10 [03:55<00:00, 23.16s/it]Simulating trajectories: 100%|##########| 10/10 [03:55<00:00, 23.16s/it]Simulating trajectories: 100%|##########| 10/10 [03:55<00:00, 23.53s/it]Simulating trajectories: 100%|##########| 10/10 [03:55<00:00, 23.53s/it]
+
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.4527210884353742, 1000000), (0.47653061224489796, 1500000), (0.5792517006802721, 2000000)]
+  => Safety violations: 8855
+  => Safe rate: 0.58
+Saving visualization to experiments/quadruped_sac/v2/figure/2000000.png
+Updates at sample step 2020000
+Updates at sample step 2040000
+Updates at sample step 2060000
+Updates at sample step 2080000
+Updates at sample step 2100000
+Updates at sample step 2120000
+Updates at sample step 2140000
+Updates at sample step 2160000
+Updates at sample step 2180000
+Updates at sample step 2200000
+Updates at sample step 2220000
+Updates at sample step 2240000
+Updates at sample step 2260000
+Updates at sample step 2280000
+Updates at sample step 2300000
+Updates at sample step 2320000
+Updates at sample step 2340000
+Updates at sample step 2360000
+Updates at sample step 2380000
+Updates at sample step 2400000
+Updates at sample step 2420000
+Updates at sample step 2440000
+Updates at sample step 2460000
+Updates at sample step 2480000
+Updates at sample step 2500000
+Checks at sample step 2500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:29, 23.26s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:29, 23.26s/it]Simulating trajectories:  20%|##        | 2/10 [00:46<03:08, 23.51s/it]Simulating trajectories:  20%|##        | 2/10 [00:46<03:08, 23.51s/it]Simulating trajectories:  30%|###       | 3/10 [01:10<02:46, 23.71s/it]Simulating trajectories:  30%|###       | 3/10 [01:10<02:46, 23.71s/it]Simulating trajectories:  40%|####      | 4/10 [01:34<02:22, 23.73s/it]Simulating trajectories:  40%|####      | 4/10 [01:34<02:22, 23.73s/it]Simulating trajectories:  50%|#####     | 5/10 [01:58<01:58, 23.61s/it]Simulating trajectories:  50%|#####     | 5/10 [01:58<01:58, 23.61s/it]Simulating trajectories:  60%|######    | 6/10 [02:21<01:34, 23.59s/it]Simulating trajectories:  60%|######    | 6/10 [02:21<01:34, 23.59s/it]Simulating trajectories:  70%|#######   | 7/10 [02:45<01:10, 23.57s/it]Simulating trajectories:  70%|#######   | 7/10 [02:45<01:10, 23.57s/it]Simulating trajectories:  80%|########  | 8/10 [03:08<00:47, 23.51s/it]Simulating trajectories:  80%|########  | 8/10 [03:08<00:47, 23.51s/it]Simulating trajectories:  90%|######### | 9/10 [03:31<00:23, 23.44s/it]Simulating trajectories:  90%|######### | 9/10 [03:31<00:23, 23.44s/it]Simulating trajectories: 100%|##########| 10/10 [03:55<00:00, 23.46s/it]Simulating trajectories: 100%|##########| 10/10 [03:55<00:00, 23.46s/it]Simulating trajectories: 100%|##########| 10/10 [03:55<00:00, 23.53s/it]Simulating trajectories: 100%|##########| 10/10 [03:55<00:00, 23.53s/it]
+
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.4527210884353742, 1000000), (0.47653061224489796, 1500000), (0.5792517006802721, 2000000), (0.6224489795918368, 2500000)]
+  => Safety violations: 10526
+  => Safe rate: 0.62
+Saving visualization to experiments/quadruped_sac/v2/figure/2500000.png
+Updates at sample step 2520000
+Updates at sample step 2540000
+Updates at sample step 2560000
+Updates at sample step 2580000
+Updates at sample step 2600000
+Updates at sample step 2620000
+Updates at sample step 2640000
+Updates at sample step 2660000
+Updates at sample step 2680000
+Updates at sample step 2700000
+Updates at sample step 2720000
+Updates at sample step 2740000
+Updates at sample step 2760000
+Updates at sample step 2780000
+Updates at sample step 2800000
+Updates at sample step 2820000
+Updates at sample step 2840000
+Updates at sample step 2860000
+Updates at sample step 2880000
+Updates at sample step 2900000
+Updates at sample step 2920000
+Updates at sample step 2940000
+Updates at sample step 2960000
+Updates at sample step 2980000
+Updates at sample step 3000000
+Checks at sample step 3000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:28, 23.14s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:28, 23.14s/it]Simulating trajectories:  20%|##        | 2/10 [00:46<03:05, 23.16s/it]Simulating trajectories:  20%|##        | 2/10 [00:46<03:05, 23.16s/it]Simulating trajectories:  30%|###       | 3/10 [01:10<02:45, 23.63s/it]Simulating trajectories:  30%|###       | 3/10 [01:10<02:45, 23.63s/it]Simulating trajectories:  40%|####      | 4/10 [01:33<02:21, 23.53s/it]Simulating trajectories:  40%|####      | 4/10 [01:33<02:21, 23.53s/it]Simulating trajectories:  50%|#####     | 5/10 [01:56<01:56, 23.34s/it]Simulating trajectories:  50%|#####     | 5/10 [01:56<01:56, 23.34s/it]Simulating trajectories:  60%|######    | 6/10 [02:19<01:32, 23.17s/it]Simulating trajectories:  60%|######    | 6/10 [02:19<01:32, 23.17s/it]Simulating trajectories:  70%|#######   | 7/10 [02:42<01:09, 23.01s/it]Simulating trajectories:  70%|#######   | 7/10 [02:42<01:09, 23.01s/it]Simulating trajectories:  80%|########  | 8/10 [03:05<00:46, 23.01s/it]Simulating trajectories:  80%|########  | 8/10 [03:05<00:46, 23.01s/it]Simulating trajectories:  90%|######### | 9/10 [03:28<00:23, 23.07s/it]Simulating trajectories:  90%|######### | 9/10 [03:28<00:23, 23.07s/it]Simulating trajectories: 100%|##########| 10/10 [03:51<00:00, 23.16s/it]Simulating trajectories: 100%|##########| 10/10 [03:51<00:00, 23.16s/it]Simulating trajectories: 100%|##########| 10/10 [03:51<00:00, 23.20s/it]Simulating trajectories: 100%|##########| 10/10 [03:51<00:00, 23.20s/it]
+
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.4527210884353742, 1000000), (0.47653061224489796, 1500000), (0.5792517006802721, 2000000), (0.6224489795918368, 2500000), (0.5802721088435374, 3000000)]
+  => Safety violations: 12082
+  => Safe rate: 0.58
+Saving visualization to experiments/quadruped_sac/v2/figure/3000000.png
+Updates at sample step 3020000
+Updates at sample step 3040000
+Updates at sample step 3060000
+Updates at sample step 3080000
+Updates at sample step 3100000
+Updates at sample step 3120000
+Updates at sample step 3140000
+Updates at sample step 3160000
+Updates at sample step 3180000
+Updates at sample step 3200000
+Updates at sample step 3220000
+Updates at sample step 3240000
+Updates at sample step 3260000
+Updates at sample step 3280000
+Updates at sample step 3300000
+Updates at sample step 3320000
+Updates at sample step 3340000
+Updates at sample step 3360000
+Updates at sample step 3380000
+Updates at sample step 3400000
+Updates at sample step 3420000
+Updates at sample step 3440000
+Updates at sample step 3460000
+Updates at sample step 3480000
+Updates at sample step 3500000
+Checks at sample step 3500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:33, 23.69s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:33, 23.69s/it]Simulating trajectories:  20%|##        | 2/10 [00:47<03:08, 23.50s/it]Simulating trajectories:  20%|##        | 2/10 [00:47<03:08, 23.50s/it]Simulating trajectories:  30%|###       | 3/10 [01:11<02:46, 23.75s/it]Simulating trajectories:  30%|###       | 3/10 [01:11<02:46, 23.75s/it]Simulating trajectories:  40%|####      | 4/10 [01:35<02:23, 23.83s/it]Simulating trajectories:  40%|####      | 4/10 [01:35<02:23, 23.83s/it]Simulating trajectories:  50%|#####     | 5/10 [01:58<01:59, 23.82s/it]Simulating trajectories:  50%|#####     | 5/10 [01:58<01:59, 23.82s/it]Simulating trajectories:  60%|######    | 6/10 [02:22<01:34, 23.59s/it]Simulating trajectories:  60%|######    | 6/10 [02:22<01:34, 23.59s/it]Simulating trajectories:  70%|#######   | 7/10 [02:45<01:10, 23.47s/it]Simulating trajectories:  70%|#######   | 7/10 [02:45<01:10, 23.47s/it]Simulating trajectories:  80%|########  | 8/10 [03:08<00:46, 23.46s/it]Simulating trajectories:  80%|########  | 8/10 [03:08<00:46, 23.46s/it]Simulating trajectories:  90%|######### | 9/10 [03:32<00:23, 23.48s/it]Simulating trajectories:  90%|######### | 9/10 [03:32<00:23, 23.48s/it]Simulating trajectories: 100%|##########| 10/10 [03:55<00:00, 23.45s/it]Simulating trajectories: 100%|##########| 10/10 [03:55<00:00, 23.45s/it]Simulating trajectories: 100%|##########| 10/10 [03:55<00:00, 23.56s/it]Simulating trajectories: 100%|##########| 10/10 [03:55<00:00, 23.56s/it]
+
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.4527210884353742, 1000000), (0.47653061224489796, 1500000), (0.5792517006802721, 2000000), (0.6224489795918368, 2500000), (0.5802721088435374, 3000000), (0.6136054421768707, 3500000)]
+  => Safety violations: 13730
+  => Safe rate: 0.61
+Saving visualization to experiments/quadruped_sac/v2/figure/3500000.png
+Updates at sample step 3520000
+Updates at sample step 3540000
+Updates at sample step 3560000
+Updates at sample step 3580000
+Updates at sample step 3600000
+Updates at sample step 3620000
+Updates at sample step 3640000
+Updates at sample step 3660000
+Updates at sample step 3680000
+Updates at sample step 3700000
+Updates at sample step 3720000
+Updates at sample step 3740000
+Updates at sample step 3760000
+Updates at sample step 3780000
+Updates at sample step 3800000
+Updates at sample step 3820000
+Updates at sample step 3840000
+Updates at sample step 3860000
+Updates at sample step 3880000
+Updates at sample step 3900000
+Updates at sample step 3920000
+Updates at sample step 3940000
+Updates at sample step 3960000
+Updates at sample step 3980000
+Updates at sample step 4000000
+Checks at sample step 4000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:37, 24.13s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:37, 24.13s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:12, 24.03s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:12, 24.03s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.57s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.57s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.37s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.37s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:00, 24.15s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:00, 24.15s/it]Simulating trajectories:  60%|######    | 6/10 [02:24<01:35, 23.94s/it]Simulating trajectories:  60%|######    | 6/10 [02:24<01:35, 23.94s/it]Simulating trajectories:  70%|#######   | 7/10 [02:48<01:11, 23.83s/it]Simulating trajectories:  70%|#######   | 7/10 [02:48<01:11, 23.83s/it]Simulating trajectories:  80%|########  | 8/10 [03:11<00:47, 23.71s/it]Simulating trajectories:  80%|########  | 8/10 [03:11<00:47, 23.71s/it]Simulating trajectories:  90%|######### | 9/10 [03:35<00:23, 23.70s/it]Simulating trajectories:  90%|######### | 9/10 [03:35<00:23, 23.70s/it]Simulating trajectories: 100%|##########| 10/10 [03:59<00:00, 23.86s/it]Simulating trajectories: 100%|##########| 10/10 [03:59<00:00, 23.86s/it]Simulating trajectories: 100%|##########| 10/10 [03:59<00:00, 23.96s/it]Simulating trajectories: 100%|##########| 10/10 [03:59<00:00, 23.96s/it]
+
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.4527210884353742, 1000000), (0.47653061224489796, 1500000), (0.5792517006802721, 2000000), (0.6224489795918368, 2500000), (0.5802721088435374, 3000000), (0.6136054421768707, 3500000), (0.714625850340136, 4000000)]
+  => Safety violations: 15042
+  => Safe rate: 0.71
+Saving visualization to experiments/quadruped_sac/v2/figure/4000000.png
+Updates at sample step 4020000
+Updates at sample step 4040000
+Updates at sample step 4060000
+Updates at sample step 4080000
+Updates at sample step 4100000
+Updates at sample step 4120000
+Updates at sample step 4140000
+Updates at sample step 4160000
+Updates at sample step 4180000
+Updates at sample step 4200000
+Updates at sample step 4220000
+Updates at sample step 4240000
+Updates at sample step 4260000
+Updates at sample step 4280000
+Updates at sample step 4300000
+Updates at sample step 4320000
+Updates at sample step 4340000
+Updates at sample step 4360000
+Updates at sample step 4380000
+Updates at sample step 4400000
+Updates at sample step 4420000
+Updates at sample step 4440000
+Updates at sample step 4460000
+Updates at sample step 4480000
+Updates at sample step 4500000
+Checks at sample step 4500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:38, 24.33s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:38, 24.33s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:15, 24.43s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:15, 24.43s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.46s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.46s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.41s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.41s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:01, 24.29s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:01, 24.29s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:36, 24.22s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:36, 24.22s/it]Simulating trajectories:  70%|#######   | 7/10 [02:49<01:12, 24.13s/it]Simulating trajectories:  70%|#######   | 7/10 [02:49<01:12, 24.13s/it]Simulating trajectories:  80%|########  | 8/10 [03:13<00:48, 24.00s/it]Simulating trajectories:  80%|########  | 8/10 [03:13<00:48, 24.00s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:24, 24.34s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:24, 24.34s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.25s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.25s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.26s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.26s/it]
+
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.4527210884353742, 1000000), (0.47653061224489796, 1500000), (0.5792517006802721, 2000000), (0.6224489795918368, 2500000), (0.5802721088435374, 3000000), (0.6136054421768707, 3500000), (0.714625850340136, 4000000), (0.7751700680272109, 4500000)]
+  => Safety violations: 16057
+  => Safe rate: 0.78
+Saving visualization to experiments/quadruped_sac/v2/figure/4500000.png
+Updates at sample step 4520000
+Updates at sample step 4540000
+Updates at sample step 4560000
+Updates at sample step 4580000
+Updates at sample step 4600000
+Updates at sample step 4620000
+Updates at sample step 4640000
+Updates at sample step 4660000
+Updates at sample step 4680000
+Updates at sample step 4700000
+Updates at sample step 4720000
+Updates at sample step 4740000
+Updates at sample step 4760000
+Updates at sample step 4780000
+Updates at sample step 4800000
+Updates at sample step 4820000
+Updates at sample step 4840000
+Updates at sample step 4860000
+Updates at sample step 4880000
+Updates at sample step 4900000
+Updates at sample step 4920000
+Updates at sample step 4940000
+Updates at sample step 4960000
+Updates at sample step 4980000
+Updates at sample step 5000000
+Checks at sample step 5000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:40, 24.49s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:40, 24.49s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:12, 24.03s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:12, 24.03s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:48, 24.08s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:48, 24.08s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:24, 24.12s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:24, 24.12s/it]Simulating trajectories:  50%|#####     | 5/10 [02:00<02:00, 24.13s/it]Simulating trajectories:  50%|#####     | 5/10 [02:00<02:00, 24.13s/it]Simulating trajectories:  60%|######    | 6/10 [02:24<01:35, 23.94s/it]Simulating trajectories:  60%|######    | 6/10 [02:24<01:35, 23.94s/it]Simulating trajectories:  70%|#######   | 7/10 [02:47<01:11, 23.73s/it]Simulating trajectories:  70%|#######   | 7/10 [02:47<01:11, 23.73s/it]Simulating trajectories:  80%|########  | 8/10 [03:10<00:47, 23.64s/it]Simulating trajectories:  80%|########  | 8/10 [03:10<00:47, 23.64s/it]Simulating trajectories:  90%|######### | 9/10 [03:34<00:23, 23.68s/it]Simulating trajectories:  90%|######### | 9/10 [03:34<00:23, 23.68s/it]Simulating trajectories: 100%|##########| 10/10 [03:58<00:00, 23.76s/it]Simulating trajectories: 100%|##########| 10/10 [03:58<00:00, 23.76s/it]Simulating trajectories: 100%|##########| 10/10 [03:58<00:00, 23.87s/it]Simulating trajectories: 100%|##########| 10/10 [03:58<00:00, 23.87s/it]
+
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.4527210884353742, 1000000), (0.47653061224489796, 1500000), (0.5792517006802721, 2000000), (0.6224489795918368, 2500000), (0.5802721088435374, 3000000), (0.6136054421768707, 3500000), (0.714625850340136, 4000000), (0.7751700680272109, 4500000), (0.7523809523809524, 5000000)]
+  => Safety violations: 16926
+  => Safe rate: 0.75
+Saving visualization to experiments/quadruped_sac/v2/figure/5000000.png
+Updates at sample step 5020000
+Updates at sample step 5040000
+Updates at sample step 5060000
+Updates at sample step 5080000
+Updates at sample step 5100000
+Updates at sample step 5120000
+Updates at sample step 5140000
+Updates at sample step 5160000
+Updates at sample step 5180000
+Updates at sample step 5200000
+Updates at sample step 5220000
+Updates at sample step 5240000
+Updates at sample step 5260000
+Updates at sample step 5280000
+Updates at sample step 5300000
+Updates at sample step 5320000
+Updates at sample step 5340000
+Updates at sample step 5360000
+Updates at sample step 5380000
+Updates at sample step 5400000
+Updates at sample step 5420000
+Updates at sample step 5440000
+Updates at sample step 5460000
+Updates at sample step 5480000
+Updates at sample step 5500000
+Checks at sample step 5500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:32, 23.57s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:32, 23.57s/it]Simulating trajectories:  20%|##        | 2/10 [00:47<03:11, 23.90s/it]Simulating trajectories:  20%|##        | 2/10 [00:47<03:11, 23.90s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:48, 24.14s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:48, 24.14s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:24, 24.06s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:24, 24.06s/it]Simulating trajectories:  50%|#####     | 5/10 [02:00<02:00, 24.04s/it]Simulating trajectories:  50%|#####     | 5/10 [02:00<02:00, 24.04s/it]Simulating trajectories:  60%|######    | 6/10 [02:23<01:35, 23.93s/it]Simulating trajectories:  60%|######    | 6/10 [02:23<01:35, 23.93s/it]Simulating trajectories:  70%|#######   | 7/10 [02:48<01:12, 24.24s/it]Simulating trajectories:  70%|#######   | 7/10 [02:48<01:12, 24.24s/it]Simulating trajectories:  80%|########  | 8/10 [03:12<00:48, 24.11s/it]Simulating trajectories:  80%|########  | 8/10 [03:12<00:48, 24.11s/it]Simulating trajectories:  90%|######### | 9/10 [03:36<00:24, 24.05s/it]Simulating trajectories:  90%|######### | 9/10 [03:36<00:24, 24.05s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 24.00s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 24.00s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 24.03s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 24.03s/it]
+
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.4527210884353742, 1000000), (0.47653061224489796, 1500000), (0.5792517006802721, 2000000), (0.6224489795918368, 2500000), (0.5802721088435374, 3000000), (0.6136054421768707, 3500000), (0.714625850340136, 4000000), (0.7751700680272109, 4500000), (0.7523809523809524, 5000000), (0.745578231292517, 5500000)]
+  => Safety violations: 17644
+  => Safe rate: 0.75
+Saving visualization to experiments/quadruped_sac/v2/figure/5500000.png
+Updates at sample step 5520000
+Updates at sample step 5540000
+Updates at sample step 5560000
+Updates at sample step 5580000
+Updates at sample step 5600000
+Updates at sample step 5620000
+Updates at sample step 5640000
+Updates at sample step 5660000
+Updates at sample step 5680000
+Updates at sample step 5700000
+Updates at sample step 5720000
+Updates at sample step 5740000
+Updates at sample step 5760000
+Updates at sample step 5780000
+Updates at sample step 5800000
+Updates at sample step 5820000
+Updates at sample step 5840000
+Updates at sample step 5860000
+Updates at sample step 5880000
+Updates at sample step 5900000
+Updates at sample step 5920000
+Updates at sample step 5940000
+Updates at sample step 5960000
+Updates at sample step 5980000
+Updates at sample step 6000000
+Checks at sample step 6000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:39, 24.42s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:39, 24.42s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:15, 24.39s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:15, 24.39s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:50, 24.34s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:50, 24.34s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:25, 24.18s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:25, 24.18s/it]Simulating trajectories:  50%|#####     | 5/10 [02:00<02:00, 24.09s/it]Simulating trajectories:  50%|#####     | 5/10 [02:00<02:00, 24.09s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:36, 24.09s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:36, 24.09s/it]Simulating trajectories:  70%|#######   | 7/10 [02:48<01:12, 24.00s/it]Simulating trajectories:  70%|#######   | 7/10 [02:48<01:12, 24.00s/it]Simulating trajectories:  80%|########  | 8/10 [03:12<00:47, 23.99s/it]Simulating trajectories:  80%|########  | 8/10 [03:12<00:47, 23.99s/it]Simulating trajectories:  90%|######### | 9/10 [03:36<00:23, 23.92s/it]Simulating trajectories:  90%|######### | 9/10 [03:36<00:23, 23.92s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 23.88s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 23.88s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 24.04s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 24.04s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-1000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-1000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.47653061224489796, 1500000), (0.5802721088435374, 3000000), (0.5792517006802721, 2000000), (0.6224489795918368, 2500000), (0.745578231292517, 5500000), (0.6136054421768707, 3500000), (0.714625850340136, 4000000), (0.7751700680272109, 4500000), (0.7523809523809524, 5000000), (0.7639455782312925, 6000000)]
+  => Safety violations: 18307
+  => Safe rate: 0.76
+Saving visualization to experiments/quadruped_sac/v2/figure/6000000.png
+Updates at sample step 6020000
+Updates at sample step 6040000
+Updates at sample step 6060000
+Updates at sample step 6080000
+Updates at sample step 6100000
+Updates at sample step 6120000
+Updates at sample step 6140000
+Updates at sample step 6160000
+Updates at sample step 6180000
+Updates at sample step 6200000
+Updates at sample step 6220000
+Updates at sample step 6240000
+Updates at sample step 6260000
+Updates at sample step 6280000
+Updates at sample step 6300000
+Updates at sample step 6320000
+Updates at sample step 6340000
+Updates at sample step 6360000
+Updates at sample step 6380000
+Updates at sample step 6400000
+Updates at sample step 6420000
+Updates at sample step 6440000
+Updates at sample step 6460000
+Updates at sample step 6480000
+Updates at sample step 6500000
+Checks at sample step 6500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:35, 23.97s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:35, 23.97s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:12, 24.11s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:12, 24.11s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:49, 24.27s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:49, 24.27s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:25, 24.31s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:25, 24.31s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.57s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.57s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.41s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.41s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:13, 24.35s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:13, 24.35s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.18s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.18s/it]Simulating trajectories:  90%|######### | 9/10 [03:37<00:24, 24.05s/it]Simulating trajectories:  90%|######### | 9/10 [03:37<00:24, 24.05s/it]Simulating trajectories: 100%|##########| 10/10 [04:01<00:00, 24.04s/it]Simulating trajectories: 100%|##########| 10/10 [04:01<00:00, 24.04s/it]Simulating trajectories: 100%|##########| 10/10 [04:01<00:00, 24.19s/it]Simulating trajectories: 100%|##########| 10/10 [04:01<00:00, 24.19s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-1500000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-1500000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.5792517006802721, 2000000), (0.5802721088435374, 3000000), (0.6136054421768707, 3500000), (0.6224489795918368, 2500000), (0.745578231292517, 5500000), (0.7639455782312925, 6000000), (0.714625850340136, 4000000), (0.7751700680272109, 4500000), (0.7523809523809524, 5000000), (0.7663265306122449, 6500000)]
+  => Safety violations: 18903
+  => Safe rate: 0.77
+Saving visualization to experiments/quadruped_sac/v2/figure/6500000.png
+Updates at sample step 6520000
+Updates at sample step 6540000
+Updates at sample step 6560000
+Updates at sample step 6580000
+Updates at sample step 6600000
+Updates at sample step 6620000
+Updates at sample step 6640000
+Updates at sample step 6660000
+Updates at sample step 6680000
+Updates at sample step 6700000
+Updates at sample step 6720000
+Updates at sample step 6740000
+Updates at sample step 6760000
+Updates at sample step 6780000
+Updates at sample step 6800000
+Updates at sample step 6820000
+Updates at sample step 6840000
+Updates at sample step 6860000
+Updates at sample step 6880000
+Updates at sample step 6900000
+Updates at sample step 6920000
+Updates at sample step 6940000
+Updates at sample step 6960000
+Updates at sample step 6980000
+Updates at sample step 7000000
+Checks at sample step 7000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:37, 24.21s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:37, 24.21s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:13, 24.15s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:13, 24.15s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:49, 24.19s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:49, 24.19s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:25, 24.20s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:25, 24.20s/it]Simulating trajectories:  50%|#####     | 5/10 [02:00<02:00, 24.14s/it]Simulating trajectories:  50%|#####     | 5/10 [02:00<02:00, 24.14s/it]Simulating trajectories:  60%|######    | 6/10 [02:24<01:35, 23.95s/it]Simulating trajectories:  60%|######    | 6/10 [02:24<01:35, 23.95s/it]Simulating trajectories:  70%|#######   | 7/10 [02:48<01:11, 23.89s/it]Simulating trajectories:  70%|#######   | 7/10 [02:48<01:11, 23.89s/it]Simulating trajectories:  80%|########  | 8/10 [03:11<00:47, 23.76s/it]Simulating trajectories:  80%|########  | 8/10 [03:11<00:47, 23.76s/it]Simulating trajectories:  90%|######### | 9/10 [03:35<00:23, 23.84s/it]Simulating trajectories:  90%|######### | 9/10 [03:35<00:23, 23.84s/it]Simulating trajectories: 100%|##########| 10/10 [03:59<00:00, 23.91s/it]Simulating trajectories: 100%|##########| 10/10 [03:59<00:00, 23.91s/it]Simulating trajectories: 100%|##########| 10/10 [03:59<00:00, 23.97s/it]Simulating trajectories: 100%|##########| 10/10 [03:59<00:00, 23.97s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-2000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-2000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.5802721088435374, 3000000), (0.6224489795918368, 2500000), (0.6136054421768707, 3500000), (0.7523809523809524, 5000000), (0.745578231292517, 5500000), (0.7639455782312925, 6000000), (0.714625850340136, 4000000), (0.7751700680272109, 4500000), (0.7663265306122449, 6500000), (0.7775510204081633, 7000000)]
+  => Safety violations: 19468
+  => Safe rate: 0.78
+Saving visualization to experiments/quadruped_sac/v2/figure/7000000.png
+Updates at sample step 7020000
+Updates at sample step 7040000
+Updates at sample step 7060000
+Updates at sample step 7080000
+Updates at sample step 7100000
+Updates at sample step 7120000
+Updates at sample step 7140000
+Updates at sample step 7160000
+Updates at sample step 7180000
+Updates at sample step 7200000
+Updates at sample step 7220000
+Updates at sample step 7240000
+Updates at sample step 7260000
+Updates at sample step 7280000
+Updates at sample step 7300000
+Updates at sample step 7320000
+Updates at sample step 7340000
+Updates at sample step 7360000
+Updates at sample step 7380000
+Updates at sample step 7400000
+Updates at sample step 7420000
+Updates at sample step 7440000
+Updates at sample step 7460000
+Updates at sample step 7480000
+Updates at sample step 7500000
+Checks at sample step 7500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:35, 23.98s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:35, 23.98s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:12, 24.06s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:12, 24.06s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.47s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.47s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.47s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.47s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:02, 24.46s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:02, 24.46s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.36s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.36s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:12, 24.32s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:12, 24.32s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.26s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.26s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:24, 24.17s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:24, 24.17s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.19s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.19s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.27s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.27s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-3000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-3000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.6136054421768707, 3500000), (0.6224489795918368, 2500000), (0.714625850340136, 4000000), (0.7523809523809524, 5000000), (0.745578231292517, 5500000), (0.7639455782312925, 6000000), (0.7775510204081633, 7000000), (0.7751700680272109, 4500000), (0.7663265306122449, 6500000), (0.8183673469387756, 7500000)]
+  => Safety violations: 19981
+  => Safe rate: 0.82
+Saving visualization to experiments/quadruped_sac/v2/figure/7500000.png
+Updates at sample step 7520000
+Updates at sample step 7540000
+Updates at sample step 7560000
+Updates at sample step 7580000
+Updates at sample step 7600000
+Updates at sample step 7620000
+Updates at sample step 7640000
+Updates at sample step 7660000
+Updates at sample step 7680000
+Updates at sample step 7700000
+Updates at sample step 7720000
+Updates at sample step 7740000
+Updates at sample step 7760000
+Updates at sample step 7780000
+Updates at sample step 7800000
+Updates at sample step 7820000
+Updates at sample step 7840000
+Updates at sample step 7860000
+Updates at sample step 7880000
+Updates at sample step 7900000
+Updates at sample step 7920000
+Updates at sample step 7940000
+Updates at sample step 7960000
+Updates at sample step 7980000
+Updates at sample step 8000000
+Checks at sample step 8000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.00s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.00s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:14, 24.37s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:14, 24.37s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:50, 24.35s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:50, 24.35s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.36s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.36s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:00, 24.17s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:00, 24.17s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:36, 24.18s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:36, 24.18s/it]Simulating trajectories:  70%|#######   | 7/10 [02:49<01:12, 24.09s/it]Simulating trajectories:  70%|#######   | 7/10 [02:49<01:12, 24.09s/it]Simulating trajectories:  80%|########  | 8/10 [03:13<00:48, 24.01s/it]Simulating trajectories:  80%|########  | 8/10 [03:13<00:48, 24.01s/it]Simulating trajectories:  90%|######### | 9/10 [03:37<00:24, 24.27s/it]Simulating trajectories:  90%|######### | 9/10 [03:37<00:24, 24.27s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.23s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.23s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.21s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.21s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-3500000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-3500000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.6224489795918368, 2500000), (0.745578231292517, 5500000), (0.714625850340136, 4000000), (0.7523809523809524, 5000000), (0.7948979591836735, 8000000), (0.7639455782312925, 6000000), (0.7775510204081633, 7000000), (0.7751700680272109, 4500000), (0.7663265306122449, 6500000), (0.8183673469387756, 7500000)]
+  => Safety violations: 20436
+  => Safe rate: 0.79
+Saving visualization to experiments/quadruped_sac/v2/figure/8000000.png
+Updates at sample step 8020000
+Updates at sample step 8040000
+Updates at sample step 8060000
+Updates at sample step 8080000
+Updates at sample step 8100000
+Updates at sample step 8120000
+Updates at sample step 8140000
+Updates at sample step 8160000
+Updates at sample step 8180000
+Updates at sample step 8200000
+Updates at sample step 8220000
+Updates at sample step 8240000
+Updates at sample step 8260000
+Updates at sample step 8280000
+Updates at sample step 8300000
+Updates at sample step 8320000
+Updates at sample step 8340000
+Updates at sample step 8360000
+Updates at sample step 8380000
+Updates at sample step 8400000
+Updates at sample step 8420000
+Updates at sample step 8440000
+Updates at sample step 8460000
+Updates at sample step 8480000
+Updates at sample step 8500000
+Checks at sample step 8500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:44, 24.99s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:44, 24.99s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:18, 24.76s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:18, 24.76s/it]Simulating trajectories:  30%|###       | 3/10 [01:14<02:52, 24.71s/it]Simulating trajectories:  30%|###       | 3/10 [01:14<02:52, 24.71s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:27, 24.63s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:27, 24.63s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:02, 24.57s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:02, 24.57s/it]Simulating trajectories:  60%|######    | 6/10 [02:27<01:37, 24.31s/it]Simulating trajectories:  60%|######    | 6/10 [02:27<01:37, 24.31s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:12, 24.21s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:12, 24.21s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.05s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.05s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:24, 24.05s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:24, 24.05s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.00s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.00s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.27s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.27s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-2500000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-2500000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.714625850340136, 4000000), (0.745578231292517, 5500000), (0.7639455782312925, 6000000), (0.7523809523809524, 5000000), (0.7948979591836735, 8000000), (0.8183673469387756, 7500000), (0.7775510204081633, 7000000), (0.7751700680272109, 4500000), (0.7663265306122449, 6500000), (0.8255102040816327, 8500000)]
+  => Safety violations: 20855
+  => Safe rate: 0.83
+Saving visualization to experiments/quadruped_sac/v2/figure/8500000.png
+Updates at sample step 8520000
+Updates at sample step 8540000
+Updates at sample step 8560000
+Updates at sample step 8580000
+Updates at sample step 8600000
+Updates at sample step 8620000
+Updates at sample step 8640000
+Updates at sample step 8660000
+Updates at sample step 8680000
+Updates at sample step 8700000
+Updates at sample step 8720000
+Updates at sample step 8740000
+Updates at sample step 8760000
+Updates at sample step 8780000
+Updates at sample step 8800000
+Updates at sample step 8820000
+Updates at sample step 8840000
+Updates at sample step 8860000
+Updates at sample step 8880000
+Updates at sample step 8900000
+Updates at sample step 8920000
+Updates at sample step 8940000
+Updates at sample step 8960000
+Updates at sample step 8980000
+Updates at sample step 9000000
+Checks at sample step 9000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.04s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.04s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:12, 24.10s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:12, 24.10s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:50, 24.29s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:50, 24.29s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.44s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.44s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:01, 24.39s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:01, 24.39s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.41s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.41s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.66s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.66s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:49, 24.52s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:49, 24.52s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.28s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.28s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.30s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.30s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.36s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.36s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-4000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-4000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.745578231292517, 5500000), (0.7523809523809524, 5000000), (0.7639455782312925, 6000000), (0.7663265306122449, 6500000), (0.7948979591836735, 8000000), (0.8183673469387756, 7500000), (0.7775510204081633, 7000000), (0.7751700680272109, 4500000), (0.8255102040816327, 8500000), (0.830952380952381, 9000000)]
+  => Safety violations: 21283
+  => Safe rate: 0.83
+Saving visualization to experiments/quadruped_sac/v2/figure/9000000.png
+Updates at sample step 9020000
+Updates at sample step 9040000
+Updates at sample step 9060000
+Updates at sample step 9080000
+Updates at sample step 9100000
+Updates at sample step 9120000
+Updates at sample step 9140000
+Updates at sample step 9160000
+Updates at sample step 9180000
+Updates at sample step 9200000
+Updates at sample step 9220000
+Updates at sample step 9240000
+Updates at sample step 9260000
+Updates at sample step 9280000
+Updates at sample step 9300000
+Updates at sample step 9320000
+Updates at sample step 9340000
+Updates at sample step 9360000
+Updates at sample step 9380000
+Updates at sample step 9400000
+Updates at sample step 9420000
+Updates at sample step 9440000
+Updates at sample step 9460000
+Updates at sample step 9480000
+Updates at sample step 9500000
+Checks at sample step 9500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:37, 24.18s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:37, 24.18s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:16, 24.51s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:16, 24.51s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:52, 24.58s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:52, 24.58s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:27, 24.57s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:27, 24.57s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.54s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.54s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.44s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.44s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.41s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.41s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.29s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.29s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.28s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.28s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.35s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.35s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.40s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.40s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-5500000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-5500000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.7523809523809524, 5000000), (0.7663265306122449, 6500000), (0.7639455782312925, 6000000), (0.7751700680272109, 4500000), (0.7948979591836735, 8000000), (0.8183673469387756, 7500000), (0.7775510204081633, 7000000), (0.830952380952381, 9000000), (0.8255102040816327, 8500000), (0.851360544217687, 9500000)]
+  => Safety violations: 21698
+  => Safe rate: 0.85
+Saving visualization to experiments/quadruped_sac/v2/figure/9500000.png
+Updates at sample step 9520000
+Updates at sample step 9540000
+Updates at sample step 9560000
+Updates at sample step 9580000
+Updates at sample step 9600000
+Updates at sample step 9620000
+Updates at sample step 9640000
+Updates at sample step 9660000
+Updates at sample step 9680000
+Updates at sample step 9700000
+Updates at sample step 9720000
+Updates at sample step 9740000
+Updates at sample step 9760000
+Updates at sample step 9780000
+Updates at sample step 9800000
+Updates at sample step 9820000
+Updates at sample step 9840000
+Updates at sample step 9860000
+Updates at sample step 9880000
+Updates at sample step 9900000
+Updates at sample step 9920000
+Updates at sample step 9940000
+Updates at sample step 9960000
+Updates at sample step 9980000
+Updates at sample step 10000000
+Checks at sample step 10000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:37, 24.21s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:37, 24.21s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:15, 24.41s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:15, 24.41s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.52s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.52s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:29, 24.85s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:29, 24.85s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:03, 24.66s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:03, 24.66s/it]Simulating trajectories:  60%|######    | 6/10 [02:27<01:38, 24.52s/it]Simulating trajectories:  60%|######    | 6/10 [02:27<01:38, 24.52s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.44s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.44s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.26s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.26s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.30s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.30s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.32s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.32s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.42s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.42s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-5000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-5000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.7639455782312925, 6000000), (0.7663265306122449, 6500000), (0.7775510204081633, 7000000), (0.7751700680272109, 4500000), (0.7948979591836735, 8000000), (0.8183673469387756, 7500000), (0.851360544217687, 9500000), (0.830952380952381, 9000000), (0.8255102040816327, 8500000), (0.8496598639455782, 10000000)]
+  => Safety violations: 22081
+  => Safe rate: 0.85
+Saving visualization to experiments/quadruped_sac/v2/figure/10000000.png
+Updates at sample step 10020000
+Updates at sample step 10040000
+Updates at sample step 10060000
+Updates at sample step 10080000
+Updates at sample step 10100000
+Updates at sample step 10120000
+Updates at sample step 10140000
+Updates at sample step 10160000
+Updates at sample step 10180000
+Updates at sample step 10200000
+Updates at sample step 10220000
+Updates at sample step 10240000
+Updates at sample step 10260000
+Updates at sample step 10280000
+Updates at sample step 10300000
+Updates at sample step 10320000
+Updates at sample step 10340000
+Updates at sample step 10360000
+Updates at sample step 10380000
+Updates at sample step 10400000
+Updates at sample step 10420000
+Updates at sample step 10440000
+Updates at sample step 10460000
+Updates at sample step 10480000
+Updates at sample step 10500000
+Checks at sample step 10500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:41, 24.57s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:41, 24.57s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:15, 24.39s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:15, 24.39s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:49, 24.23s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:49, 24.23s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.42s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.42s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:01, 24.32s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:01, 24.32s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:37, 24.26s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:37, 24.26s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:12, 24.24s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:12, 24.24s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.23s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.23s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:24, 24.29s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:24, 24.29s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.61s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.61s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.40s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.40s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-6000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-6000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.7663265306122449, 6500000), (0.7751700680272109, 4500000), (0.7775510204081633, 7000000), (0.8255102040816327, 8500000), (0.7948979591836735, 8000000), (0.8183673469387756, 7500000), (0.851360544217687, 9500000), (0.830952380952381, 9000000), (0.8496598639455782, 10000000), (0.867687074829932, 10500000)]
+  => Safety violations: 22469
+  => Safe rate: 0.87
+Saving visualization to experiments/quadruped_sac/v2/figure/10500000.png
+Updates at sample step 10520000
+Updates at sample step 10540000
+Updates at sample step 10560000
+Updates at sample step 10580000
+Updates at sample step 10600000
+Updates at sample step 10620000
+Updates at sample step 10640000
+Updates at sample step 10660000
+Updates at sample step 10680000
+Updates at sample step 10700000
+Updates at sample step 10720000
+Updates at sample step 10740000
+Updates at sample step 10760000
+Updates at sample step 10780000
+Updates at sample step 10800000
+Updates at sample step 10820000
+Updates at sample step 10840000
+Updates at sample step 10860000
+Updates at sample step 10880000
+Updates at sample step 10900000
+Updates at sample step 10920000
+Updates at sample step 10940000
+Updates at sample step 10960000
+Updates at sample step 10980000
+Updates at sample step 11000000
+Checks at sample step 11000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:35, 23.96s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:35, 23.96s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:17, 24.66s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:17, 24.66s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.47s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.47s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:27, 24.51s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:27, 24.51s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:01, 24.37s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:01, 24.37s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.33s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.33s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:12, 24.13s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:12, 24.13s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.13s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.13s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:24, 24.13s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:24, 24.13s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.10s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.10s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.23s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.23s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-6500000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-6500000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.7751700680272109, 4500000), (0.7948979591836735, 8000000), (0.7775510204081633, 7000000), (0.8255102040816327, 8500000), (0.85, 11000000), (0.8183673469387756, 7500000), (0.851360544217687, 9500000), (0.830952380952381, 9000000), (0.8496598639455782, 10000000), (0.867687074829932, 10500000)]
+  => Safety violations: 22845
+  => Safe rate: 0.85
+Saving visualization to experiments/quadruped_sac/v2/figure/11000000.png
+Updates at sample step 11020000
+Updates at sample step 11040000
+Updates at sample step 11060000
+Updates at sample step 11080000
+Updates at sample step 11100000
+Updates at sample step 11120000
+Updates at sample step 11140000
+Updates at sample step 11160000
+Updates at sample step 11180000
+Updates at sample step 11200000
+Updates at sample step 11220000
+Updates at sample step 11240000
+Updates at sample step 11260000
+Updates at sample step 11280000
+Updates at sample step 11300000
+Updates at sample step 11320000
+Updates at sample step 11340000
+Updates at sample step 11360000
+Updates at sample step 11380000
+Updates at sample step 11400000
+Updates at sample step 11420000
+Updates at sample step 11440000
+Updates at sample step 11460000
+Updates at sample step 11480000
+Updates at sample step 11500000
+Checks at sample step 11500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.05s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.05s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:12, 24.02s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:12, 24.02s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:48, 24.03s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:48, 24.03s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:24, 24.12s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:24, 24.12s/it]Simulating trajectories:  50%|#####     | 5/10 [01:59<01:59, 23.95s/it]Simulating trajectories:  50%|#####     | 5/10 [01:59<01:59, 23.95s/it]Simulating trajectories:  60%|######    | 6/10 [02:23<01:35, 23.86s/it]Simulating trajectories:  60%|######    | 6/10 [02:23<01:35, 23.86s/it]Simulating trajectories:  70%|#######   | 7/10 [02:48<01:12, 24.18s/it]Simulating trajectories:  70%|#######   | 7/10 [02:48<01:12, 24.18s/it]Simulating trajectories:  80%|########  | 8/10 [03:11<00:47, 23.95s/it]Simulating trajectories:  80%|########  | 8/10 [03:11<00:47, 23.95s/it]Simulating trajectories:  90%|######### | 9/10 [03:35<00:23, 23.85s/it]Simulating trajectories:  90%|######### | 9/10 [03:35<00:23, 23.85s/it]Simulating trajectories: 100%|##########| 10/10 [03:59<00:00, 23.82s/it]Simulating trajectories: 100%|##########| 10/10 [03:59<00:00, 23.82s/it]Simulating trajectories: 100%|##########| 10/10 [03:59<00:00, 23.94s/it]Simulating trajectories: 100%|##########| 10/10 [03:59<00:00, 23.94s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-4500000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-4500000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.7775510204081633, 7000000), (0.7948979591836735, 8000000), (0.8183673469387756, 7500000), (0.8255102040816327, 8500000), (0.85, 11000000), (0.867687074829932, 10500000), (0.851360544217687, 9500000), (0.830952380952381, 9000000), (0.8496598639455782, 10000000), (0.8564625850340136, 11500000)]
+  => Safety violations: 23201
+  => Safe rate: 0.86
+Saving visualization to experiments/quadruped_sac/v2/figure/11500000.png
+Updates at sample step 11520000
+Updates at sample step 11540000
+Updates at sample step 11560000
+Updates at sample step 11580000
+Updates at sample step 11600000
+Updates at sample step 11620000
+Updates at sample step 11640000
+Updates at sample step 11660000
+Updates at sample step 11680000
+Updates at sample step 11700000
+Updates at sample step 11720000
+Updates at sample step 11740000
+Updates at sample step 11760000
+Updates at sample step 11780000
+Updates at sample step 11800000
+Updates at sample step 11820000
+Updates at sample step 11840000
+Updates at sample step 11860000
+Updates at sample step 11880000
+Updates at sample step 11900000
+Updates at sample step 11920000
+Updates at sample step 11940000
+Updates at sample step 11960000
+Updates at sample step 11980000
+Updates at sample step 12000000
+Checks at sample step 12000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.07s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.07s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:13, 24.21s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:13, 24.21s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:48, 24.11s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:48, 24.11s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:24, 24.06s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:24, 24.06s/it]Simulating trajectories:  50%|#####     | 5/10 [01:59<01:59, 23.90s/it]Simulating trajectories:  50%|#####     | 5/10 [01:59<01:59, 23.90s/it]Simulating trajectories:  60%|######    | 6/10 [02:23<01:35, 23.93s/it]Simulating trajectories:  60%|######    | 6/10 [02:23<01:35, 23.93s/it]Simulating trajectories:  70%|#######   | 7/10 [02:48<01:12, 24.04s/it]Simulating trajectories:  70%|#######   | 7/10 [02:48<01:12, 24.04s/it]Simulating trajectories:  80%|########  | 8/10 [03:12<00:48, 24.03s/it]Simulating trajectories:  80%|########  | 8/10 [03:12<00:48, 24.03s/it]Simulating trajectories:  90%|######### | 9/10 [03:36<00:24, 24.06s/it]Simulating trajectories:  90%|######### | 9/10 [03:36<00:24, 24.06s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 23.97s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 23.97s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 24.01s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 24.01s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-7000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-7000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.7948979591836735, 8000000), (0.8255102040816327, 8500000), (0.8183673469387756, 7500000), (0.830952380952381, 9000000), (0.85, 11000000), (0.867687074829932, 10500000), (0.851360544217687, 9500000), (0.8564625850340136, 11500000), (0.8496598639455782, 10000000), (0.8523809523809524, 12000000)]
+  => Safety violations: 23578
+  => Safe rate: 0.85
+Saving visualization to experiments/quadruped_sac/v2/figure/12000000.png
+Updates at sample step 12020000
+Updates at sample step 12040000
+Updates at sample step 12060000
+Updates at sample step 12080000
+Updates at sample step 12100000
+Updates at sample step 12120000
+Updates at sample step 12140000
+Updates at sample step 12160000
+Updates at sample step 12180000
+Updates at sample step 12200000
+Updates at sample step 12220000
+Updates at sample step 12240000
+Updates at sample step 12260000
+Updates at sample step 12280000
+Updates at sample step 12300000
+Updates at sample step 12320000
+Updates at sample step 12340000
+Updates at sample step 12360000
+Updates at sample step 12380000
+Updates at sample step 12400000
+Updates at sample step 12420000
+Updates at sample step 12440000
+Updates at sample step 12460000
+Updates at sample step 12480000
+Updates at sample step 12500000
+Checks at sample step 12500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:40, 24.50s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:40, 24.50s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:16, 24.53s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:16, 24.53s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.52s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.52s/it]Simulating trajectories:  40%|####      | 4/10 [01:39<02:29, 24.97s/it]Simulating trajectories:  40%|####      | 4/10 [01:39<02:29, 24.97s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:03, 24.75s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:03, 24.75s/it]Simulating trajectories:  60%|######    | 6/10 [02:27<01:37, 24.48s/it]Simulating trajectories:  60%|######    | 6/10 [02:27<01:37, 24.48s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.39s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.39s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.26s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.26s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.25s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.25s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.16s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.16s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.39s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.39s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-8000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-8000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.8183673469387756, 7500000), (0.8255102040816327, 8500000), (0.851360544217687, 9500000), (0.830952380952381, 9000000), (0.8459183673469388, 12500000), (0.867687074829932, 10500000), (0.8523809523809524, 12000000), (0.8564625850340136, 11500000), (0.8496598639455782, 10000000), (0.85, 11000000)]
+  => Safety violations: 23962
+  => Safe rate: 0.85
+Saving visualization to experiments/quadruped_sac/v2/figure/12500000.png
+Updates at sample step 12520000
+Updates at sample step 12540000
+Updates at sample step 12560000
+Updates at sample step 12580000
+Updates at sample step 12600000
+Updates at sample step 12620000
+Updates at sample step 12640000
+Updates at sample step 12660000
+Updates at sample step 12680000
+Updates at sample step 12700000
+Updates at sample step 12720000
+Updates at sample step 12740000
+Updates at sample step 12760000
+Updates at sample step 12780000
+Updates at sample step 12800000
+Updates at sample step 12820000
+Updates at sample step 12840000
+Updates at sample step 12860000
+Updates at sample step 12880000
+Updates at sample step 12900000
+Updates at sample step 12920000
+Updates at sample step 12940000
+Updates at sample step 12960000
+Updates at sample step 12980000
+Updates at sample step 13000000
+Checks at sample step 13000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:37, 24.17s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:37, 24.17s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:16, 24.54s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:16, 24.54s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:52, 24.61s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:52, 24.61s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:27, 24.64s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:27, 24.64s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.55s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.55s/it]Simulating trajectories:  60%|######    | 6/10 [02:27<01:37, 24.48s/it]Simulating trajectories:  60%|######    | 6/10 [02:27<01:37, 24.48s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.36s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.36s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.29s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.29s/it]Simulating trajectories:  90%|######### | 9/10 [03:40<00:24, 24.61s/it]Simulating trajectories:  90%|######### | 9/10 [03:40<00:24, 24.61s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.49s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.49s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.49s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.49s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-7500000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-7500000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.8255102040816327, 8500000), (0.830952380952381, 9000000), (0.851360544217687, 9500000), (0.8496598639455782, 10000000), (0.8459183673469388, 12500000), (0.867687074829932, 10500000), (0.8523809523809524, 12000000), (0.8564625850340136, 11500000), (0.85, 11000000), (0.8578231292517007, 13000000)]
+  => Safety violations: 24356
+  => Safe rate: 0.86
+Saving visualization to experiments/quadruped_sac/v2/figure/13000000.png
+Updates at sample step 13020000
+Updates at sample step 13040000
+Updates at sample step 13060000
+Updates at sample step 13080000
+Updates at sample step 13100000
+Updates at sample step 13120000
+Updates at sample step 13140000
+Updates at sample step 13160000
+Updates at sample step 13180000
+Updates at sample step 13200000
+Updates at sample step 13220000
+Updates at sample step 13240000
+Updates at sample step 13260000
+Updates at sample step 13280000
+Updates at sample step 13300000
+Updates at sample step 13320000
+Updates at sample step 13340000
+Updates at sample step 13360000
+Updates at sample step 13380000
+Updates at sample step 13400000
+Updates at sample step 13420000
+Updates at sample step 13440000
+Updates at sample step 13460000
+Updates at sample step 13480000
+Updates at sample step 13500000
+Checks at sample step 13500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.09s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.09s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:18, 24.85s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:18, 24.85s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.49s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.49s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:25, 24.21s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:25, 24.21s/it]Simulating trajectories:  50%|#####     | 5/10 [02:00<01:59, 23.92s/it]Simulating trajectories:  50%|#####     | 5/10 [02:00<01:59, 23.92s/it]Simulating trajectories:  60%|######    | 6/10 [02:24<01:35, 23.80s/it]Simulating trajectories:  60%|######    | 6/10 [02:24<01:35, 23.80s/it]Simulating trajectories:  70%|#######   | 7/10 [02:47<01:11, 23.68s/it]Simulating trajectories:  70%|#######   | 7/10 [02:47<01:11, 23.68s/it]Simulating trajectories:  80%|########  | 8/10 [03:11<00:47, 23.68s/it]Simulating trajectories:  80%|########  | 8/10 [03:11<00:47, 23.68s/it]Simulating trajectories:  90%|######### | 9/10 [03:34<00:23, 23.62s/it]Simulating trajectories:  90%|######### | 9/10 [03:34<00:23, 23.62s/it]Simulating trajectories: 100%|##########| 10/10 [03:58<00:00, 23.63s/it]Simulating trajectories: 100%|##########| 10/10 [03:58<00:00, 23.63s/it]Simulating trajectories: 100%|##########| 10/10 [03:58<00:00, 23.85s/it]Simulating trajectories: 100%|##########| 10/10 [03:58<00:00, 23.85s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-8500000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-8500000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.830952380952381, 9000000), (0.8459183673469388, 12500000), (0.851360544217687, 9500000), (0.8496598639455782, 10000000), (0.8486394557823129, 13500000), (0.867687074829932, 10500000), (0.8523809523809524, 12000000), (0.8564625850340136, 11500000), (0.85, 11000000), (0.8578231292517007, 13000000)]
+  => Safety violations: 24752
+  => Safe rate: 0.85
+Saving visualization to experiments/quadruped_sac/v2/figure/13500000.png
+Updates at sample step 13520000
+Updates at sample step 13540000
+Updates at sample step 13560000
+Updates at sample step 13580000
+Updates at sample step 13600000
+Updates at sample step 13620000
+Updates at sample step 13640000
+Updates at sample step 13660000
+Updates at sample step 13680000
+Updates at sample step 13700000
+Updates at sample step 13720000
+Updates at sample step 13740000
+Updates at sample step 13760000
+Updates at sample step 13780000
+Updates at sample step 13800000
+Updates at sample step 13820000
+Updates at sample step 13840000
+Updates at sample step 13860000
+Updates at sample step 13880000
+Updates at sample step 13900000
+Updates at sample step 13920000
+Updates at sample step 13940000
+Updates at sample step 13960000
+Updates at sample step 13980000
+Updates at sample step 14000000
+Checks at sample step 14000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:31, 23.49s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:31, 23.49s/it]Simulating trajectories:  20%|##        | 2/10 [00:47<03:09, 23.71s/it]Simulating trajectories:  20%|##        | 2/10 [00:47<03:09, 23.71s/it]Simulating trajectories:  30%|###       | 3/10 [01:11<02:48, 24.06s/it]Simulating trajectories:  30%|###       | 3/10 [01:11<02:48, 24.06s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:25, 24.17s/it]Simulating trajectories:  40%|####      | 4/10 [01:36<02:25, 24.17s/it]Simulating trajectories:  50%|#####     | 5/10 [02:00<02:01, 24.29s/it]Simulating trajectories:  50%|#####     | 5/10 [02:00<02:01, 24.29s/it]Simulating trajectories:  60%|######    | 6/10 [02:24<01:36, 24.18s/it]Simulating trajectories:  60%|######    | 6/10 [02:24<01:36, 24.18s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:13, 24.57s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:13, 24.57s/it]Simulating trajectories:  80%|########  | 8/10 [03:13<00:48, 24.38s/it]Simulating trajectories:  80%|########  | 8/10 [03:13<00:48, 24.38s/it]Simulating trajectories:  90%|######### | 9/10 [03:37<00:24, 24.25s/it]Simulating trajectories:  90%|######### | 9/10 [03:37<00:24, 24.25s/it]Simulating trajectories: 100%|##########| 10/10 [04:01<00:00, 24.18s/it]Simulating trajectories: 100%|##########| 10/10 [04:01<00:00, 24.18s/it]Simulating trajectories: 100%|##########| 10/10 [04:01<00:00, 24.20s/it]Simulating trajectories: 100%|##########| 10/10 [04:01<00:00, 24.20s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-9000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-9000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.8459183673469388, 12500000), (0.8459183673469388, 14000000), (0.851360544217687, 9500000), (0.8496598639455782, 10000000), (0.8486394557823129, 13500000), (0.867687074829932, 10500000), (0.8523809523809524, 12000000), (0.8564625850340136, 11500000), (0.85, 11000000), (0.8578231292517007, 13000000)]
+  => Safety violations: 25109
+  => Safe rate: 0.85
+Saving visualization to experiments/quadruped_sac/v2/figure/14000000.png
+Updates at sample step 14020000
+Updates at sample step 14040000
+Updates at sample step 14060000
+Updates at sample step 14080000
+Updates at sample step 14100000
+Updates at sample step 14120000
+Updates at sample step 14140000
+Updates at sample step 14160000
+Updates at sample step 14180000
+Updates at sample step 14200000
+Updates at sample step 14220000
+Updates at sample step 14240000
+Updates at sample step 14260000
+Updates at sample step 14280000
+Updates at sample step 14300000
+Updates at sample step 14320000
+Updates at sample step 14340000
+Updates at sample step 14360000
+Updates at sample step 14380000
+Updates at sample step 14400000
+Updates at sample step 14420000
+Updates at sample step 14440000
+Updates at sample step 14460000
+Updates at sample step 14480000
+Updates at sample step 14500000
+Checks at sample step 14500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:37, 24.14s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:37, 24.14s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:17, 24.67s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:17, 24.67s/it]Simulating trajectories:  30%|###       | 3/10 [01:14<02:53, 24.77s/it]Simulating trajectories:  30%|###       | 3/10 [01:14<02:53, 24.77s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:28, 24.78s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:28, 24.78s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:03, 24.67s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:03, 24.67s/it]Simulating trajectories:  60%|######    | 6/10 [02:27<01:37, 24.49s/it]Simulating trajectories:  60%|######    | 6/10 [02:27<01:37, 24.49s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.37s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.37s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.10s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.10s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:23, 23.85s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:23, 23.85s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 23.82s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 23.82s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.22s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.22s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-12500000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-12500000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.8459183673469388, 14000000), (0.8486394557823129, 13500000), (0.851360544217687, 9500000), (0.8496598639455782, 10000000), (0.8540816326530613, 14500000), (0.867687074829932, 10500000), (0.8523809523809524, 12000000), (0.8564625850340136, 11500000), (0.85, 11000000), (0.8578231292517007, 13000000)]
+  => Safety violations: 25508
+  => Safe rate: 0.85
+Saving visualization to experiments/quadruped_sac/v2/figure/14500000.png
+Updates at sample step 14520000
+Updates at sample step 14540000
+Updates at sample step 14560000
+Updates at sample step 14580000
+Updates at sample step 14600000
+Updates at sample step 14620000
+Updates at sample step 14640000
+Updates at sample step 14660000
+Updates at sample step 14680000
+Updates at sample step 14700000
+Updates at sample step 14720000
+Updates at sample step 14740000
+Updates at sample step 14760000
+Updates at sample step 14780000
+Updates at sample step 14800000
+Updates at sample step 14820000
+Updates at sample step 14840000
+Updates at sample step 14860000
+Updates at sample step 14880000
+Updates at sample step 14900000
+Updates at sample step 14920000
+Updates at sample step 14940000
+Updates at sample step 14960000
+Updates at sample step 14980000
+Updates at sample step 15000000
+Checks at sample step 15000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:42, 24.70s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:42, 24.70s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:19, 24.92s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:19, 24.92s/it]Simulating trajectories:  30%|###       | 3/10 [01:15<02:55, 25.07s/it]Simulating trajectories:  30%|###       | 3/10 [01:15<02:55, 25.07s/it]Simulating trajectories:  40%|####      | 4/10 [01:41<02:33, 25.58s/it]Simulating trajectories:  40%|####      | 4/10 [01:41<02:33, 25.58s/it]Simulating trajectories:  50%|#####     | 5/10 [02:06<02:07, 25.42s/it]Simulating trajectories:  50%|#####     | 5/10 [02:06<02:07, 25.42s/it]Simulating trajectories:  60%|######    | 6/10 [02:31<01:40, 25.18s/it]Simulating trajectories:  60%|######    | 6/10 [02:31<01:40, 25.18s/it]Simulating trajectories:  70%|#######   | 7/10 [02:55<01:15, 25.04s/it]Simulating trajectories:  70%|#######   | 7/10 [02:55<01:15, 25.04s/it]Simulating trajectories:  80%|########  | 8/10 [03:20<00:49, 24.88s/it]Simulating trajectories:  80%|########  | 8/10 [03:20<00:49, 24.88s/it]Simulating trajectories:  90%|######### | 9/10 [03:45<00:24, 24.86s/it]Simulating trajectories:  90%|######### | 9/10 [03:45<00:24, 24.86s/it]Simulating trajectories: 100%|##########| 10/10 [04:10<00:00, 24.86s/it]Simulating trajectories: 100%|##########| 10/10 [04:10<00:00, 24.86s/it]Simulating trajectories: 100%|##########| 10/10 [04:10<00:00, 25.02s/it]Simulating trajectories: 100%|##########| 10/10 [04:10<00:00, 25.02s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-14000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-14000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.8486394557823129, 13500000), (0.8496598639455782, 10000000), (0.851360544217687, 9500000), (0.85, 11000000), (0.8540816326530613, 14500000), (0.867687074829932, 10500000), (0.8523809523809524, 12000000), (0.8564625850340136, 11500000), (0.8578231292517007, 13000000), (0.863265306122449, 15000000)]
+  => Safety violations: 25835
+  => Safe rate: 0.86
+Saving visualization to experiments/quadruped_sac/v2/figure/15000000.png
+Updates at sample step 15020000
+Updates at sample step 15040000
+Updates at sample step 15060000
+Updates at sample step 15080000
+Updates at sample step 15100000
+Updates at sample step 15120000
+Updates at sample step 15140000
+Updates at sample step 15160000
+Updates at sample step 15180000
+Updates at sample step 15200000
+Updates at sample step 15220000
+Updates at sample step 15240000
+Updates at sample step 15260000
+Updates at sample step 15280000
+Updates at sample step 15300000
+Updates at sample step 15320000
+Updates at sample step 15340000
+Updates at sample step 15360000
+Updates at sample step 15380000
+Updates at sample step 15400000
+Updates at sample step 15420000
+Updates at sample step 15440000
+Updates at sample step 15460000
+Updates at sample step 15480000
+Updates at sample step 15500000
+Checks at sample step 15500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:40, 24.50s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:40, 24.50s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:17, 24.70s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:17, 24.70s/it]Simulating trajectories:  30%|###       | 3/10 [01:14<02:53, 24.77s/it]Simulating trajectories:  30%|###       | 3/10 [01:14<02:53, 24.77s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:27, 24.63s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:27, 24.63s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.43s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.43s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.36s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.36s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.35s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.35s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.26s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.26s/it]Simulating trajectories:  90%|######### | 9/10 [03:40<00:24, 24.58s/it]Simulating trajectories:  90%|######### | 9/10 [03:40<00:24, 24.58s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.29s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.29s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.42s/it]Simulating trajectories: 100%|##########| 10/10 [04:04<00:00, 24.42s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-13500000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-13500000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.8496598639455782, 10000000), (0.85, 11000000), (0.851360544217687, 9500000), (0.8564625850340136, 11500000), (0.8540816326530613, 14500000), (0.867687074829932, 10500000), (0.8523809523809524, 12000000), (0.863265306122449, 15000000), (0.8578231292517007, 13000000), (0.85578231292517, 15500000)]
+  => Safety violations: 26232
+  => Safe rate: 0.86
+Saving visualization to experiments/quadruped_sac/v2/figure/15500000.png
+Updates at sample step 15520000
+Updates at sample step 15540000
+Updates at sample step 15560000
+Updates at sample step 15580000
+Updates at sample step 15600000
+Updates at sample step 15620000
+Updates at sample step 15640000
+Updates at sample step 15660000
+Updates at sample step 15680000
+Updates at sample step 15700000
+Updates at sample step 15720000
+Updates at sample step 15740000
+Updates at sample step 15760000
+Updates at sample step 15780000
+Updates at sample step 15800000
+Updates at sample step 15820000
+Updates at sample step 15840000
+Updates at sample step 15860000
+Updates at sample step 15880000
+Updates at sample step 15900000
+Updates at sample step 15920000
+Updates at sample step 15940000
+Updates at sample step 15960000
+Updates at sample step 15980000
+Updates at sample step 16000000
+Checks at sample step 16000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:33, 23.75s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:33, 23.75s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:19, 24.98s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:19, 24.98s/it]Simulating trajectories:  30%|###       | 3/10 [01:14<02:53, 24.84s/it]Simulating trajectories:  30%|###       | 3/10 [01:14<02:53, 24.84s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:28, 24.71s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:28, 24.71s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:01, 24.30s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:01, 24.30s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:35, 23.97s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:35, 23.97s/it]Simulating trajectories:  70%|#######   | 7/10 [02:49<01:11, 23.79s/it]Simulating trajectories:  70%|#######   | 7/10 [02:49<01:11, 23.79s/it]Simulating trajectories:  80%|########  | 8/10 [03:12<00:47, 23.66s/it]Simulating trajectories:  80%|########  | 8/10 [03:12<00:47, 23.66s/it]Simulating trajectories:  90%|######### | 9/10 [03:36<00:23, 23.79s/it]Simulating trajectories:  90%|######### | 9/10 [03:36<00:23, 23.79s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 23.94s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 23.94s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 24.08s/it]Simulating trajectories: 100%|##########| 10/10 [04:00<00:00, 24.08s/it]
+
+  => Safety violations: 26587
+  => Safe rate: 0.85
+Saving visualization to experiments/quadruped_sac/v2/figure/16000000.png
+Updates at sample step 16020000
+Updates at sample step 16040000
+Updates at sample step 16060000
+Updates at sample step 16080000
+Updates at sample step 16100000
+Updates at sample step 16120000
+Updates at sample step 16140000
+Updates at sample step 16160000
+Updates at sample step 16180000
+Updates at sample step 16200000
+Updates at sample step 16220000
+Updates at sample step 16240000
+Updates at sample step 16260000
+Updates at sample step 16280000
+Updates at sample step 16300000
+Updates at sample step 16320000
+Updates at sample step 16340000
+Updates at sample step 16360000
+Updates at sample step 16380000
+Updates at sample step 16400000
+Updates at sample step 16420000
+Updates at sample step 16440000
+Updates at sample step 16460000
+Updates at sample step 16480000
+Updates at sample step 16500000
+Checks at sample step 16500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:38, 24.26s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:38, 24.26s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:15, 24.40s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:15, 24.40s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:50, 24.38s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:50, 24.38s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.34s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.34s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:00, 24.12s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:00, 24.12s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:36, 24.13s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:36, 24.13s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:13, 24.49s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:13, 24.49s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.31s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.31s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:24, 24.27s/it]Simulating trajectories:  90%|######### | 9/10 [03:38<00:24, 24.27s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.30s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.30s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.30s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.30s/it]
+
+  => Safety violations: 26985
+  => Safe rate: 0.84
+Saving visualization to experiments/quadruped_sac/v2/figure/16500000.png
+Updates at sample step 16520000
+Updates at sample step 16540000
+Updates at sample step 16560000
+Updates at sample step 16580000
+Updates at sample step 16600000
+Updates at sample step 16620000
+Updates at sample step 16640000
+Updates at sample step 16660000
+Updates at sample step 16680000
+Updates at sample step 16700000
+Updates at sample step 16720000
+Updates at sample step 16740000
+Updates at sample step 16760000
+Updates at sample step 16780000
+Updates at sample step 16800000
+Updates at sample step 16820000
+Updates at sample step 16840000
+Updates at sample step 16860000
+Updates at sample step 16880000
+Updates at sample step 16900000
+Updates at sample step 16920000
+Updates at sample step 16940000
+Updates at sample step 16960000
+Updates at sample step 16980000
+Updates at sample step 17000000
+Checks at sample step 17000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:38, 24.29s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:38, 24.29s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:14, 24.37s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:14, 24.37s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.54s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.54s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:27, 24.52s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:27, 24.52s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.46s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.46s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.47s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.47s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.44s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:13, 24.44s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.36s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.36s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.29s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.29s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.25s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.25s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.36s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.36s/it]
+
+  => Safety violations: 27354
+  => Safe rate: 0.85
+Saving visualization to experiments/quadruped_sac/v2/figure/17000000.png
+Updates at sample step 17020000
+Updates at sample step 17040000
+Updates at sample step 17060000
+Updates at sample step 17080000
+Updates at sample step 17100000
+Updates at sample step 17120000
+Updates at sample step 17140000
+Updates at sample step 17160000
+Updates at sample step 17180000
+Updates at sample step 17200000
+Updates at sample step 17220000
+Updates at sample step 17240000
+Updates at sample step 17260000
+Updates at sample step 17280000
+Updates at sample step 17300000
+Updates at sample step 17320000
+Updates at sample step 17340000
+Updates at sample step 17360000
+Updates at sample step 17380000
+Updates at sample step 17400000
+Updates at sample step 17420000
+Updates at sample step 17440000
+Updates at sample step 17460000
+Updates at sample step 17480000
+Updates at sample step 17500000
+Checks at sample step 17500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.09s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.09s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:16, 24.52s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:16, 24.52s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:52, 24.63s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:52, 24.63s/it]Simulating trajectories:  40%|####      | 4/10 [01:39<02:30, 25.09s/it]Simulating trajectories:  40%|####      | 4/10 [01:39<02:30, 25.09s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:04, 24.83s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:04, 24.83s/it]Simulating trajectories:  60%|######    | 6/10 [02:28<01:38, 24.66s/it]Simulating trajectories:  60%|######    | 6/10 [02:28<01:38, 24.66s/it]Simulating trajectories:  70%|#######   | 7/10 [02:52<01:13, 24.57s/it]Simulating trajectories:  70%|#######   | 7/10 [02:52<01:13, 24.57s/it]Simulating trajectories:  80%|########  | 8/10 [03:16<00:49, 24.50s/it]Simulating trajectories:  80%|########  | 8/10 [03:16<00:49, 24.50s/it]Simulating trajectories:  90%|######### | 9/10 [03:40<00:24, 24.35s/it]Simulating trajectories:  90%|######### | 9/10 [03:40<00:24, 24.35s/it]Simulating trajectories: 100%|##########| 10/10 [04:05<00:00, 24.32s/it]Simulating trajectories: 100%|##########| 10/10 [04:05<00:00, 24.32s/it]Simulating trajectories: 100%|##########| 10/10 [04:05<00:00, 24.52s/it]Simulating trajectories: 100%|##########| 10/10 [04:05<00:00, 24.52s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-10000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-10000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.85, 11000000), (0.8540816326530613, 14500000), (0.851360544217687, 9500000), (0.8564625850340136, 11500000), (0.85578231292517, 15500000), (0.867687074829932, 10500000), (0.8523809523809524, 12000000), (0.863265306122449, 15000000), (0.8578231292517007, 13000000), (0.8700680272108844, 17500000)]
+  => Safety violations: 27708
+  => Safe rate: 0.87
+Saving visualization to experiments/quadruped_sac/v2/figure/17500000.png
+Updates at sample step 17520000
+Updates at sample step 17540000
+Updates at sample step 17560000
+Updates at sample step 17580000
+Updates at sample step 17600000
+Updates at sample step 17620000
+Updates at sample step 17640000
+Updates at sample step 17660000
+Updates at sample step 17680000
+Updates at sample step 17700000
+Updates at sample step 17720000
+Updates at sample step 17740000
+Updates at sample step 17760000
+Updates at sample step 17780000
+Updates at sample step 17800000
+Updates at sample step 17820000
+Updates at sample step 17840000
+Updates at sample step 17860000
+Updates at sample step 17880000
+Updates at sample step 17900000
+Updates at sample step 17920000
+Updates at sample step 17940000
+Updates at sample step 17960000
+Updates at sample step 17980000
+Updates at sample step 18000000
+Checks at sample step 18000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:23<03:35, 23.93s/it]Simulating trajectories:  10%|#         | 1/10 [00:23<03:35, 23.93s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:14, 24.34s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:14, 24.34s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:50, 24.33s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:50, 24.33s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.45s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.45s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.47s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.47s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:37, 24.28s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:37, 24.28s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:12, 24.30s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:12, 24.30s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.15s/it]Simulating trajectories:  80%|########  | 8/10 [03:14<00:48, 24.15s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.55s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.55s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.44s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.44s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.37s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.37s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-11000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-11000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.851360544217687, 9500000), (0.8540816326530613, 14500000), (0.8523809523809524, 12000000), (0.8564625850340136, 11500000), (0.85578231292517, 15500000), (0.867687074829932, 10500000), (0.8700680272108844, 17500000), (0.863265306122449, 15000000), (0.8578231292517007, 13000000), (0.8639455782312925, 18000000)]
+  => Safety violations: 28065
+  => Safe rate: 0.86
+Saving visualization to experiments/quadruped_sac/v2/figure/18000000.png
+Updates at sample step 18020000
+Updates at sample step 18040000
+Updates at sample step 18060000
+Updates at sample step 18080000
+Updates at sample step 18100000
+Updates at sample step 18120000
+Updates at sample step 18140000
+Updates at sample step 18160000
+Updates at sample step 18180000
+Updates at sample step 18200000
+Updates at sample step 18220000
+Updates at sample step 18240000
+Updates at sample step 18260000
+Updates at sample step 18280000
+Updates at sample step 18300000
+Updates at sample step 18320000
+Updates at sample step 18340000
+Updates at sample step 18360000
+Updates at sample step 18380000
+Updates at sample step 18400000
+Updates at sample step 18420000
+Updates at sample step 18440000
+Updates at sample step 18460000
+Updates at sample step 18480000
+Updates at sample step 18500000
+Checks at sample step 18500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:40, 24.53s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:40, 24.53s/it]Simulating trajectories:  20%|##        | 2/10 [00:50<03:22, 25.29s/it]Simulating trajectories:  20%|##        | 2/10 [00:50<03:22, 25.29s/it]Simulating trajectories:  30%|###       | 3/10 [01:14<02:54, 24.96s/it]Simulating trajectories:  30%|###       | 3/10 [01:14<02:54, 24.96s/it]Simulating trajectories:  40%|####      | 4/10 [01:39<02:27, 24.66s/it]Simulating trajectories:  40%|####      | 4/10 [01:39<02:27, 24.66s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:02, 24.47s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:02, 24.47s/it]Simulating trajectories:  60%|######    | 6/10 [02:27<01:37, 24.34s/it]Simulating trajectories:  60%|######    | 6/10 [02:27<01:37, 24.34s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:12, 24.21s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:12, 24.21s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.18s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.18s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.09s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.09s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.11s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.11s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.34s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.34s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-9500000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-9500000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.8523809523809524, 12000000), (0.8540816326530613, 14500000), (0.8639455782312925, 18000000), (0.8564625850340136, 11500000), (0.85578231292517, 15500000), (0.867687074829932, 10500000), (0.8700680272108844, 17500000), (0.863265306122449, 15000000), (0.8578231292517007, 13000000), (0.8585034013605443, 18500000)]
+  => Safety violations: 28399
+  => Safe rate: 0.86
+Saving visualization to experiments/quadruped_sac/v2/figure/18500000.png
+Updates at sample step 18520000
+Updates at sample step 18540000
+Updates at sample step 18560000
+Updates at sample step 18580000
+Updates at sample step 18600000
+Updates at sample step 18620000
+Updates at sample step 18640000
+Updates at sample step 18660000
+Updates at sample step 18680000
+Updates at sample step 18700000
+Updates at sample step 18720000
+Updates at sample step 18740000
+Updates at sample step 18760000
+Updates at sample step 18780000
+Updates at sample step 18800000
+Updates at sample step 18820000
+Updates at sample step 18840000
+Updates at sample step 18860000
+Updates at sample step 18880000
+Updates at sample step 18900000
+Updates at sample step 18920000
+Updates at sample step 18940000
+Updates at sample step 18960000
+Updates at sample step 18980000
+Updates at sample step 19000000
+Checks at sample step 19000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.04s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:36, 24.04s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:13, 24.16s/it]Simulating trajectories:  20%|##        | 2/10 [00:48<03:13, 24.16s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:49, 24.18s/it]Simulating trajectories:  30%|###       | 3/10 [01:12<02:49, 24.18s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.35s/it]Simulating trajectories:  40%|####      | 4/10 [01:37<02:26, 24.35s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:01, 24.22s/it]Simulating trajectories:  50%|#####     | 5/10 [02:01<02:01, 24.22s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:37, 24.34s/it]Simulating trajectories:  60%|######    | 6/10 [02:25<01:37, 24.34s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:14, 24.67s/it]Simulating trajectories:  70%|#######   | 7/10 [02:51<01:14, 24.67s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.48s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.48s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.32s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.32s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.19s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.19s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.30s/it]Simulating trajectories: 100%|##########| 10/10 [04:02<00:00, 24.30s/it]
+
+  => Safety violations: 28764
+  => Safe rate: 0.85
+Saving visualization to experiments/quadruped_sac/v2/figure/19000000.png
+Updates at sample step 19020000
+Updates at sample step 19040000
+Updates at sample step 19060000
+Updates at sample step 19080000
+Updates at sample step 19100000
+Updates at sample step 19120000
+Updates at sample step 19140000
+Updates at sample step 19160000
+Updates at sample step 19180000
+Updates at sample step 19200000
+Updates at sample step 19220000
+Updates at sample step 19240000
+Updates at sample step 19260000
+Updates at sample step 19280000
+Updates at sample step 19300000
+Updates at sample step 19320000
+Updates at sample step 19340000
+Updates at sample step 19360000
+Updates at sample step 19380000
+Updates at sample step 19400000
+Updates at sample step 19420000
+Updates at sample step 19440000
+Updates at sample step 19460000
+Updates at sample step 19480000
+Updates at sample step 19500000
+Checks at sample step 19500000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:40, 24.46s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:40, 24.46s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:16, 24.58s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:16, 24.58s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:52, 24.66s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:52, 24.66s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:27, 24.54s/it]Simulating trajectories:  40%|####      | 4/10 [01:38<02:27, 24.54s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.49s/it]Simulating trajectories:  50%|#####     | 5/10 [02:02<02:02, 24.49s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.34s/it]Simulating trajectories:  60%|######    | 6/10 [02:26<01:37, 24.34s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:12, 24.30s/it]Simulating trajectories:  70%|#######   | 7/10 [02:50<01:12, 24.30s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.23s/it]Simulating trajectories:  80%|########  | 8/10 [03:15<00:48, 24.23s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.22s/it]Simulating trajectories:  90%|######### | 9/10 [03:39<00:24, 24.22s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.28s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.28s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.36s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.36s/it]
+
+  => Safety violations: 29131
+  => Safe rate: 0.83
+Saving visualization to experiments/quadruped_sac/v2/figure/19500000.png
+Updates at sample step 19520000
+Updates at sample step 19540000
+Updates at sample step 19560000
+Updates at sample step 19580000
+Updates at sample step 19600000
+Updates at sample step 19620000
+Updates at sample step 19640000
+Updates at sample step 19660000
+Updates at sample step 19680000
+Updates at sample step 19700000
+Updates at sample step 19720000
+Updates at sample step 19740000
+Updates at sample step 19760000
+Updates at sample step 19780000
+Updates at sample step 19800000
+Updates at sample step 19820000
+Updates at sample step 19840000
+Updates at sample step 19860000
+Updates at sample step 19880000
+Updates at sample step 19900000
+Updates at sample step 19920000
+Updates at sample step 19940000
+Updates at sample step 19960000
+Updates at sample step 19980000
+Updates at sample step 20000000
+Checks at sample step 20000000:
+Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:   0%|          | 0/10 [00:00<?, ?it/s]Simulating trajectories:  10%|#         | 1/10 [00:24<03:41, 24.61s/it]Simulating trajectories:  10%|#         | 1/10 [00:24<03:41, 24.61s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:17, 24.71s/it]Simulating trajectories:  20%|##        | 2/10 [00:49<03:17, 24.71s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.49s/it]Simulating trajectories:  30%|###       | 3/10 [01:13<02:51, 24.49s/it]Simulating trajectories:  40%|####      | 4/10 [01:39<02:29, 24.90s/it]Simulating trajectories:  40%|####      | 4/10 [01:39<02:29, 24.90s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:03, 24.73s/it]Simulating trajectories:  50%|#####     | 5/10 [02:03<02:03, 24.73s/it]Simulating trajectories:  60%|######    | 6/10 [02:28<01:38, 24.67s/it]Simulating trajectories:  60%|######    | 6/10 [02:28<01:38, 24.67s/it]Simulating trajectories:  70%|#######   | 7/10 [02:52<01:13, 24.60s/it]Simulating trajectories:  70%|#######   | 7/10 [02:52<01:13, 24.60s/it]Simulating trajectories:  80%|########  | 8/10 [03:16<00:48, 24.29s/it]Simulating trajectories:  80%|########  | 8/10 [03:16<00:48, 24.29s/it]Simulating trajectories:  90%|######### | 9/10 [03:40<00:24, 24.13s/it]Simulating trajectories:  90%|######### | 9/10 [03:40<00:24, 24.13s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.03s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.03s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.38s/it]Simulating trajectories: 100%|##########| 10/10 [04:03<00:00, 24.38s/it]
+
+  => Removes central at experiments/quadruped_sac/v2/model/central/central-12000000.pth.
+  => Removes ctrl at experiments/quadruped_sac/v2/model/ctrl/ctrl-12000000.pth.
+Saving current model...
+  => Saves central at experiments/quadruped_sac/v2/model/central.
+  => Saves ctrl at experiments/quadruped_sac/v2/model/ctrl.
+[(0.8540816326530613, 14500000), (0.85578231292517, 15500000), (0.8639455782312925, 18000000), (0.8564625850340136, 11500000), (0.8585034013605443, 18500000), (0.867687074829932, 10500000), (0.8700680272108844, 17500000), (0.863265306122449, 15000000), (0.8578231292517007, 13000000), (0.8629251700680272, 20000000)]
+  => Safety violations: 29477
+  => Safe rate: 0.86
+Saving visualization to experiments/quadruped_sac/v2/figure/20000000.png
+Updates at sample step 20020000
+Updates at sample step 20040000
+Updates at sample step 20060000
+Updates at sample step 20080000
+Updates at sample step 20100000
+Updates at sample step 20120000
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "train_rarl_quadruped.py", line 695, in <module>
+    main(
+  File "train_rarl_quadruped.py", line 695, in <module>
+    main(
+  File "train_rarl_quadruped.py", line 613, in main
+    solver.learn(env, visualize_callback=visualize_callback)
+  File "train_rarl_quadruped.py", line 613, in main
+    solver.learn(env, visualize_callback=visualize_callback)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_naive_rl.py", line 128, in learn
+    loss_critic_dict, loss_actor_dict = self.update(
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_naive_rl.py", line 128, in learn
+    loss_critic_dict, loss_actor_dict = self.update(
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_base_training.py", line 279, in update
+    batch = self.sample_batch()
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_base_training.py", line 279, in update
+    batch = self.sample_batch()
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_base_training.py", line 100, in sample_batch
+    transitions = self.memory.sample(batch_size)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_base_training.py", line 100, in sample_batch
+    transitions = self.memory.sample(batch_size)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/libraries/ISAACS/agent/replay_memory.py", line 86, in sample
+    return [self.memory[i] for i in indices]
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/libraries/ISAACS/agent/replay_memory.py", line 86, in sample
+    return [self.memory[i] for i in indices]
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/libraries/ISAACS/agent/replay_memory.py", line 86, in <listcomp>
+    return [self.memory[i] for i in indices]
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/libraries/ISAACS/agent/replay_memory.py", line 86, in <listcomp>
+    return [self.memory[i] for i in indices]
+KeyboardInterrupt
+KeyboardInterrupt

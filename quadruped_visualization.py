@@ -135,6 +135,7 @@ def get_values(
     
     # Assemble observations for all safe points
     # Create base observation (constant parts)
+    '''
     base_obs = np.concatenate([
         [heading],                  # 1D: heading (same for all)
         base_lin_vel_scaled,        # 3D: scaled linear velocity
@@ -142,6 +143,12 @@ def get_values(
         joint_pos_scaled,           # 12D: scaled joint positions
         joint_vel_scaled            # 12D: scaled joint velocities
     ])  # Shape: (31,)
+    '''
+    base_obs = np.concatenate([
+        [heading],                  # 1D: heading (same for all)
+        base_lin_vel_scaled,        # 3D: scaled linear velocity
+        base_ang_vel_scaled,        # 3D: scaled angular velocity
+    ])  # Shape: (7,)
     
     # Broadcast base_obs to all safe points
     obs_all = np.zeros((num_safe, env.num_hl_obs))  # Shape: (num_safe, 33)

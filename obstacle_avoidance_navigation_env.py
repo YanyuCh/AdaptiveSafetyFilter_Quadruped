@@ -94,7 +94,8 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         # load pretrained low-level locomotion policy
         self.ll_policy = ll_policy
         # track both high-level and low-level observations
-        self.num_hl_obs = 33    # (x, y, heading, 6D linear+angular vel, 12D joint pos, 12D join vel)
+        #self.num_hl_obs = 33    # (x, y, heading, 6D linear+angular vel, 12D joint pos, 12D join vel)
+        self.num_hl_obs = 9     # (x, y, heading, 6D linear+angular vel)
         self.hl_obs_buf = torch.zeros(self.num_envs, self.num_hl_obs, device = self.device, dtype = torch.float32)
         # low-level observations already tracked in LeggedRobot with self.obs_buf
         # DEFAULT: OBS - LOW-LEVEL, HL_OBS - HIGH-LEVEL
@@ -164,7 +165,8 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
         forward = quat_apply(self.base_quat, self.forward_vec)
         heading = torch.atan2(forward[:, 1], forward[:, 0])  # world frame, range: [-pi, pi]
 
-        # ALL Normalized! (except f and m)
+        '''
+        # ALL Normalized! 
         self.hl_obs_buf = torch.cat([x.unsqueeze(1), y.unsqueeze(1), heading.unsqueeze(1),  # 3D Dubins Car state
                                      self.base_lin_vel * self.obs_scales.lin_vel,       # 3D base linear velocity
                                      self.base_ang_vel * self.obs_scales.ang_vel,       # 3D base angular velocity
@@ -173,6 +175,20 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
                                      * self.obs_scales.dof_pos,                         # 12D joint positions
                                      self.dof_vel[:, :self.num_actuated_dof]
                                      * self.obs_scales.dof_vel,                         # 12D joint velocities
+                                     #self.friction_coeffs[:, 0],                       # 1D robot friction
+                                     #self.payloads[:]                                  # 1D payload
+                                     ],
+                                     dim = -1) 
+        '''
+        # ALL Normalized! 
+        self.hl_obs_buf = torch.cat([x.unsqueeze(1), y.unsqueeze(1), heading.unsqueeze(1),  # 3D Dubins Car state
+                                     self.base_lin_vel * self.obs_scales.lin_vel,       # 3D base linear velocity
+                                     self.base_ang_vel * self.obs_scales.ang_vel,       # 3D base angular velocity
+                                     #(self.dof_pos[:, :self.num_actuated_dof] -
+                                      #self.default_dof_pos[:, :self.num_actuated_dof])
+                                     #* self.obs_scales.dof_pos,                         # 12D joint positions
+                                     #self.dof_vel[:, :self.num_actuated_dof]
+                                     #* self.obs_scales.dof_vel,                         # 12D joint velocities
                                      #self.friction_coeffs[:, 0],                       # 1D robot friction
                                      #self.payloads[:]                                  # 1D payload
                                      ],
@@ -862,8 +878,8 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
                 iteration += 1
 
             # Log successful completion
-            if iteration > 1:
-                print(f"Rejection sampling completed in {iteration} iterations for {num_resets} environments.")
+            #if iteration > 1:
+            #    print(f"Rejection sampling completed in {iteration} iterations for {num_resets} environments.")
 
             # Sample yaw independently using mode-specific ranges (no constraints on orientation)
             yaw = torch.rand(num_resets, device=self.device) * (yaw_range[1] - yaw_range[0]) + yaw_range[0]
@@ -1096,7 +1112,7 @@ class ObstacleAvoidanceNavigation(LeggedRobot):
 
     # Evaluation environment selection functions
     def select_eval_envs(self, strategy: str = 'grid',
-                         num_f_points: int = 5, num_m_points: int = 21,
+                         num_f_points: int = 14, num_m_points: int = 21,
                          f_range: Optional[List[float]] = None, m_range: Optional[List[float]] = None, exclude_middle_m: bool = False):
         """
         Select representative environments for evaluation based on physical parameters (friction, payload).

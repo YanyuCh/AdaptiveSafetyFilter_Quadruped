@@ -1,0 +1,473 @@
+WandB initialized
+======================================================================
+STEP 7: Constructing Solver
+======================================================================
+= Constructing policy agent
+The neural networks for CRITIC have the architecture as below:
+ModuleList(
+  (0): Sequential(
+    (linear_1): Linear(in_features=13, out_features=128, bias=True)
+    (act_1): ReLU()
+  )
+  (1-2): 2 x Sequential(
+    (linear_1): Linear(in_features=128, out_features=128, bias=True)
+    (act_1): ReLU()
+  )
+  (3): Sequential(
+    (linear_1): Linear(in_features=128, out_features=1, bias=True)
+    (act_1): Identity()
+  )
+)
+The neural network for MEAN has the architecture as below:
+ModuleList(
+  (0): Sequential(
+    (linear_1): Linear(in_features=11, out_features=256, bias=True)
+    (act_1): ReLU()
+  )
+  (1-2): 2 x Sequential(
+    (linear_1): Linear(in_features=256, out_features=256, bias=True)
+    (act_1): ReLU()
+  )
+  (3): Sequential(
+    (linear_1): Linear(in_features=256, out_features=2, bias=True)
+    (act_1): Identity()
+  )
+)
+Total parameters in actor: 270340
+Training device: cuda:0
+Policy device: cuda:0
+Critic using CUDA: True
+======================================================================
+STEP 8: Starting Training
+======================================================================
+Rejection sampling completed in 5 iterations for 1000 environments.
+Rejection sampling completed in 3 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 2 environments.
+Rejection sampling completed in 3 iterations for 2 environments.
+Rejection sampling completed in 3 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 3 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 2 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 6 iterations for 10 environments.
+Rejection sampling completed in 4 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 3 environments.
+Rejection sampling completed in 3 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 7 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 3 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 4 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 10 environments.
+Rejection sampling completed in 6 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 2 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 4 iterations for 4 environments.
+Rejection sampling completed in 3 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 4 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 2 environments.
+Rejection sampling completed in 4 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 3 iterations for 3 environments.
+Rejection sampling completed in 3 iterations for 5 environments.
+Rejection sampling completed in 4 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 4 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 3 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 2 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 4 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 4 iterations for 488 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 4 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 3 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 5 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 13 environments.
+Rejection sampling completed in 4 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 4 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 4 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 4 iterations for 7 environments.
+Rejection sampling completed in 3 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 12 environments.
+Rejection sampling completed in 3 iterations for 14 environments.
+Rejection sampling completed in 2 iterations for 10 environments.
+Rejection sampling completed in 4 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 4 iterations for 4 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 3 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 13 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 12 environments.
+Rejection sampling completed in 3 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 13 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 3 iterations for 14 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 5 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 3 iterations for 8 environments.
+Rejection sampling completed in 4 iterations for 242 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 4 iterations for 8 environments.
+Rejection sampling completed in 3 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 15 environments.
+Rejection sampling completed in 3 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 4 iterations for 7 environments.
+Rejection sampling completed in 3 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 3 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 3 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 13 environments.
+Rejection sampling completed in 4 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 12 environments.
+Rejection sampling completed in 3 iterations for 10 environments.
+Rejection sampling completed in 3 iterations for 8 environments.
+Rejection sampling completed in 3 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 3 iterations for 11 environments.
+Rejection sampling completed in 3 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 4 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 10 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 7 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 8 environments.
+Rejection sampling completed in 3 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 10 environments.
+Rejection sampling completed in 3 iterations for 13 environments.
+Rejection sampling completed in 4 iterations for 11 environments.
+Rejection sampling completed in 3 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 14 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 15 environments.
+Rejection sampling completed in 4 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 15 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 5 iterations for 12 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 4 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 4 iterations for 16 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 15 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 4 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 4 iterations for 6 environments.
+Rejection sampling completed in 4 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 4 iterations for 13 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 4 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 3 iterations for 11 environments.
+Rejection sampling completed in 3 iterations for 122 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 3 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 3 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 4 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 14 environments.
+Rejection sampling completed in 2 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 4 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 13 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 3 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 13 environments.
+Rejection sampling completed in 3 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 3 iterations for 14 environments.
+Rejection sampling completed in 2 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 3 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 13 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 2 environments.
+Rejection sampling completed in 2 iterations for 12 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 4 iterations for 13 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 4 iterations for 11 environments.
+Rejection sampling completed in 2 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 3 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 3 iterations for 4 environments.
+Rejection sampling completed in 3 iterations for 9 environments.
+Rejection sampling completed in 3 iterations for 16 environments.
+Rejection sampling completed in 3 iterations for 5 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Rejection sampling completed in 3 iterations for 6 environments.
+Rejection sampling completed in 3 iterations for 10 environments.
+Rejection sampling completed in 3 iterations for 7 environments.
+Rejection sampling completed in 2 iterations for 10 environments.
+Rejection sampling completed in 2 iterations for 9 environments.
+Rejection sampling completed in 2 iterations for 8 environments.
+Rejection sampling completed in 2 iterations for 5 environments.
+Rejection sampling completed in 4 iterations for 2 environments.
+Rejection sampling completed in 2 iterations for 11 environments.
+Traceback (most recent call last):
+  File "train_rarl_quadruped.py", line 695, in <module>
+    main(
+  File "train_rarl_quadruped.py", line 613, in main
+    solver.learn(env, visualize_callback=visualize_callback)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_naive_rl.py", line 99, in learn
+    obs_all[[env_idx]],
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "train_rarl_quadruped.py", line 695, in <module>
+    main(
+  File "train_rarl_quadruped.py", line 613, in main
+    solver.learn(env, visualize_callback=visualize_callback)
+  File "/home/cassie/Quadruped/AdaptiveSafetyFilter_Quadruped/quadruped_naive_rl.py", line 99, in learn
+    obs_all[[env_idx]],
+KeyboardInterrupt

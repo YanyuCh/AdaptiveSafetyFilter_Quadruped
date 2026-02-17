@@ -195,7 +195,7 @@ def load_wtw_config_and_policy(label, wtw_runs_root):
 
     # set friction
     Cfg.domain_rand.randomize_friction = True
-    Cfg.domain_rand.friction_range = [0.1, 0.5]
+    Cfg.domain_rand.friction_range = [0.2, 1.5]
 
     cfg_wtw = Cfg
     print("Loaded Walk-These-Ways config")
@@ -594,7 +594,7 @@ def main(
     print("="*70)
 
     # Define friction and payload combinations for visualization
-    friction_list = [0.1, 0.2, 0.3, 0.4, 0.5]
+    friction_list = [0.2, 0.5, 0.8, 1.1, 1.4]
     payload_list = [-1.0, -0.5, 0.0, 0.5, 1.0]
 
     visualize_callback = partial(
@@ -630,6 +630,20 @@ def main(
     save_obj(train_dict, os.path.join(cfg_isaacs.solver.out_folder, 'train'))
 
     print(f"Training results saved to: {cfg_isaacs.solver.out_folder}")
+
+    # ================================================================
+    # STEP 11: Cleanup
+    # ================================================================
+
+    # Finish wandb before IsaacGym environment is destroyed to avoid
+    # BrokenPipeError in wandb threads and segfault during teardown.
+    if cfg_isaacs.solver.use_wandb:
+        wandb.finish()
+
+    # Explicitly delete the IsaacGym environment to ensure orderly GPU
+    # resource cleanup before Python's garbage collector runs.
+    del env
+
     print("\n" + "="*70)
     print("Training Complete!")
     print("="*70)
